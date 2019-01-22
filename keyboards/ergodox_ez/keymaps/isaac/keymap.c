@@ -57,13 +57,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Right
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_TRANSPARENT ,
-                       KC_Y , KC_N , KC_I , KC_O , KC_H , KC_TRANSPARENT ,
+                       KC_Y , KC_N , KC_I , KC_O , LT(2, KC_H ) , KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_P , KC_M , KC_COMMA , KC_DOT , KC_SLASH , KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_TRANSPARENT ,
                        KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT
-                       ) ,
+                       ),
 
   // Symbols and numpad
   [2] = LAYOUT_ergodox(
