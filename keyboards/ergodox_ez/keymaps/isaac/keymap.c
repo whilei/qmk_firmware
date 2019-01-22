@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox(
                        // Left
                        TG(1) , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , LCTL(KC_C) ,
-                       KC_CAPS , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_ESCAPE ,
+                       KC_CAPSLOCK , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_ESCAPE ,
                        LT(2 , KC_ESCAPE) , KC_A , KC_S , KC_D , KC_F , KC_G ,
                        KC_LSPO , CTL_T( KC_Z ) , KC_X , KC_C , KC_V , KC_B , KC_BSPACE ,
                        CTL_T(KC_NO) , KC_TRANSPARENT , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
@@ -34,9 +34,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_SPACE , LT(2 , KC_TAB) , KC_LEFT ,
                        // Right
                        LCTL(KC_V) , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , KC_TRANSPARENT ,
-                       OSM(MOD_LSFT) , KC_Y , KC_U , KC_I , KC_O , KC_P , KC_BSPACE ,
+                       KC_UP , KC_Y , KC_U , KC_I , KC_O , KC_P , KC_BSPACE ,
                        KC_H , KC_J , KC_K , KC_L , LT(2 , KC_SCOLON) , KC_QUOTE ,
-                       KC_UP , KC_N , KC_M , KC_COMMA , KC_DOT , LT(4, KC_SLASH ) , KC_RSPC ,
+                       OSM(MOD_LSFT), KC_N , KC_M , KC_COMMA , KC_DOT , LT(3, KC_SLASH ) , KC_RSPC ,
                        CTL_T(KC_NO) , C_S_T(KC_NO) , KC_TRANSPARENT , KC_TRANSPARENT , KC_DOWN ,
                        KC_TRANSPARENT , KC_DELETE ,
                        KC_LALT ,
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_TRANSPARENT ,
                        KC_Y , KC_N , KC_I , KC_O , LT(2, KC_H ) , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_P , KC_M , KC_COMMA , KC_DOT , LT(4, KC_SLASH ) , KC_TRANSPARENT ,
+                       KC_TRANSPARENT , KC_P , KC_M , KC_COMMA , KC_DOT , LT(3, KC_SLASH ) , KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_TRANSPARENT ,
                        KC_TRANSPARENT ,
@@ -87,31 +87,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_TRANSPARENT , KC_COLN , KC_EQUAL
                        ),
 
-  // Dvorak
-  [3] = LAYOUT_ergodox(
-                       // Left
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_DOT , KC_COMMA , KC_DOT , KC_P , KC_F , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_A , KC_O , KC_E , KC_U , KC_I ,
-                       KC_TRANSPARENT , KC_SCOLON , KC_Q , KC_J , KC_K , KC_X , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       // Right
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_EQUAL ,
-                       KC_TRANSPARENT , KC_F , KC_G , KC_C , KC_R , KC_L , KC_SLASH ,
-                       KC_D , KC_H , KC_T , KC_N , LT(2 , KC_S) , LT(4 , KC_MINUS) ,
-                       KC_TRANSPARENT , KC_B , KC_M , KC_W , KC_V , KC_Z , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT
-                       ),
-
 
   // Mouse and motion
-  [4] = LAYOUT_ergodox(
+  [3] = LAYOUT_ergodox(
                        // left
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_TRANSPARENT ,
