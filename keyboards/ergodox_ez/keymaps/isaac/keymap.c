@@ -71,9 +71,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_PERC , KC_CIRC , KC_LBRACKET , KC_RBRACKET , KC_TILD , KC_BSLASH ,
                        KC_TRANSPARENT , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_PIPE ,
-                       KC_TRANSPARENT , KC_HASH , KC_NONUS_HASH , KC_LPRN , KC_RPRN , KC_GRAVE , KC_UNDS ,
+                       KC_TRANSPARENT , KC_HASH , KC_EXLM , KC_LPRN , KC_RPRN , KC_GRAVE , KC_UNDS ,
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_LABK , KC_RABK ,
-                       KC_EXLM , KC_TRANSPARENT ,
+                       KC_NONUS_HASH , KC_TRANSPARENT ,
                        KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
                        // right
