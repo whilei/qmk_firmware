@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        CTL_T(KC_NO) , KC_TRANSPARENT , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
                        KC_0 , KC_DLR ,
                        KC_RIGHT ,
-                       KC_SPACE , KC_BSPACE , KC_LEFT ,
+                       KC_SPACE , LT(2 , KC_TAB) , KC_LEFT ,
                        // Right
                        LCTL(KC_V) , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , KC_TRANSPARENT ,
                        OSM(MOD_LSFT) , KC_Y , KC_U , KC_I , KC_O , KC_P , KC_BSPACE ,
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        CTL_T(KC_NO) , C_S_T(KC_NO) , KC_TRANSPARENT , KC_TRANSPARENT , KC_DOWN ,
                        KC_TRANSPARENT , KC_DELETE ,
                        KC_LALT ,
-                       KC_LGUI , LT(2 , KC_TAB) , KC_ENTER
+                       KC_LGUI , KC_BSPACE , KC_ENTER
                        ),
 
   // Norman
