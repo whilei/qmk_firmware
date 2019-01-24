@@ -27,20 +27,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        TG(1) , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , LCTL(KC_C) ,
                        KC_CAPSLOCK , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_ESCAPE ,
                        LT(2 , KC_ESCAPE) , KC_A , KC_S , KC_D , KC_F , KC_G ,
-                       KC_LSPO , CTL_T( KC_Z ) , KC_X , KC_C , KC_V , KC_B , KC_BSPACE ,
+                       KC_LSPO , CTL_T( KC_Z ) , KC_X , KC_C , KC_V , KC_B , KC_MINUS ,
                        CTL_T(KC_NO) , KC_TRANSPARENT , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
                        KC_0 , KC_DLR ,
                        KC_RIGHT ,
-                       KC_SPACE , LT(2 , KC_TAB) , KC_LEFT ,
+                       KC_SPACE , KC_BSPACE , KC_LEFT ,
                        // Right
                        LCTL(KC_V) , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , KC_TRANSPARENT ,
-                       KC_UP , KC_Y , KC_U , KC_I , KC_O , KC_P , KC_BSPACE ,
+                       OSM(MOD_LSFT) , KC_Y , KC_U , KC_I , KC_O , KC_P , KC_BSPACE ,
                        KC_H , KC_J , KC_K , KC_L , LT(2 , KC_SCOLON) , KC_QUOTE ,
-                       OSM(MOD_LSFT), KC_N , KC_M , KC_COMMA , KC_DOT , LT(3, KC_SLASH ) , KC_RSPC ,
+                       KC_UP , KC_N , KC_M , KC_COMMA , KC_DOT , LT(3, KC_SLASH ) , KC_RSPC ,
                        CTL_T(KC_NO) , C_S_T(KC_NO) , KC_TRANSPARENT , KC_TRANSPARENT , KC_DOWN ,
                        KC_TRANSPARENT , KC_DELETE ,
                        KC_LALT ,
-                       KC_LGUI , KC_BSPACE , KC_ENTER
+                       KC_LGUI , LT(2 , KC_TAB) , KC_ENTER
                        ),
 
   // Norman
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_LABK , KC_RABK ,
                        KC_NONUS_HASH , KC_TRANSPARENT ,
                        KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_EXLM , KC_MINUS , KC_TRANSPARENT ,
                        // right
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
                        KC_AMPR , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_TRANSPARENT , KC_TRANSPARENT ,
