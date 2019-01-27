@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_ergodox(
                        // Left
                        TG(1) , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , LCTL(KC_C) ,
-                       KC_CAPSLOCK , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_ESCAPE ,
+                       TG(2) , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_ESCAPE ,
                        LT(2 , KC_ESCAPE) , KC_A , KC_S , KC_D , KC_F , KC_G ,
                        KC_LSPO , CTL_T( KC_Z ) , KC_X , KC_C , KC_V , KC_B , KC_MINUS ,
                        CTL_T(KC_NO) , KC_TRANSPARENT , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT
                        ),
 
-  // Symbols and numpad
+  // Symbols
   [2] = LAYOUT_ergodox(
                        // Left
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
@@ -109,6 +109,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_TRANSPARENT ,
                        KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT
                        ),
+
+  // Numpad
+  [4] = LAYOUT_ergodox(
+                       // Left
+                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_NONUS_HASH , KC_TRANSPARENT ,
+                       KC_TRANSPARENT ,
+                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       // right
+                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_TRANSPARENT , KC_TRANSPARENT , KC_7 , KC_8 , KC_9 , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_TRANSPARENT , KC_4 , KC_5 , KC_6 , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_TRANSPARENT , KC_TRANSPARENT , KC_1 , KC_2 , KC_3 , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_0 , KC_DOT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_TRANSPARENT , KC_TRANSPARENT ,
+                       KC_TRANSPARENT ,
+                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT
+
+)
 
 };
 
