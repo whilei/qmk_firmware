@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        CTL_T(KC_NO) , KC_TRANSPARENT , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
                        KC_0 , KC_DLR ,
                        KC_RIGHT ,
-                       KC_LSHIFT(KC_SPACE) , LT(4, KC_TAB ), KC_LEFT ,
+                       SFT_T(KC_SPACE) , LT(4, KC_TAB ), KC_LEFT ,
 
                        // Right
                        KC_TRANSPARENT , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , TG(3) ,
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_TRANSPARENT , KC_DELETE ,
                        KC_LALT ,
                        // enter->qwerty is nice for vim bindings
-                       KC_LGUI , KC_LSHIFT(KC_BSPACE) , LT(1, KC_ENTER)
+                       KC_LGUI , SFT_T(KC_BSPACE) , LT(1, KC_ENTER)
                        ),
 
   // QWERTY
