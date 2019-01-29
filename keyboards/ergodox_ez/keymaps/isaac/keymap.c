@@ -9,6 +9,8 @@ enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
   RGB_SLD,
+  TMUX_COPYMODE,
+  TMUX_PASTE,
 };
 
 // 7
@@ -25,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [0] = LAYOUT_ergodox(
                        // Left
-                       TG(1) , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , KC_TRANSPARENT ,
+                       TG(1) , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , TMUX_COPYMODE ,
 
                        KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , KC_ESCAPE ,
                        LT(2 , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
@@ -37,13 +39,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        SFT_T(KC_SPACE) , LT(4, KC_TAB ), KC_LEFT ,
 
                        // Right
-                       KC_TRANSPARENT , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , TG(3) ,
+                       TMUX_PASTE , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , TG(3) ,
 
                        OSM(MOD_LSFT) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_BSPACE ,
                        KC_Y , KC_N , KC_I , KC_O , LT(2 , KC_H) , LT(4, KC_QUOTE ) ,
                        KC_UP , KC_P , KC_M , KC_COMMA , KC_DOT , LT(3, KC_SLASH ) , KC_RSPC ,
 
-                       CTL_T(KC_NO) , C_S_T(KC_NO) , KC_TRANSPARENT , KC_TRANSPARENT , KC_DOWN ,
+                       CTL_T(KC_NO) , C_S_T(KC_NO) , LGUI(KC_H) , LGUI(KC_L) , KC_DOWN ,
                        KC_TRANSPARENT , KC_DELETE ,
                        KC_LALT ,
                        // enter->qwerty is nice for vim bindings
@@ -174,6 +176,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+  case TMUX_COPYMODE:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")"[")
+    }
+    // else is event released
+  case TMUX_PASTE:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")"]")
+    }
   }
   return true;
 }
