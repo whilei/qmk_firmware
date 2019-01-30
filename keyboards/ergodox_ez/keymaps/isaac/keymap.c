@@ -5,6 +5,14 @@
 #include "keymap_german.h"
 #include "keymap_nordic.h"
 
+#define BASE 0 // Norman layout
+#define QWERTY 1
+#define SYMBOLS 2
+#define MOTION 3
+#define NUMPAD 4
+
+#define ___ KC_TRANSPARENT
+
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -25,125 +33,125 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Norman and friends
-  [0] = LAYOUT_ergodox(
+  [BASE] = LAYOUT_ergodox(
                        // Left
-                       TG(1) , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , TMUX_COPYMODE ,
+                       TG(QWERTY) , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , TMUX_COPYMODE ,
 
                        KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , KC_ESCAPE ,
-                       LT(2 , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSPO , CTL_T( KC_Z ) , LT(2, KC_X) , KC_C , KC_V , KC_B , LT(4, KC_BSPACE) ,
+                       LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
+                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , LT(NUMPAD, KC_BSPACE) ,
 
-                       CTL_T(KC_NO) , KC_TRANSPARENT , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
+                       CTL_T(KC_NO) , ___ , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
                        KC_0 , KC_DLR ,
                        KC_RIGHT ,
-                       SFT_T(KC_SPACE) , LT(4, KC_TAB ), KC_LEFT ,
+                       SFT_T(KC_SPACE) , LT(NUMPAD, KC_TAB ), KC_LEFT ,
 
                        // Right
-                       TMUX_PASTE , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , TG(3) ,
+                       TMUX_PASTE , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , TG(MOTION) ,
 
                        OSM(MOD_LSFT) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_BSPACE ,
-                       KC_Y , KC_N , KC_I , KC_O , LT(2 , KC_H) , LT(4, KC_QUOTE ) ,
-                       KC_UP , KC_P , KC_M , KC_COMMA , KC_DOT , LT(3, KC_SLASH ) , KC_RSPC ,
+                       KC_Y , KC_N , KC_I , KC_O , LT(SYMBOLS , KC_H) , LT(NUMPAD, KC_QUOTE ) ,
+                       KC_UP , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
 
                        CTL_T(KC_NO) , C_S_T(KC_NO) , LGUI(KC_H) , LGUI(KC_L) , KC_DOWN ,
-                       KC_TRANSPARENT , KC_DELETE ,
+                       ___ , KC_DELETE ,
                        KC_LALT ,
                        // enter->qwerty is nice for vim bindings
-                       KC_LGUI , KC_BSPACE , LT(1, KC_ENTER)
+                       KC_LGUI , KC_BSPACE , LT(QWERTY, KC_ENTER)
                        ),
 
   // QWERTY
-  [1] = LAYOUT_ergodox(
+  [QWERTY] = LAYOUT_ergodox(
                        // Left
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
 
-                       KC_TRANSPARENT , KC_Q , KC_W , KC_E , KC_R , KC_T , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_A , KC_S , KC_D , KC_F , KC_G ,
-                       KC_TRANSPARENT , KC_Z , KC_X , KC_C , KC_V , KC_B , KC_TRANSPARENT ,
+                       ___ , KC_Q , KC_W , KC_E , KC_R , KC_T , ___ ,
+                       ___ , KC_A , KC_S , KC_D , KC_F , KC_G ,
+                       ___ , KC_Z , KC_X , KC_C , KC_V , KC_B , ___ ,
 
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ ,
+                       ___ ,
+                       ___ , ___ , ___ ,
 
                        // Right
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
 
-                       KC_TRANSPARENT , KC_Y , KC_U , KC_I , KC_O , KC_P , KC_TRANSPARENT ,
-                       KC_H , KC_J , KC_K , KC_L , LT(2, KC_SCOLON ) , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_N , KC_M , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       ___ , KC_Y , KC_U , KC_I , KC_O , KC_P , ___ ,
+                       KC_H , KC_J , KC_K , KC_L , LT(SYMBOLS, KC_SCOLON ) , ___ ,
+                       ___ , KC_N , KC_M , ___ , ___ , ___ , ___ ,
 
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT
+                       ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ ,
+                       ___ ,
+                       ___ , ___ , ___
                        ),
 
   // Symbols
-  [2] = LAYOUT_ergodox(
+  [SYMBOLS] = LAYOUT_ergodox(
                        // Left
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_PERC , KC_CIRC , KC_LBRACKET , KC_RBRACKET , KC_BSLASH , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_LABK ,
-                       KC_TRANSPARENT , KC_TRANSPARENT, KC_TRANSPARENT , KC_LPRN , KC_RPRN , KC_GRAVE , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_NONUS_HASH , KC_TRANSPARENT ,
-                       KC_TRANSPARENT ,
-                       KC_COLN , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , KC_PERC , KC_CIRC , KC_LBRACKET , KC_RBRACKET , KC_BSLASH , ___ ,
+                       ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_LABK ,
+                       ___ , ___, ___ , KC_LPRN , KC_RPRN , KC_GRAVE , ___ ,
+                       ___ , ___ , ___ , ___ , ___ ,
+                       KC_NONUS_HASH , ___ ,
+                       ___ ,
+                       KC_COLN , ___ , ___ ,
                        // right
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_KP_PLUS , KC_TILD , KC_MINUS , KC_EXLM , KC_TRANSPARENT , KC_BSLASH ,
-                       KC_RABK , KC_HASH , KC_PIPE , KC_AMPR , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_KP_ASTERISK , KC_UNDS , KC_2 , KC_3 , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_0 , KC_DOT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_SLASH ,
-                       KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_EXLM , KC_EQUAL
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , KC_KP_PLUS , KC_TILD , KC_MINUS , KC_EXLM , ___ , KC_BSLASH ,
+                       KC_RABK , KC_HASH , KC_PIPE , KC_AMPR , ___ , ___ ,
+                       ___ , KC_KP_ASTERISK , KC_UNDS , KC_2 , KC_3 , ___ , ___ ,
+                       KC_0 , KC_DOT , ___ , ___ , ___ ,
+                       ___ , KC_SLASH ,
+                       ___ ,
+                       ___ , KC_EXLM , KC_EQUAL
                        ),
 
 
   // Mouse and motion
-  [3] = LAYOUT_ergodox(
+  [MOTION] = LAYOUT_ergodox(
                        // left
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT ,
-                       KC_MS_BTN1 , KC_MS_BTN2 , KC_TRANSPARENT ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , ___ ,
+                       ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ ,
+                       ___ ,
+                       KC_MS_BTN1 , KC_MS_BTN2 , ___ ,
                        // right
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_UP , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_UP , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_LEFT , KC_DOWN , KC_RIGHT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , KC_UP , ___ , ___ , ___ ,
+                       ___ , ___ , KC_UP , ___ , ___ , ___ ,
+                       ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ ,
+                       ___ ,
+                       ___ , ___ , ___
                        ),
 
   // Numpad
-  [4] = LAYOUT_ergodox(
+  [NUMPAD] = LAYOUT_ergodox(
                        // Left
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_NONUS_HASH , KC_TRANSPARENT ,
-                       KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ ,
+                       KC_NONUS_HASH , ___ ,
+                       ___ ,
+                       ___ , ___ , ___ ,
                        // right
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_7 , KC_8 , KC_9 , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_4 , KC_5 , KC_6 , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_1 , KC_2 , KC_3 , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_0 , KC_DOT , KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT ,
-                       KC_TRANSPARENT ,
-                       KC_TRANSPARENT , KC_TRANSPARENT , KC_TRANSPARENT
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , KC_7 , KC_8 , KC_9 , ___ , ___ ,
+                       ___ , KC_4 , KC_5 , KC_6 , ___ , ___ ,
+                       ___ , ___ , KC_1 , KC_2 , KC_3 , ___ , ___ ,
+                       KC_0 , KC_DOT , ___ , ___ , ___ ,
+                       ___ , ___ ,
+                       ___ ,
+                       ___ , ___ , ___
 
 )
 
