@@ -34,7 +34,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
-                       // Left
                        TG(QWERTY) , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , TMUX_COPYMODE ,
 
                        KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , KC_ESCAPE ,
@@ -44,19 +43,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        CTL_T(KC_NO) , ___ , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
                        KC_0 , KC_DLR ,
                        KC_RIGHT ,
-                       SFT_T(KC_SPACE) , LT(NUMPAD, KC_TAB ), KC_LEFT ,
+                       SFT_T(KC_SPACE) , KC_TAB , KC_LEFT ,
 
-                       // Right
                        TMUX_PASTE , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , TG(MOTION) ,
 
                        OSM(MOD_LSFT) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_BSPACE ,
-                       KC_Y , KC_N , KC_I , KC_O , LT(SYMBOLS , KC_H) , LT(NUMPAD, KC_QUOTE ) ,
+                       KC_Y , KC_N , KC_I , KC_O , KC_H , LT(SYMBOLS, KC_QUOTE ) ,
                        KC_UP , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
 
                        CTL_T(KC_NO) , C_S_T(KC_NO) , LGUI(KC_H) , LGUI(KC_L) , KC_DOWN ,
                        ___ , KC_DELETE ,
                        KC_LALT ,
-                       // enter->qwerty is nice for vim bindings
                        KC_LGUI , KC_BSPACE , LT(QWERTY, KC_ENTER)
                        ),
 
