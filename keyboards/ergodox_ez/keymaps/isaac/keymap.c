@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        CTL_T(KC_NO) , ___ , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
                        KC_0 , KC_DLR ,
                        KC_RIGHT ,
-                       SFT_T(KC_SPACE) , KC_TAB , KC_LEFT ,
+                       SFT_T(KC_SPACE) , KC_BSPACE , KC_LEFT ,
 
                        TMUX_PASTE , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , TG(MOTION) ,
 
@@ -52,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_UP , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
 
                        CTL_T(KC_NO) , C_S_T(KC_NO) , LGUI(KC_H) , LGUI(KC_L) , KC_DOWN ,
-                       ___ , KC_DELETE ,
+                       KC_DELETE , ___ ,
                        KC_LALT ,
-                       KC_LGUI , KC_BSPACE , LT(QWERTY, KC_ENTER)
+                       KC_LGUI , LT(NUMPAD, KC_TAB) , LT(QWERTY, KC_ENTER)
                        ),
 
   // QWERTY
@@ -142,9 +142,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , KC_7 , KC_8 , KC_9 , ___ , ___ ,
-                       ___ , KC_4 , KC_5 , KC_6 , ___ , ___ ,
-                       ___ , ___ , KC_1 , KC_2 , KC_3 , ___ , ___ ,
+                       ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , ___ , ___ ,
+                       KC_MINUS , KC_4 , KC_5 , KC_6 , ___ , ___ ,
+                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_SLASH , KC_ENTER ,
                        KC_0 , KC_DOT , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
