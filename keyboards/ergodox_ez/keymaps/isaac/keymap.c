@@ -19,6 +19,8 @@ enum custom_keycodes {
   RGB_SLD,
   TMUX_COPYMODE,
   TMUX_PASTE,
+  TMUX_LEADER,
+  VIM_CMD_MODE,
 };
 
 // 7
@@ -36,25 +38,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
                        TG(QWERTY) , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , TMUX_COPYMODE ,
 
-                       KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , KC_ESCAPE ,
+                       KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , LT(NUMPAD, KC_BSPACE) ,
+                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER , // TODO
 
-                       CTL_T(KC_NO) , ___ , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
+                       ___ , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
                        KC_0 , KC_DLR ,
-                       KC_RIGHT ,
-                       SFT_T(KC_SPACE) , KC_BSPACE , KC_LEFT ,
+                       ___ ,
+                       SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE ,
 
                        TMUX_PASTE , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , TG(MOTION) ,
 
-                       OSM(MOD_LSFT) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_BSPACE ,
+                       // OSM(MOD_LSFT)
+                       TG(NUMPAD) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_BSPACE ,
                        KC_Y , KC_N , KC_I , KC_O , KC_H , LT(SYMBOLS, KC_QUOTE ) ,
                        KC_UP , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
 
-                       CTL_T(KC_NO) , C_S_T(KC_NO) , LGUI(KC_H) , LGUI(KC_L) , KC_DOWN ,
-                       KC_DELETE , ___ ,
+                       CTL_T(KC_NO) , C_S_T(KC_NO) , ___ , ___ , KC_DOWN ,
+                       LGUI(KC_H) , LGUI(KC_L) ,
                        KC_LALT ,
-                       KC_LGUI , LT(NUMPAD, KC_TAB) , LT(QWERTY, KC_ENTER)
+                       KC_LGUI , LT(QWERTY, KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
   // QWERTY
@@ -191,6 +194,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case TMUX_PASTE:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTRL("b")"]");
+    }
+    return false;
+    break;
+  case TMUX_LEADER:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b"));
+    }
+    return false;
+    break;
+  case VIM_CMD_MODE:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP(X_ESCAPE)":")
     }
     return false;
     break;
