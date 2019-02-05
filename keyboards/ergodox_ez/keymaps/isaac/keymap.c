@@ -205,7 +205,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case VIM_CMD_MODE:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_ESCAPE)":")
+      SEND_STRING(SS_TAP(X_ESCAPE)":");
     }
     return false;
     break;
