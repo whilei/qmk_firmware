@@ -20,6 +20,7 @@ enum custom_keycodes {
   TMUX_COPYMODE,
   TMUX_PASTE,
   TMUX_LEADER,
+  TMUX_PANE_SELECT,
   VIM_CMD_MODE,
 };
 
@@ -42,7 +43,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER , // TODO
 
-                       ___ , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
+                       TMUX_PANE_SELECT , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
+
                        KC_0 , KC_DLR ,
                        ___ ,
                        SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE ,
@@ -206,6 +208,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case VIM_CMD_MODE:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_ESCAPE)":");
+    }
+    return false;
+    break;
+  case TMUX_PANE_SELECT:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")"q");
     }
     return false;
     break;
