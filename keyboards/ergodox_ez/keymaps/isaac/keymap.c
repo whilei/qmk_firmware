@@ -10,9 +10,11 @@
 #define SYMBOLS 2
 #define MOTION 3
 #define NUMPAD 4
-#define MACROS 5
+#define MACROSLAYER 5
 
 #define ___ KC_TRANSPARENT
+
+#define LCS(code) LCTL(LSFT(code))
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -61,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        CTL_T(KC_NO) , C_S_T(KC_NO) , LALT(KC_B) , LALT(KC_F) , KC_DOWN ,
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LCS(KC_V) ,
-                       MO(MACROS) , LT(QWERTY, KC_TAB) , LT(NUMPAD, KC_ENTER)
+                       MO(MACROSLAYER) , LT(QWERTY, KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
   // QWERTY
@@ -158,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___
                             ),
 
-  [MACROS] = LAYOUT_ergodox(
+  [MACROSLAYER] = LAYOUT_ergodox(
                             // Left
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
