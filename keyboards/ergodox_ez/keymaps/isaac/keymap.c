@@ -10,6 +10,7 @@
 #define SYMBOLS 2
 #define MOTION 3
 #define NUMPAD 4
+#define MACROS 5
 
 #define ___ KC_TRANSPARENT
 
@@ -37,7 +38,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
-                       TG(QWERTY) , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , TMUX_COPYMODE ,
+                          // TG(QWERTY)
+                       TMUX_PANE_SELECT , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , TMUX_COPYMODE ,
 
                        KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
@@ -46,20 +48,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        TMUX_PANE_SELECT , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
                        KC_0 , KC_DLR ,
-                       ___ ,
+                       LCS(KC_C) , // left control shift
                        SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE ,
 
-                       TMUX_PASTE , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , TG(MOTION) ,
+                       TMUX_PASTE , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
 
                        // OSM(MOD_LSFT)
                        TG(NUMPAD) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_BSPACE ,
                        KC_Y , KC_N , KC_I , KC_O , KC_H , LT(SYMBOLS, KC_QUOTE ) ,
                        KC_UP , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
 
-                       CTL_T(KC_NO) , C_S_T(KC_NO) , ___ , ___ , KC_DOWN ,
+                       CTL_T(KC_NO) , C_S_T(KC_NO) , LALT(KC_B) , LALT(KC_F) , KC_DOWN ,
                        LGUI(KC_H) , LGUI(KC_L) ,
-                       KC_LALT ,
-                       KC_LGUI , LT(QWERTY, KC_TAB) , LT(NUMPAD, KC_ENTER)
+                       LCS(KC_V) ,
+                       MO(MACROS) , LT(QWERTY, KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
   // QWERTY
@@ -148,14 +150,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , ___ , ___ ,
-                       KC_MINUS , KC_4 , KC_5 , KC_6 , ___ , ___ ,
+                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_0 , ___ ,
                        ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_SLASH , KC_ENTER ,
                        KC_0 , KC_DOT , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___
+                            ),
 
-)
+  [MACROS] = LAYOUT_ergodox(
+                            // Left
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ ,
+                            ___ ,
+                            ___ , ___ , ___ ,
+                            // right
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ ,
+                            ___ ,
+                            ___ , ___ , ___
+                            )
+
+
+  /* [EMPTY] = LAYOUT_ergodox( */
+  /*                           // Left */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , */
+  /*                           ___ , */
+  /*                           ___ , ___ , ___ , */
+  /*                           // right */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , */
+  /*                           ___ , */
+  /*                           ___ , ___ , ___ */
+  /*                           ) */
 
 };
 
