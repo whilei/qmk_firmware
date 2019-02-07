@@ -10,7 +10,8 @@
 #define SYMBOLS 2
 #define MOTION 3
 #define NUMPAD 4
-#define MACROSLAYER 5
+#define MACROSLAYER 5 // also known as tmux mode
+#define XPLANE 6
 
 #define ___ KC_TRANSPARENT
 
@@ -20,10 +21,24 @@ enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
   RGB_SLD,
+
+  DOEXIT, // type 'exit' and tap enter
+
   TMUX_COPYMODE,
   TMUX_PASTE,
   TMUX_LEADER,
+
+  TMUX_WN, // window next
+  TMUX_WP, // window previous
+  TMUX_WCREATE, // create windw
+  TMUX_WKILL, // kill window
+
   TMUX_PANE_SELECT,
+  TMUX_PFS, // pane fullscreen == leader,z
+  TMUX_PLAST, // pane last active
+  TMUX_PSPLITH, // pane split horizontally
+  TMUX_PSPLITV, // pane split vertically
+
   VIM_CMD_MODE,
 };
 
@@ -41,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                           // TG(QWERTY)
-                       TMUX_PANE_SELECT , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , TMUX_COPYMODE ,
+                       TMUX_PANE_SELECT , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , TMUX_COPYMODE ,
 
                        KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
@@ -53,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LCS(KC_C) , // left control shift
                        SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE ,
 
-                       TMUX_PASTE , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
+                       TMUX_PASTE , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , TG(XPLANE) ,
 
                        // OSM(MOD_LSFT)
-                       TG(NUMPAD) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_BSPACE ,
+                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_BSPACE ,
                        KC_Y , KC_N , KC_I , KC_O , KC_H , LT(SYMBOLS, KC_QUOTE ) ,
                        KC_UP , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
 
@@ -172,6 +187,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             ___ , ___ , ___ ,
                             // right
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , KC_7 , KC_8 , KC_9 , ___ , TMUX_WKILL ,
+                            ___ , KC_0 , KC_4 , KC_5 , KC_6 , ___ ,
+                            TMUX_PFS , TMUX_PANE_SELECT , KC_1 , KC_2 , KC_3 , ___ , TMUX_PSPLITH ,
+                            ___ , ___ , ___ , ___ , DOEXIT ,
+                            TMUX_WP , TMUX_WN ,
+                            TMUX_PLAST ,
+                            ___ , TMUX_WCREATE , TMUX_PSPLITV
+                                 ),
+
+
+  [XPLANE] = LAYOUT_ergodox(
+                            // Left
+                            KC_BSLASH , ___ , ___ , KC_MINUS , KC_R , KC_EQUAL , KC_RETURN , // toggle instrumentation descriptions on hover ; view: zoom out, tilt up, zoom in; contact ATC
+                            KC_SCOLON , LSFT(KC_9) , ___ , KC_Q , KC_F , KC_E , KC_1 , // toggle clickable cockpit areas ; view: pan left, tilt down, pan right; flaps up a notch
+                            ___ , ___ , ___ , KC_COMMA , KC_UP , KC_DOT , // view: backward, up, forward
+                            KC_SPACE , ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , KC_2 , // general action cmd ; view: move left, down, right ; flaps down a notch
+                            ___ , ___ , ___ , KC_G , KC_B , // landing gear, brakes
+                            KC_8 , KC_0 , // roll trim left, right
+                            KC_RBRACKET, // pitch trim up
+                            KC_F1 , KC_F2 , KC_LBRACKET , // throttle down, up ; pitch trim down
+                            // right
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -181,27 +218,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             ___ , ___ , ___
                             )
 
-
-  /* [EMPTY] = LAYOUT_ergodox( */
-  /*                           // Left */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , */
-  /*                           ___ , */
-  /*                           ___ , ___ , ___ , */
-  /*                           // right */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , */
-  /*                           ___ , */
-  /*                           ___ , ___ , ___ */
-  /*                           ) */
+/*   [EMPTY] = LAYOUT_ergodox( */
+/*                             // Left */
+/*                             ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+/*                             ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+/*                             ___ , ___ , ___ , ___ , ___ , ___ , */
+/*                             ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+/*                             ___ , ___ , ___ , ___ , ___ , */
+/*                             ___ , ___ , */
+/*                             ___ , */
+/*                             ___ , ___ , ___ , */
+/*                             // right */
+/*                             ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+/*                             ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+/*                             ___ , ___ , ___ , ___ , ___ , ___ , */
+/*                             ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+/*                             ___ , ___ , ___ , ___ , ___ , */
+/*                             ___ , ___ , */
+/*                             ___ , */
+/*                             ___ , ___ , ___ */
+/*                             ) */
 
 };
 
@@ -251,6 +287,70 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+
+  case TMUX_WN:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")"n");
+    }
+    return false;
+    break;
+
+  case TMUX_WP:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")"p");
+    }
+    return false;
+    break;
+
+  case TMUX_WCREATE:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")"c");
+    }
+    return false;
+    break;
+
+  case TMUX_WKILL:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")"x");
+    }
+    return false;
+    break;
+
+  case TMUX_PFS:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")"z");
+    }
+    return false;
+    break;
+
+  case TMUX_PLAST:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")";");
+    }
+    return false;
+    break;
+
+  case TMUX_PSPLITV:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")"%");
+    }
+    return false;
+    break;
+
+  case TMUX_PSPLITH:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")"\"");
+    }
+    return false;
+    break;
+
+  case DOEXIT:
+    if (record->event.pressed) {
+      SEND_STRING("exit"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
   case VIM_CMD_MODE:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_ESCAPE)":");
