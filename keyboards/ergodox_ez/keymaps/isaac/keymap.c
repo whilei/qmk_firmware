@@ -52,7 +52,6 @@ enum custom_keycodes {
   UB_ETHEREUM_GOETHEREUM,
   UB_WHILEI_GOETHEREUM1,
 
-  SPACEMACS_NEOTREE_TOGGLE, // unused
 
   // CD: cd
   CD_ETHEREUM_GOETHEREUM,
@@ -442,13 +441,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case VIM_INS_LINE_ABOVE:
     if (record->event.pressed) {
       SEND_STRING("ko"SS_TAP( X_ESCAPE )"j");
-    }
-    return false;
-    break;
-
-  case SPACEMACS_NEOTREE_TOGGLE:
-    if (record->event.pressed) {
-      SEND_STRING(" ft");
     }
     return false;
     break;
