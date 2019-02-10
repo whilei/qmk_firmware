@@ -169,15 +169,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
-                       KC_NONUS_HASH , ___ ,
+                       ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , ___ , ___ ,
-                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_0 , ___ ,
-                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_SLASH , KC_ENTER ,
-                       KC_0 , KC_DOT , ___ , ___ , ___ ,
+                       ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_KP_ASTERISK , ___ ,
+                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_SLASH , ___ ,
+                       ___ , KC_DOT , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
+                       ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___
@@ -213,8 +213,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             KC_SPACE , ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , KC_2 , // general action cmd ; view: move left, down, right ; flaps down a notch
                             ___ , ___ , ___ , KC_G , KC_B , // landing gear, brakes
                             KC_8 , KC_0 , // roll trim left, right
-                            KC_RBRACKET, // pitch trim up
-                            KC_F1 , KC_F2 , KC_LBRACKET , // throttle down, up ; pitch trim down
+                            KC_LBRACKET, // pitch trim down
+                            KC_F1 , KC_F2 , KC_RBRACKET , // throttle down, up ; pitch trim up
                             // right
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
