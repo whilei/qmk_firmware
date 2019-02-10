@@ -40,6 +40,14 @@ enum custom_keycodes {
   TMUX_PSPLITV, // pane split vertically
 
   VIM_CMD_MODE,
+
+  // UB: url browse
+  UB_ETHOXY_MULTIGETH,
+  UB_ETHEREUM_GOETHEREUM,
+  UB_WHILEI_GOETHEREUM1,
+
+  // CD: cd
+  CD_ETHEREUM_GOETHEREUM,
 };
 
 // 7
@@ -56,23 +64,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                           // TG(QWERTY)
-                       TMUX_PANE_SELECT , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , TMUX_COPYMODE ,
+                       TMUX_PANE_SELECT , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
 
                        KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER , // TODO
 
-                       TMUX_PANE_SELECT , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
+                       ___ , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
-                       KC_0 , KC_DLR ,
+                       LT(MOTION, KC_0) , KC_DLR ,
                        LCS(KC_C) , // left control shift
                        SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE ,
 
-                       TMUX_PASTE , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , TG(XPLANE) ,
+                       ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , TG(XPLANE) ,
 
                        // OSM(MOD_LSFT)
-                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_BSPACE ,
-                       KC_Y , KC_N , KC_I , KC_O , KC_H , LT(SYMBOLS, KC_QUOTE ) ,
+                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE , // note this deviates from normal norman
+                       KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot
                        KC_UP , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
 
                        CTL_T(KC_NO) , C_S_T(KC_NO) , LALT(KC_B) , LALT(KC_F) , KC_DOWN ,
@@ -86,9 +94,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
 
-                       ___ , KC_Q , KC_W , KC_E , KC_R , KC_T , ___ ,
-                       ___ , KC_A , KC_S , KC_D , KC_F , KC_G ,
-                       ___ , KC_Z , KC_X , KC_C , KC_V , KC_B , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -98,9 +106,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
 
-                       ___ , KC_Y , KC_U , KC_I , KC_O , KC_P , ___ ,
-                       KC_H , KC_J , KC_K , KC_L , LT(SYMBOLS, KC_SCOLON ) , ___ ,
-                       ___ , KC_N , KC_M , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       KC_H , KC_J , KC_K , KC_L , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -121,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_COLN , ___ , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_KP_PLUS , KC_TILD , KC_MINUS , KC_EXLM , ___ , KC_BSLASH ,
+                       ___ , KC_KP_PLUS , KC_TILD , KC_MINUS , KC_EXLM , ___ , ___ ,
                        KC_RABK , KC_HASH , KC_PIPE , KC_AMPR , ___ , ___ ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_2 , KC_3 , ___ , ___ ,
                        KC_0 , KC_DOT , ___ , ___ , ___ ,
@@ -177,8 +185,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [MACROSLAYER] = LAYOUT_ergodox(
                             // Left
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , UB_ETHOXY_MULTIGETH , UB_ETHEREUM_GOETHEREUM , UB_WHILEI_GOETHEREUM1 , ___ , ___ , ___ ,
+                            ___ , ___ , CD_ETHEREUM_GOETHEREUM , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ ,
@@ -187,13 +195,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             ___ , ___ , ___ ,
                             // right
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , KC_7 , KC_8 , KC_9 , ___ , TMUX_WKILL ,
-                            ___ , KC_0 , KC_4 , KC_5 , KC_6 , ___ ,
-                            TMUX_PFS , TMUX_PANE_SELECT , KC_1 , KC_2 , KC_3 , ___ , TMUX_PSPLITH ,
-                            ___ , ___ , ___ , ___ , DOEXIT ,
+                            TMUX_PSPLITV , ___ , KC_7 , KC_8 , KC_9 , ___ , TMUX_PSPLITH ,
+                            KC_0 , KC_4 , KC_5 , KC_6 , ___ , TMUX_COPYMODE ,
+                            TMUX_PFS , TMUX_PANE_SELECT , KC_1 , KC_2 , KC_3 , ___ , TMUX_PASTE ,
+                            TMUX_WCREATE , ___ , ___ , TMUX_WKILL , DOEXIT ,
                             TMUX_WP , TMUX_WN ,
                             TMUX_PLAST ,
-                            ___ , TMUX_WCREATE , TMUX_PSPLITV
+                            ___ , ___ , ___
                                  ),
 
 
@@ -268,6 +276,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+
   case TMUX_COPYMODE:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTRL("b")"[");
@@ -275,12 +284,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // else is event released
     return false;
     break;
+
   case TMUX_PASTE:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTRL("b")"]");
     }
     return false;
     break;
+
   case TMUX_LEADER:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTRL("b"));
@@ -357,13 +368,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+
   case TMUX_PANE_SELECT:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTRL("b")"q");
     }
     return false;
     break;
+
+  case UB_ETHOXY_MULTIGETH:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("l")"https://github.com/ethoxy/multi-geth"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
+  case UB_ETHEREUM_GOETHEREUM:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("l")"https://github.com/ethereum/go-ethereum"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
+  case UB_WHILEI_GOETHEREUM1:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("l")"https://github.com/whilei/go-ethereum"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
+  case CD_ETHEREUM_GOETHEREUM:
+    if (record->event.pressed) {
+      SEND_STRING("cd ~/go/src/github.com/ethereum/go-ethereum"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
   }
+
   return true;
 }
 
