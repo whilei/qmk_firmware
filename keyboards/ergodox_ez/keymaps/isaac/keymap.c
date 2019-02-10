@@ -6,7 +6,7 @@
 #include "keymap_nordic.h"
 
 #define BASE 0 // Norman layout
-#define QWERTY 1
+#define QWIM 1 // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
 #define SYMBOLS 2
 #define MOTION 3
 #define NUMPAD 4
@@ -40,63 +40,63 @@ enum custom_keycodes {
   TMUX_PSPLITV, // pane split vertically
 
   VIM_CMD_MODE,
+  VIM_BUFFER_START,
+  VIM_BUFFER_END,
+  VIM_VISUAL_BLOCK,
+  VIM_DELETE_LINE,
+  VIM_INS_LINE_BELOW,
+  VIM_INS_LINE_ABOVE,
 
   // UB: url browse
   UB_ETHOXY_MULTIGETH,
   UB_ETHEREUM_GOETHEREUM,
   UB_WHILEI_GOETHEREUM1,
 
+  SPACEMACS_NEOTREE_TOGGLE, // unused
+
   // CD: cd
   CD_ETHEREUM_GOETHEREUM,
 };
 
-// 7
-// 7
-// 6
-// 7
-// 5
-// 2
-// 1
-// 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
-                          // TG(QWERTY)
+                          // TG(QWIM)
                        TMUX_PANE_SELECT , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
 
                        KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER , // TODO
+                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , ___ , // TODO
 
                        ___ , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
-                       LT(MOTION, KC_0) , KC_DLR ,
+                       LT(MOTION, KC_0) , KC_DLR , // hold for motion layer is nice for left-handed scrolling
                        LCS(KC_C) , // left control shift
                        SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE ,
 
-                       ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , TG(XPLANE) ,
+                        ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
 
                        // OSM(MOD_LSFT)
                        ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE , // note this deviates from normal norman
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot
-                       KC_UP , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
+                       KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
 
                        CTL_T(KC_NO) , C_S_T(KC_NO) , LALT(KC_B) , LALT(KC_F) , KC_DOWN ,
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LCS(KC_V) ,
-                       MO(MACROSLAYER) , LT(QWERTY, KC_TAB) , LT(NUMPAD, KC_ENTER)
+                       MO(MACROSLAYER) , LT(QWIM , KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
-  // QWERTY
-  [QWERTY] = LAYOUT_ergodox(
+  // QWIM
+  [QWIM] = LAYOUT_ergodox(
                        // Left
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
 
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , VIM_INS_LINE_ABOVE , VIM_INS_LINE_BELOW , ___ ,
+                       ___ , ___ , VIM_DELETE_LINE , ___ , VIM_VISUAL_BLOCK , ___ , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -104,11 +104,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ ,
 
                        // Right
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
 
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       KC_H , KC_J , KC_K , KC_L , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       VIM_BUFFER_START , ___ , KC_LCBR , ___ , ___ , ___ , ___ ,
+                       KC_H , KC_J , KC_K , KC_L , KC_0 , KC_DLR ,
+                       VIM_BUFFER_END , ___ , KC_RCBR , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -122,17 +122,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , KC_PERC , KC_CIRC , KC_LBRACKET , KC_RBRACKET , KC_BSLASH , ___ ,
                        ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_LABK ,
-                       ___ , ___, ___ , KC_LPRN , KC_RPRN , KC_GRAVE , ___ ,
+                       ___ , KC_SLASH , ___ , KC_LPRN , KC_RPRN , KC_GRAVE , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
                        KC_NONUS_HASH , ___ ,
                        ___ ,
                        KC_COLN , ___ , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_KP_PLUS , KC_TILD , KC_MINUS , KC_EXLM , ___ , ___ ,
+                       ___ , KC_KP_PLUS , KC_TILD , KC_MINUS , KC_QUOTE , ___ , ___ ,
                        KC_RABK , KC_HASH , KC_PIPE , KC_AMPR , ___ , ___ ,
-                       ___ , KC_KP_ASTERISK , KC_UNDS , KC_2 , KC_3 , ___ , ___ ,
-                       KC_0 , KC_DOT , ___ , ___ , ___ ,
+                       ___ , KC_KP_ASTERISK , KC_UNDS , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ ,
                        ___ , KC_SLASH ,
                        ___ ,
                        ___ , KC_EXLM , KC_EQUAL
@@ -194,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             ___ ,
                             ___ , ___ , ___ ,
                             // right
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , TG(XPLANE) ,
                             TMUX_PSPLITV , ___ , KC_7 , KC_8 , KC_9 , ___ , TMUX_PSPLITH ,
                             KC_0 , KC_4 , KC_5 , KC_6 , ___ , TMUX_COPYMODE ,
                             TMUX_PFS , TMUX_PANE_SELECT , KC_1 , KC_2 , KC_3 , ___ , TMUX_PASTE ,
@@ -400,6 +400,55 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case CD_ETHEREUM_GOETHEREUM:
     if (record->event.pressed) {
       SEND_STRING("cd ~/go/src/github.com/ethereum/go-ethereum"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
+  case VIM_BUFFER_START:
+    if (record->event.pressed) {
+      SEND_STRING("gg");
+    }
+    return false;
+    break;
+
+  case VIM_BUFFER_END:
+    if (record->event.pressed) {
+      SEND_STRING("G");
+    }
+    return false;
+    break;
+
+  case VIM_VISUAL_BLOCK:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("v"));
+    }
+    return false;
+    break;
+
+  case VIM_DELETE_LINE:
+    if (record->event.pressed) {
+      SEND_STRING("dd");
+    }
+    return false;
+    break;
+
+  case VIM_INS_LINE_BELOW:
+    if (record->event.pressed) {
+      SEND_STRING("o"SS_TAP( X_ESCAPE )"k");
+    }
+    return false;
+    break;
+
+  case VIM_INS_LINE_ABOVE:
+    if (record->event.pressed) {
+      SEND_STRING("ko"SS_TAP( X_ESCAPE )"j");
+    }
+    return false;
+    break;
+
+  case SPACEMACS_NEOTREE_TOGGLE:
+    if (record->event.pressed) {
+      SEND_STRING(" ft");
     }
     return false;
     break;
