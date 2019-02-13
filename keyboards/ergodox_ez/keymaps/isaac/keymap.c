@@ -8,8 +8,8 @@
 #define BASE 0 // Norman layout
 #define QWIM 1 // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
 #define SYMBOLS 2
-#define MOTION 3
-#define NUMPAD 4
+#define NUMPAD 3
+#define MOTION 4
 #define MACROSLAYER 5 // also known as tmux mode
 #define XPLANE 6
 
@@ -52,11 +52,9 @@ enum custom_keycodes {
   UB_ETHEREUM_GOETHEREUM,
   UB_WHILEI_GOETHEREUM1,
 
-
   // CD: cd
   CD_ETHEREUM_GOETHEREUM,
 };
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -67,22 +65,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , ___ , // TODO
+                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , MO(MACROSLAYER) , // TODO
 
                        ___ , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
-                       LT(MOTION, KC_0) , KC_DLR , // hold for motion layer is nice for left-handed scrolling
+                       LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
                        LCS(KC_C) , // left control shift
-                       SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE ,
+                       SFT_T(KC_SPACE) , KC_BSPACE , ___ ,
 
-                        ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
+                       ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
 
                        // OSM(MOD_LSFT)
                        ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE , // note this deviates from normal norman
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot
                        KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
 
-                       CTL_T(KC_NO) , C_S_T(KC_NO) , LALT(KC_B) , LALT(KC_F) , KC_DOWN ,
+                       CTL_T(KC_NO) , ___ , LALT(KC_B) , LALT(KC_F) , KC_DOWN ,
+
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LCS(KC_V) ,
                        MO(MACROSLAYER) , LT(QWIM , KC_TAB) , LT(NUMPAD, KC_ENTER)
@@ -91,8 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // QWIM
   [QWIM] = LAYOUT_ergodox(
                        // Left
-                       ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
-
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ , ___ , VIM_INS_LINE_ABOVE , VIM_INS_LINE_BELOW , ___ ,
                        ___ , ___ , VIM_DELETE_LINE , ___ , VIM_VISUAL_BLOCK , ___ , ___ ,
@@ -103,11 +101,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ ,
 
                        // Right
-                       KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
-
-                       VIM_BUFFER_START , ___ , KC_LCBR , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       VIM_BUFFER_START , KC_LCBR , LSFT(KC_W) , KC_W , ___ , ___ , ___ ,
                        KC_H , KC_J , KC_K , KC_L , KC_0 , KC_DLR ,
-                       VIM_BUFFER_END , ___ , KC_RCBR , ___ , ___ , ___ , ___ ,
+                       VIM_BUFFER_END , KC_RCBR , LSFT(KC_B) , KC_B , ___ , ___ , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -121,40 +118,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , KC_PERC , KC_CIRC , KC_LBRACKET , KC_RBRACKET , KC_BSLASH , ___ ,
                        ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_LABK ,
-                       ___ , KC_SLASH , ___ , KC_LPRN , KC_RPRN , KC_GRAVE , ___ ,
-                       ___ , ___ , ___ , ___ , ___ ,
+                       ___ , KC_SLASH , KC_EXLM , KC_LPRN , KC_RPRN , KC_GRAVE , ___ ,
+                       ___ , ___ , ___ , ___ , KC_COLN ,
                        ___ , ___ ,
                        ___ ,
-                       KC_COLN , ___ , ___ ,
+                       ___ , ___ , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_KP_PLUS , KC_TILD , KC_MINUS , KC_QUOTE , ___ , ___ ,
+                       ___ , KC_KP_PLUS , KC_TILD , KC_MINUS , KC_QUOTE , KC_GRAVE , ___ ,
                        KC_RABK , KC_HASH , KC_PIPE , KC_AMPR , ___ , ___ ,
-                       ___ , KC_KP_ASTERISK , KC_UNDS , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_SLASH ,
-                       ___ ,
-                       ___ , KC_EXLM , KC_EQUAL
-                       ),
-
-
-  // Mouse and motion
-  [MOTION] = LAYOUT_ergodox(
-                       // left
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , ___ ,
-                       ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ ,
-                       ___ ,
-                       KC_MS_BTN1 , KC_MS_BTN2 , ___ ,
-                       // right
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , KC_UP , ___ , ___ , ___ ,
-                       ___ , ___ , KC_UP , ___ , ___ , ___ ,
-                       ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ ,
+                       ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
+                       KC_EQUAL , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___
@@ -162,68 +136,90 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Numpad
   [NUMPAD] = LAYOUT_ergodox(
-                       // Left
+                      // Left
+                      ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ ,
+                      ___ ,
+                      ___ , ___ , ___ ,
+                      // right
+                      KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
+                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_KP_ASTERISK , ___ ,
+                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_SLASH , ___ ,
+                      ___ , KC_DOT , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
+                      ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ ,
+                      ___ ,
+                      ___ , ___ , ___
+                      ),
+
+  // Mouse and motion
+  [MOTION] = LAYOUT_ergodox(
+                       // left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , ___ ,
+                       ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
+                       ___ , ___ , ___ , ___ , ___ , LCS(KC_TAB) , LGUI(KC_H) ,
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
-                       ___ , ___ , ___ ,
+                       KC_MS_BTN1 , KC_MS_BTN2 , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_KP_ASTERISK , ___ ,
-                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_SLASH , ___ ,
-                       ___ , KC_DOT , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
+                       ___ , ___ , ___ , KC_UP , ___ , ___ , ___ ,
+                       ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
+                       LGUI(KC_L) , LCTL(KC_TAB) , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___
-                            ),
+                       ),
 
   [MACROSLAYER] = LAYOUT_ergodox(
-                            // Left
-                            ___ , UB_ETHOXY_MULTIGETH , UB_ETHEREUM_GOETHEREUM , UB_WHILEI_GOETHEREUM1 , ___ , ___ , ___ ,
-                            ___ , ___ , CD_ETHEREUM_GOETHEREUM , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ ,
-                            ___ ,
-                            ___ , ___ , ___ ,
-                            // right
-                            ___ , ___ , ___ , ___ , ___ , ___ , TG(XPLANE) ,
-                            TMUX_PSPLITV , ___ , KC_7 , KC_8 , KC_9 , ___ , TMUX_PSPLITH ,
-                            KC_0 , KC_4 , KC_5 , KC_6 , ___ , TMUX_COPYMODE ,
-                            TMUX_PFS , TMUX_PANE_SELECT , KC_1 , KC_2 , KC_3 , ___ , TMUX_PASTE ,
-                            TMUX_WCREATE , ___ , ___ , TMUX_WKILL , DOEXIT ,
-                            TMUX_WP , TMUX_WN ,
-                            TMUX_PLAST ,
-                            ___ , ___ , ___
-                                 ),
+                      // Left
+                      ___ , UB_ETHOXY_MULTIGETH , UB_ETHEREUM_GOETHEREUM , UB_WHILEI_GOETHEREUM1 , ___ , ___ , ___ ,
+                      ___ , ___ , CD_ETHEREUM_GOETHEREUM , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ ,
+                      ___ ,
+                      ___ , ___ , ___ ,
+                      // right
+                      ___ , ___ , ___ , ___ , ___ , ___ , TG(XPLANE) ,
+                      TMUX_PSPLITV , ___ , KC_7 , KC_8 , KC_9 , ___ , TMUX_PSPLITH ,
+                      KC_0 , KC_4 , KC_5 , KC_6 , ___ , TMUX_COPYMODE ,
+                      TMUX_PFS , TMUX_PANE_SELECT , KC_1 , KC_2 , KC_3 , ___ , TMUX_PASTE ,
+                      TMUX_WCREATE , ___ , ___ , TMUX_WKILL , DOEXIT ,
+                      TMUX_WP , TMUX_WN ,
+                      TMUX_PLAST ,
+                      ___ , ___ , ___
+                      ),
 
 
   [XPLANE] = LAYOUT_ergodox(
-                            // Left
-                            KC_BSLASH , ___ , ___ , KC_MINUS , KC_R , KC_EQUAL , KC_RETURN , // toggle instrumentation descriptions on hover ; view: zoom out, tilt up, zoom in; contact ATC
-                            KC_SCOLON , LSFT(KC_9) , ___ , KC_Q , KC_F , KC_E , KC_1 , // toggle clickable cockpit areas ; view: pan left, tilt down, pan right; flaps up a notch
-                            ___ , ___ , ___ , KC_COMMA , KC_UP , KC_DOT , // view: backward, up, forward
-                            KC_SPACE , ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , KC_2 , // general action cmd ; view: move left, down, right ; flaps down a notch
-                            ___ , ___ , ___ , KC_G , KC_B , // landing gear, brakes
-                            KC_8 , KC_0 , // roll trim left, right
-                            KC_LBRACKET, // pitch trim down
-                            KC_F1 , KC_F2 , KC_RBRACKET , // throttle down, up ; pitch trim up
-                            // right
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ ,
-                            ___ ,
-                            ___ , ___ , ___
-                            )
+                      // Left
+                      KC_BSLASH , ___ , ___ , KC_MINUS , KC_R , KC_EQUAL , KC_RETURN , // toggle instrumentation descriptions on hover ; view: zoom out, tilt up, zoom in; contact ATC
+                      KC_SCOLON , LSFT(KC_9) , ___ , KC_Q , KC_F , KC_E , KC_1 , // toggle clickable cockpit areas ; view: pan left, tilt down, pan right; flaps up a notch
+                      ___ , ___ , ___ , KC_COMMA , KC_UP , KC_DOT , // view: backward, up, forward
+                      KC_SPACE , ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , KC_2 , // general action cmd ; view: move left, down, right ; flaps down a notch
+                      ___ , ___ , ___ , KC_G , KC_B , // landing gear, brakes
+                      KC_8 , KC_0 , // roll trim left, right
+                      KC_LBRACKET, // pitch trim down
+                      KC_F1 , KC_F2 , KC_RBRACKET , // throttle down, up ; pitch trim up
+                      // right
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ ,
+                      ___ ,
+                      ___ , ___ , ___
+                      )
 
 /*   [EMPTY] = LAYOUT_ergodox( */
 /*                             // Left */
