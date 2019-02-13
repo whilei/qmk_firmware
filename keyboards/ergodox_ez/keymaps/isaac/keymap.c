@@ -10,7 +10,7 @@
 #define SYMBOLS 2
 #define NUMPAD 3
 #define MOTION 4
-#define MACROSLAYER 5 // also known as tmux mode
+#define MACROTMUXLAYER 5 // also known as tmux mode
 #define XPLANE 6
 
 #define ___ KC_TRANSPARENT
@@ -65,26 +65,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , MO(MACROSLAYER) , // TODO
+                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , ___ ,
 
                        ___ , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
                        LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
                        LCS(KC_C) , // left control shift
-                       SFT_T(KC_SPACE) , KC_BSPACE , ___ ,
+                       SFT_T(KC_SPACE) , KC_BSPACE , MO(MACROTMUXLAYER) ,
 
                        ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
 
                        // OSM(MOD_LSFT)
                        ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE , // note this deviates from normal norman
-                       KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot
+                       KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot and just can't afford to wait 200ms till they kick in
                        KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
 
                        CTL_T(KC_NO) , ___ , LALT(KC_B) , LALT(KC_F) , KC_DOWN ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LCS(KC_V) ,
-                       MO(MACROSLAYER) , LT(QWIM , KC_TAB) , LT(NUMPAD, KC_ENTER)
+                       MO(MACROTMUXLAYER) , LT(QWIM , KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
   // QWIM
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , KC_PERC , KC_CIRC , KC_LBRACKET , KC_RBRACKET , KC_BSLASH , ___ ,
-                       ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_LABK ,
+                       ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_KP_PLUS ,
                        ___ , KC_SLASH , KC_EXLM , KC_LPRN , KC_RPRN , KC_GRAVE , ___ ,
                        ___ , ___ , ___ , ___ , KC_COLN ,
                        ___ , ___ ,
@@ -125,8 +125,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_KP_PLUS , KC_TILD , KC_MINUS , KC_QUOTE , KC_GRAVE , ___ ,
-                       KC_RABK , KC_HASH , KC_PIPE , KC_AMPR , ___ , ___ ,
+                       ___ , KC_QUOTE , KC_TILD , KC_MINUS , KC_GRAVE , ___ , ___ ,
+                       LSFT(KC_QUOTE) , KC_HASH , KC_PIPE , KC_AMPR , ___ , ___ ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
                        KC_EQUAL , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -178,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___
                        ),
 
-  [MACROSLAYER] = LAYOUT_ergodox(
+  [MACROTMUXLAYER] = LAYOUT_ergodox(
                       // Left
                       ___ , UB_ETHOXY_MULTIGETH , UB_ETHEREUM_GOETHEREUM , UB_WHILEI_GOETHEREUM1 , ___ , ___ , ___ ,
                       ___ , ___ , CD_ETHEREUM_GOETHEREUM , ___ , ___ , ___ , ___ ,
@@ -191,8 +191,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , TG(XPLANE) ,
                       TMUX_PSPLITV , ___ , KC_7 , KC_8 , KC_9 , ___ , TMUX_PSPLITH ,
-                      KC_0 , KC_4 , KC_5 , KC_6 , ___ , TMUX_COPYMODE ,
-                      TMUX_PFS , TMUX_PANE_SELECT , KC_1 , KC_2 , KC_3 , ___ , TMUX_PASTE ,
+                      ___ , KC_4 , KC_5 , KC_6 , ___ , TMUX_COPYMODE ,
+                      TMUX_PFS , TMUX_PANE_SELECT , KC_1 , KC_2 , KC_3 , KC_0 , TMUX_PASTE ,
                       TMUX_WCREATE , ___ , ___ , TMUX_WKILL , DOEXIT ,
                       TMUX_WP , TMUX_WN ,
                       TMUX_PLAST ,
