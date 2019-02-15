@@ -59,6 +59,9 @@ enum custom_keycodes {
   WR_GITHUBDOTCOM,
   WR_HOMEIADOTFILES,
   WR_2AND1,
+  WR_CODEFENCE,
+  WR_ESCAPEDRETURN,
+  WR_ESCAPEDDOUBLEQUOTE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -123,9 +126,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_PERC , LSFT( KC_QUOTE ) , KC_TILD, KC_LBRACKET , KC_RBRACKET , ___ ,
-                       ___ , KC_AT , KC_DLR , KC_EXLM , KC_LCBR , KC_RCBR ,
-                       ___ , KC_SLASH , KC_CIRC , KC_GRAVE , ___ , ___ , ___ ,
+                       ___ , KC_PERC , LSFT( KC_QUOTE ) , KC_GRAVE , KC_TILD , ___ , ___ ,
+                       ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , ___ ,
+                       ___ , KC_BSLASH , KC_CIRC , KC_LBRACKET, KC_RBRACKET,  ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
@@ -135,9 +138,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        /* ___ , KC_QUOTE , KC_TILD , KC_MINUS , KC_GRAVE , ___ , ___ , */
                              /* KC_HASH, LSFT(KC_QUOTE) , KC_PIPE , KC_AMPR , ___ , ___ , */
                        /* ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ , */
-                       ___ , KC_BSLASH , KC_KP_ASTERISK , KC_MINUS , KC_QUOTE , ___ , ___ ,
+                       ___ , ___ , KC_EXLM , KC_MINUS , KC_QUOTE , ___ , ___ ,
                        KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , ___ , ___ ,
-                       ___ , ___ , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
+                       ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
                                               ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ ,
@@ -156,8 +159,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NUMPAD] = LAYOUT_ergodox(
                       // Left
                       ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , WR_ESCAPEDDOUBLEQUOTE , WR_CODEFENCE , ___ , ___ , ___ ,
+                      ___ , WR_2AND1 , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
@@ -166,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       // right
                       KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
                       ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_KP_ASTERISK , ___ ,
-                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_SLASH , ___ ,
+                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_SLASH , WR_ESCAPEDRETURN ,
                       ___ , KC_DOT , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
@@ -200,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       // Left
                       ___ , UB_ETHOXY_MULTIGETH , UB_ETHEREUM_GOETHEREUM , UB_WHILEI_GOETHEREUM1 , ___ , ___ , ___ ,
                       ___ , ___ , CD_ETHEREUM_GOETHEREUM , WR_HOMEIADOTFILES , ___ , KC_Q , TMUX_COPYMODE ,
-                      ___ , ___ , ___ , ___ , WR_2AND1 , WR_GITHUBDOTCOM ,
+                      ___ , ___ , ___ , ___ , ___ , WR_GITHUBDOTCOM ,
                       ___ , ___ , ___ , ___ , ___ , ___ , TMUX_PASTE ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
@@ -434,6 +437,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_2AND1:
     if (record->event.pressed) {
       SEND_STRING("2>&1");
+    }
+    return false;
+    break;
+
+  case WR_CODEFENCE:
+    if (record->event.pressed) {
+      SEND_STRING("```");
+    }
+    return false;
+    break;
+
+  case WR_ESCAPEDRETURN:
+    if (record->event.pressed) {
+      SEND_STRING("\\"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
+  case WR_ESCAPEDDOUBLEQUOTE:
+    if (record->event.pressed) {
+      SEND_STRING("\\"SS_TAP(X_ENTER));
     }
     return false;
     break;
