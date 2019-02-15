@@ -457,7 +457,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case WR_ESCAPEDDOUBLEQUOTE:
     if (record->event.pressed) {
-      SEND_STRING("\\"SS_TAP(X_ENTER));
+      SEND_STRING("\\\""SS_TAP(X_ENTER));
     }
     return false;
     break;
