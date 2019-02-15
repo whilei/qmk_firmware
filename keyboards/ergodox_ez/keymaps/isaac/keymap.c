@@ -97,6 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       // these are pretty dumb
                        ___ , ___ , ___ , VIM_INS_LINE_ABOVE , VIM_INS_LINE_BELOW , ___ ,
                        ___ , ___ , VIM_DELETE_LINE , ___ , VIM_VISUAL_BLOCK , ___ , ___ ,
 
@@ -107,6 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        // Right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       // so are these; anything but the hjll
                        VIM_BUFFER_START , KC_LCBR , LSFT(KC_W) , KC_W , ___ , ___ , ___ ,
                        KC_H , KC_J , KC_K , KC_L , KC_0 , KC_DLR ,
                        VIM_BUFFER_END , KC_RCBR , LSFT(KC_B) , KC_B , ___ , ___ , ___ ,
@@ -121,23 +123,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_PERC , KC_CIRC , KC_LBRACKET , KC_RBRACKET , KC_BSLASH , ___ ,
-                       ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_KP_PLUS ,
-                       ___ , KC_SLASH , KC_EXLM , KC_LPRN , KC_RPRN , KC_GRAVE , ___ ,
-                       ___ , ___ , ___ , ___ , KC_COLN ,
+                       ___ , KC_PERC , LSFT( KC_QUOTE ) , KC_TILD, KC_LBRACKET , KC_RBRACKET , ___ ,
+                       ___ , KC_AT , KC_DLR , KC_EXLM , KC_LCBR , KC_RCBR ,
+                       ___ , KC_SLASH , KC_CIRC , KC_GRAVE , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_QUOTE , KC_TILD , KC_MINUS , KC_GRAVE , ___ , ___ ,
-                       LSFT(KC_QUOTE) , KC_HASH , KC_PIPE , KC_AMPR , ___ , ___ ,
-                       ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
-                       KC_EQUAL , ___ , ___ , ___ , ___ ,
+                       /* ___ , KC_QUOTE , KC_TILD , KC_MINUS , KC_GRAVE , ___ , ___ , */
+                             /* KC_HASH, LSFT(KC_QUOTE) , KC_PIPE , KC_AMPR , ___ , ___ , */
+                       /* ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ , */
+                       ___ , KC_BSLASH , KC_KP_ASTERISK , KC_MINUS , KC_QUOTE , ___ , ___ ,
+                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , ___ , ___ ,
+                       ___ , ___ , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
+                                              ___ , ___ , ___ , ___ , ___ ,
+
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___
                        ),
+
+  // macros todo:
+  // \<ENTER>
+  // \" // escaped double quote
+  // ``` code fence grave
+
+  //
 
   // Numpad
   [NUMPAD] = LAYOUT_ergodox(
