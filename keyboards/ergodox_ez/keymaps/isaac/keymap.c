@@ -54,6 +54,11 @@ enum custom_keycodes {
 
   // CD: cd
   CD_ETHEREUM_GOETHEREUM,
+
+  // WR: Write
+  WR_GITHUBDOTCOM,
+  WR_HOMEIADOTFILES,
+  WR_2AND1,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -159,19 +164,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Mouse and motion
   [MOTION] = LAYOUT_ergodox(
                        // left
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , LGUI(KC_H) , LGUI(KC_L) ,
+                       ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , LCTL(KC_TAB) ,
                        ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
-                       ___ , ___ , ___ , ___ , ___ , LCS(KC_TAB) , LGUI(KC_H) ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , LCS(KC_TAB) , // LGUI(KC_H) ,
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
                        KC_MS_BTN1 , KC_MS_BTN2 , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , KC_UP , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
-                       LGUI(KC_L) , LCTL(KC_TAB) , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
+                       ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
@@ -181,9 +186,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MACROTMUXLAYER] = LAYOUT_ergodox(
                       // Left
                       ___ , UB_ETHOXY_MULTIGETH , UB_ETHEREUM_GOETHEREUM , UB_WHILEI_GOETHEREUM1 , ___ , ___ , ___ ,
-                      ___ , ___ , CD_ETHEREUM_GOETHEREUM , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , CD_ETHEREUM_GOETHEREUM , WR_HOMEIADOTFILES , ___ , KC_Q , TMUX_COPYMODE ,
+                      ___ , ___ , ___ , ___ , WR_2AND1 , WR_GITHUBDOTCOM ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , TMUX_PASTE ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -387,7 +392,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case UB_WHILEI_GOETHEREUM1:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTRL("l")"https://github.com/whilei/go-ethereum"SS_TAP(X_ENTER));
+      SEND_STRING(SS_LCTRL("l")"https://github.com/whilei/go-ethereum-1"SS_TAP(X_ENTER));
     }
     return false;
     break;
@@ -395,6 +400,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case CD_ETHEREUM_GOETHEREUM:
     if (record->event.pressed) {
       SEND_STRING("cd ~/go/src/github.com/ethereum/go-ethereum"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
+  case WR_GITHUBDOTCOM:
+    if (record->event.pressed) {
+      SEND_STRING("github.com");
+    }
+    return false;
+    break;
+
+  case WR_HOMEIADOTFILES:
+    if (record->event.pressed) {
+      SEND_STRING("/home/ia/.dotfiles/");
+    }
+    return false;
+    break;
+
+  case WR_2AND1:
+    if (record->event.pressed) {
+      SEND_STRING("2>&1");
     }
     return false;
     break;
