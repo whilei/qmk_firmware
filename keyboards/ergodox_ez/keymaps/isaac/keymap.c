@@ -133,11 +133,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___
                        ),
 
-  // macros todo:
-  // \<ENTER>
-  // \" // escaped double quote
-  // ``` code fence grave
-
   //
 
   // Numpad
