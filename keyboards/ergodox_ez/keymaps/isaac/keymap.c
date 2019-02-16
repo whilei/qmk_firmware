@@ -59,8 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
-                          // TG(QWIM)
-                       TMUX_PANE_SELECT , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
+                       TMUX_LEADER , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
 
                        KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
@@ -115,18 +114,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_PERC , KC_QUOTE , KC_GRAVE , KC_TILD , ___ , ___ ,
+                       ___ , KC_PERC , KC_QUOTE , KC_LBRACKET, KC_RBRACKET,___ , ___ ,
                        ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_KP_PLUS ,
-                       ___ , KC_BSLASH , KC_CIRC , KC_LBRACKET, KC_RBRACKET,  KC_HASH , ___ ,
+                       ___ , KC_BSLASH , KC_CIRC ,  KC_GRAVE , KC_TILD , KC_HASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       /* ___ , KC_QUOTE , KC_TILD , KC_MINUS , KC_GRAVE , ___ , ___ , */
-                             /* KC_HASH, LSFT(KC_QUOTE) , KC_PIPE , KC_AMPR , ___ , ___ , */
-                       /* ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ , */
                        ___ , ___ , KC_EXLM , KC_MINUS , LSFT(KC_QUOTE) , ___ , ___ ,
                        KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , ___ , ___ ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
@@ -148,9 +144,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NUMPAD] = LAYOUT_ergodox(
                       // Left
                       ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
-                      ___ , ___ , WR_ESCAPEDDOUBLEQUOTE , ___ , WR_CODEFENCE ,  ___ , ___ ,
+                      ___ , ___ , WR_ESCAPEDDOUBLEQUOTE , ___ , ___ ,  ___ , ___ ,
                       ___ , WR_2AND1 , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , WR_CODEFENCE , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
