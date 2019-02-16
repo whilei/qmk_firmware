@@ -47,17 +47,8 @@ enum custom_keycodes {
   VIM_INS_LINE_BELOW,
   VIM_INS_LINE_ABOVE,
 
-  // UB: url browse
-  UB_ETHOXY_MULTIGETH,
-  UB_ETHEREUM_GOETHEREUM,
-  UB_WHILEI_GOETHEREUM1,
-
-  // CD: cd
-  CD_ETHEREUM_GOETHEREUM,
-
   // WR: Write
   WR_GITHUBDOTCOM,
-  WR_HOMEIADOTFILES,
   WR_2AND1,
   WR_CODEFENCE,
   WR_ESCAPEDRETURN,
@@ -77,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        ___ , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
-                       LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
+                       LT(MOTION, KC_DELETE) , LCS(KC_V) , // hold for motion layer is nice for left-handed scrolling
                        LCS(KC_C) , // left control shift
                        SFT_T(KC_SPACE) , KC_BSPACE , MO(MACROTMUXLAYER) ,
 
@@ -91,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , ___ , KC_DOWN ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
-                       LCS(KC_V) ,
+                       ___ ,
                        MO(MACROTMUXLAYER) , LT(QWIM , KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
@@ -100,9 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       // these are pretty dumb
-                       ___ , ___ , ___ , VIM_INS_LINE_ABOVE , VIM_INS_LINE_BELOW , ___ ,
-                       ___ , ___ , VIM_DELETE_LINE , ___ , VIM_VISUAL_BLOCK , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -111,10 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        // Right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       // so are these; anything but the hjll
-                       VIM_BUFFER_START , KC_LCBR , LSFT(KC_W) , KC_W , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        KC_H , KC_J , KC_K , KC_L , KC_0 , KC_DLR ,
-                       VIM_BUFFER_END , KC_RCBR , LSFT(KC_B) , KC_B , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -201,8 +190,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [MACROTMUXLAYER] = LAYOUT_ergodox(
                       // Left
-                      ___ , UB_ETHOXY_MULTIGETH , UB_ETHEREUM_GOETHEREUM , UB_WHILEI_GOETHEREUM1 , ___ , ___ , ___ ,
-                      ___ , ___ , CD_ETHEREUM_GOETHEREUM , WR_HOMEIADOTFILES , ___ , KC_Q , TMUX_COPYMODE ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , KC_Q , TMUX_COPYMODE ,
                       ___ , ___ , ___ , ___ , ___ , WR_GITHUBDOTCOM ,
                       ___ , ___ , ___ , ___ , ___ , ___ , TMUX_PASTE ,
                       ___ , ___ , ___ , ___ , ___ ,
@@ -392,44 +381,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-  case UB_ETHOXY_MULTIGETH:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LCTRL("l")"https://github.com/ethoxy/multi-geth"SS_TAP(X_ENTER));
-    }
-    return false;
-    break;
-
-  case UB_ETHEREUM_GOETHEREUM:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LCTRL("l")"https://github.com/ethereum/go-ethereum"SS_TAP(X_ENTER));
-    }
-    return false;
-    break;
-
-  case UB_WHILEI_GOETHEREUM1:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LCTRL("l")"https://github.com/whilei/go-ethereum-1"SS_TAP(X_ENTER));
-    }
-    return false;
-    break;
-
-  case CD_ETHEREUM_GOETHEREUM:
-    if (record->event.pressed) {
-      SEND_STRING("cd ~/go/src/github.com/ethereum/go-ethereum"SS_TAP(X_ENTER));
-    }
-    return false;
-    break;
-
   case WR_GITHUBDOTCOM:
     if (record->event.pressed) {
-      SEND_STRING("github.com");
-    }
-    return false;
-    break;
-
-  case WR_HOMEIADOTFILES:
-    if (record->event.pressed) {
-      SEND_STRING("/home/ia/.dotfiles/");
+      SEND_STRING("github.com/");
     }
     return false;
     break;
