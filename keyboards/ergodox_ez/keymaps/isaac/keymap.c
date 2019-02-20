@@ -96,9 +96,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        TD(TD_CURLYBRACKET) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER ,
+                       KC_LSPO , CTL_T( KC_Z ) , LT(NUMPAD, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER ,
 
-                       ___ , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
+                       ___  , ___ , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
                        LT(MOTION, KC_DELETE) , LCS(KC_V) , // hold for motion layer is nice for left-handed scrolling
                        LCS(KC_C) , // left control shift
@@ -149,15 +149,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , KC_PERC , KC_QUOTE , KC_LBRACKET, KC_RBRACKET,___ , ___ ,
                        ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_KP_PLUS ,
-                       ___ , KC_BSLASH , KC_CIRC ,  KC_GRAVE , KC_TILD , KC_HASH , ___ ,
+                       ___ , ___ , KC_CIRC ,  KC_GRAVE , KC_TILD , KC_HASH , KC_BSLASH ,
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , KC_EXLM , KC_MINUS , LSFT(KC_QUOTE) , ___ , ___ ,
-                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , ___ , ___ ,
+                       ___ , ___ , KC_EXLM , KC_MINUS , LSFT(KC_QUOTE) , ___ , WR_ESCAPEDDOUBLEQUOTE ,
+                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , ___ , WR_ESCAPEDRETURN ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
                                               ___ , ___ , ___ , ___ , ___ ,
 
@@ -179,8 +179,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
-                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , WR_ESCAPEDDOUBLEQUOTE,
-                      KC_KP_ASTERISK , KC_4 , KC_5 , KC_6 , KC_MINUS , WR_ESCAPEDRETURN ,
+                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
+                      KC_KP_ASTERISK , KC_4 , KC_5 , KC_6 , KC_MINUS , ___ ,
                       ___ , KC_DOT , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
