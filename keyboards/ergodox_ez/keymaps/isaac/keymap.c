@@ -48,8 +48,8 @@ enum custom_keycodes {
   VIM_INS_LINE_ABOVE,
 
   // WR: Write
-  WR_GITHUBDOTCOM,
   WR_2AND1,
+  WR_STDERR,
   WR_CODEFENCE,
   WR_ESCAPEDRETURN,
   WR_ESCAPEDDOUBLEQUOTE,
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
-                       TMUX_LEADER , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
+                       TMUX_PANE_SELECT , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
 
                        KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       // Left
                       ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
                       ___ , ___ , WR_ESCAPEDDOUBLEQUOTE , ___ , ___ ,  ___ , ___ ,
-                      ___ , WR_2AND1 , ___ , ___ , ___ , ___ ,
+                      ___ , WR_2AND1 , ___ , WR_STDERR , ___ , ___ ,
                       ___ , ___ , ___ , WR_CODEFENCE , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
@@ -183,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       // Left
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , KC_Q , TMUX_COPYMODE ,
-                      ___ , ___ , ___ , ___ , ___ , WR_GITHUBDOTCOM ,
+                      ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , TMUX_PASTE ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
@@ -372,16 +372,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-  case WR_GITHUBDOTCOM:
+  case WR_2AND1:
     if (record->event.pressed) {
-      SEND_STRING("github.com/");
+      SEND_STRING("2>&1");
     }
     return false;
     break;
 
-  case WR_2AND1:
+  case WR_STDERR:
     if (record->event.pressed) {
-      SEND_STRING("2>&1");
+      SEND_STRING(">&2");
     }
     return false;
     break;
