@@ -12,10 +12,19 @@
 #define MOTION 4
 #define MACROTMUXLAYER 5 // also known as tmux mode
 #define XPLANE 6
+#define UNICODEL 7
 
 #define ___ KC_TRANSPARENT
 
 #define LCS(code) LCTL(LSFT(code))
+#define CONALT(code) LCTL(LALT(code))
+
+enum {
+      TD_CURLYBRACKET = 0,
+      TD_PAREN,
+      TD_BRACKET,
+      TD_QUOTE_COUNTERINTUITIVE
+};
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -48,22 +57,46 @@ enum custom_keycodes {
   VIM_INS_LINE_ABOVE,
 
   // WR: Write
-  WR_2AND1,
-  WR_STDERR,
+  WR_REDIR_2AND1,
+  WR_REDIR_STDERR,
+  WR_REDIR_STDOUT,
   WR_CODEFENCE,
   WR_ESCAPEDRETURN,
   WR_ESCAPEDDOUBLEQUOTE,
+  WR_DOUBLE_LBRACKET,
+  WR_DOUBLE_RBRACKET,
+
+  // Emoji.. how am I just getting these
+  EMOJI_UHU,
+  EMOJI_FACE2,
+  EMOJI_FACE1,
+  EMOJI_EGGY2,
+  EMOJI_SMILE2,
+  EMOJI_SHRUG,
+  EMOJI_YAY,
+
+  // type long-ish common (top 100 english words)
+  WORD_BECAUSE,
+  WORD_WOULD,
+  WORD_COULD,
+  WORD_SHOULD,
+  WORD_ABOUT
 };
+
+void eeconfig_init_user(void) {
+  set_unicode_input_mode(UC_LNX);
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
-                       TMUX_PANE_SELECT , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
+                       // -0
+                       TD(TD_PAREN) , TD(TD_BRACKET) , KC_KP_ASTERISK , KC_DLR , KC_TILD , KC_EXLM , KC_HASH ,
 
-                       KC_TAB , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
+                       TD(TD_CURLYBRACKET) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , ___ ,
+                       KC_LSPO , CTL_T( KC_Z ) , LT(SYMBOLS, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER ,
 
                        ___ , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
@@ -71,17 +104,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LCS(KC_C) , // left control shift
                        SFT_T(KC_SPACE) , KC_BSPACE , MO(MACROTMUXLAYER) ,
 
-                       ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
+                       KC_BSLASH , KC_COLN , KC_EQUAL , KC_MINUS , KC_UNDS , KC_QUOTE , ___ ,
 
                        // OSM(MOD_LSFT)
-                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE , // note this deviates from normal norman
+                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , TD(TD_QUOTE_COUNTERINTUITIVE) , // LSFT( KC_QUOTE ) , // note this deviates from normal norman
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot and just can't afford to wait 200ms till they kick in
                        KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
 
-                       CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , ___ , KC_DOWN ,
+                          CTL_T(KC_NO) , ALT_T(KC_NO) , LCA(KC_LEFT) , ___ , KC_DOWN ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
-                       ___ ,
+                       MO(UNICODEL) ,
                        MO(MACROTMUXLAYER) , LT(QWIM , KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
@@ -89,9 +122,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [QWIM] = LAYOUT_ergodox(
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , WORD_WOULD , ___ , ___ , ___ , ___ ,
+                       ___ , WORD_ABOUT , WORD_SHOULD , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , WORD_COULD , ___ , WORD_BECAUSE , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -133,14 +166,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___
                        ),
 
-  //
-
   // Numpad
   [NUMPAD] = LAYOUT_ergodox(
                       // Left
                       ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
-                      ___ , ___ , WR_ESCAPEDDOUBLEQUOTE , ___ , ___ ,  ___ , ___ ,
-                      ___ , WR_2AND1 , ___ , WR_STDERR , ___ , ___ ,
+                      ___ , ___ , ___ , WR_DOUBLE_LBRACKET , WR_DOUBLE_RBRACKET ,  ___ , ___ ,
+                      ___ , WR_REDIR_2AND1 , WR_REDIR_STDOUT , WR_REDIR_STDERR , ___ , ___ ,
                       ___ , ___ , ___ , WR_CODEFENCE , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
@@ -148,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
-                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
+                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , WR_ESCAPEDDOUBLEQUOTE,
                       KC_KP_ASTERISK , KC_4 , KC_5 , KC_6 , KC_MINUS , WR_ESCAPEDRETURN ,
                       ___ , KC_DOT , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
                       ___ , ___ , ___ , ___ , ___ ,
@@ -163,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ , ___ , ___ , LGUI(KC_H) , LGUI(KC_L) ,
                        ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , LCTL(KC_TAB) ,
                        ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , LCS(KC_TAB) , // LGUI(KC_H) ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , LCS(KC_TAB) ,
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
@@ -220,7 +251,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ ,
                       ___ ,
                       ___ , ___ , ___
-                      )
+                            ),
+
+  [UNICODEL] = LAYOUT_ergodox(
+                            // Left
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , EMOJI_YAY , EMOJI_SHRUG ,
+                            ___ , EMOJI_SMILE2 , EMOJI_EGGY2 , EMOJI_FACE1 , EMOJI_FACE2 , EMOJI_UHU , ___ ,
+                            ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ ,
+                            ___ ,
+                            ___ , ___ , ___ ,
+                            // right
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ ,
+                            ___ ,
+                            ___ , ___ , ___
+                            )
 
 /*   [EMPTY] = LAYOUT_ergodox( */
 /*                             // Left */
@@ -372,23 +424,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-  case WR_2AND1:
+  case WR_REDIR_2AND1:
     if (record->event.pressed) {
       SEND_STRING("2>&1");
     }
     return false;
     break;
 
-  case WR_STDERR:
+  case WR_REDIR_STDERR:
     if (record->event.pressed) {
-      SEND_STRING(">&2");
+      SEND_STRING("2>");
+    }
+    return false;
+    break;
+
+  case WR_REDIR_STDOUT:
+    if (record->event.pressed) {
+      SEND_STRING("1>");
+    }
+    return false;
+    break;
+
+  case WR_DOUBLE_LBRACKET:
+    if (record->event.pressed) {
+      SEND_STRING("[[");
+    }
+    return false;
+    break;
+
+  case WR_DOUBLE_RBRACKET:
+    if (record->event.pressed) {
+      SEND_STRING("]]");
     }
     return false;
     break;
 
   case WR_CODEFENCE:
     if (record->event.pressed) {
-      SEND_STRING("```");
+      SEND_STRING("```"SS_TAP(X_ENTER));
     }
     return false;
     break;
@@ -449,10 +522,103 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
+  case WORD_BECAUSE:
+    if (record->event.pressed) {
+      SEND_STRING("because ");
+    }
+    return false;
+    break;
+
+  case WORD_WOULD:
+    if (record->event.pressed) {
+      SEND_STRING("would ");
+    }
+    return false;
+    break;
+
+  case WORD_SHOULD:
+    if (record->event.pressed) {
+      SEND_STRING("should ");
+    }
+    return false;
+    break;
+
+  case WORD_COULD:
+    if (record->event.pressed) {
+      SEND_STRING("could ");
+    }
+    return false;
+    break;
+
+  case WORD_ABOUT:
+    if (record->event.pressed) {
+      SEND_STRING("about ");
+    }
+    return false;
+    break;
+
+#ifdef UNICODE_ENABLE
+  case EMOJI_UHU:
+    if (record->event.pressed) {
+      send_unicode_hex_string("2299 FE4F 2299");
+    }
+    return false;
+    break;
+
+  case EMOJI_FACE2:
+    if (record->event.pressed) {
+      send_unicode_hex_string("0028 2022 005F 2022 0029");
+    }
+    return false;
+    break;
+
+  case EMOJI_FACE1:
+    if (record->event.pressed) {
+      send_unicode_hex_string("0028 002D 005F 002D 0029");
+    }
+    return false;
+    break;
+
+  case EMOJI_EGGY2:
+    if (record->event.pressed) {
+      send_unicode_hex_string("30CE 0028 0020 309C 002D 309C 30CE 0029");
+    }
+    return false;
+    break;
+
+  case EMOJI_SMILE2:
+    if (record->event.pressed) {
+      send_unicode_hex_string("0028 0298 203F 0298 0029");
+    }
+    return false;
+    break;
+
+  case EMOJI_SHRUG: // // ¯\_(ツ)_/¯
+    if (record->event.pressed) {
+      send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
+    }
+    return false;
+    break;
+#endif
+
+  case EMOJI_YAY:
+    if (record->event.pressed) {
+      SEND_STRING ("\\o/");
+    }
+    return false;
+    break;
+
   }
 
   return true;
 }
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_CURLYBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
+    [TD_PAREN] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
+    [TD_BRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
+    [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE)
+};
 
 uint32_t layer_state_set_user(uint32_t state) {
 
