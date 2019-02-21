@@ -122,9 +122,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [QWIM] = LAYOUT_ergodox(
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , WORD_WOULD , ___ , ___ , ___ , ___ ,
-                       ___ , WORD_ABOUT , WORD_SHOULD , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , WORD_COULD , ___ , WORD_BECAUSE , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_PERC , KC_QUOTE , KC_LBRACKET, KC_RBRACKET,___ , ___ ,
+                       ___ , KC_PERC , LSFT(KC_QUOTE) , KC_LBRACKET, KC_RBRACKET,___ , ___ ,
                        ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_KP_PLUS ,
                        ___ , ___ , KC_CIRC ,  KC_GRAVE , KC_TILD , KC_HASH , KC_BSLASH ,
                        ___ , ___ , ___ , ___ , ___ ,
@@ -156,8 +156,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , KC_EXLM , KC_MINUS , LSFT(KC_QUOTE) , ___ , WR_ESCAPEDDOUBLEQUOTE ,
-                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , ___ , WR_ESCAPEDRETURN ,
+                       ___ , ___ , KC_EXLM , KC_MINUS , KC_QUOTE , ___ , WR_ESCAPEDDOUBLEQUOTE ,
+                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
                                               ___ , ___ , ___ , ___ , ___ ,
 
