@@ -190,25 +190,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Mouse and motion
   [MOTION] = LAYOUT_ergodox(
-                       // left
-                       ___ , ___ , ___ , ___ , ___ , LGUI(KC_H) , LGUI(KC_L) ,
-                       ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , LCTL(KC_TAB) ,
-                       ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , LCS(KC_TAB) ,
-                       ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ ,
-                       ___ ,
-                       KC_MS_BTN1 , KC_MS_BTN2 , ___ ,
-                       // right
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
-                       ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ ,
-                       ___ ,
-                       ___ , ___ , ___
-                       ),
+                      // left
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , LCTL(KC_TAB) ,
+                      ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
+                      ___ , ___ , ___ , ___ ,  ___ , ___ , LCS(KC_TAB) ,
+                      ___ , ___ , ___ , ___, ___,
+                      ___ , ___ ,
+                      ___ ,
+                      KC_MS_BTN1 , KC_MS_BTN2 , ___ ,
+                      // right
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
+                      ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ ,
+                      ___ ,
+                      ___ , ___ , ___
+                      ),
 
   [MACROTMUXLAYER] = LAYOUT_ergodox(
                       // Left
