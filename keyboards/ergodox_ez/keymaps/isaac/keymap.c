@@ -80,7 +80,8 @@ enum custom_keycodes {
   WORD_WOULD,
   WORD_COULD,
   WORD_SHOULD,
-  WORD_ABOUT
+  WORD_ABOUT,
+  WORD_P2P
 };
 
 void eeconfig_init_user(void) {
@@ -100,9 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        ___  , ___ , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
-                       LT(MOTION, KC_DELETE) , LCS(KC_V) , // hold for motion layer is nice for left-handed scrolling
-                       LCS(KC_C) , // left control shift
-                       SFT_T(KC_SPACE) , KC_BSPACE , MO(MACROTMUXLAYER) ,
+                       LT(MOTION, KC_DELETE) , MO(MACROTMUXLAYER) , // hold for motion layer is nice for left-handed scrolling
+                       LCS(KC_V) , // left control shift
+                       SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) ,
 
                        KC_BSLASH , KC_COLN , KC_EQUAL , KC_MINUS , KC_UNDS , KC_QUOTE , ___ ,
 
@@ -135,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        KC_H , KC_J , KC_K , KC_L , KC_0 , KC_DLR ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , WORD_P2P , ___ , ___ , ___ , ___ , ___ , //p2p
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -179,9 +180,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
-                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
-                      KC_KP_ASTERISK , KC_4 , KC_5 , KC_6 , KC_MINUS , ___ ,
-                      ___ , KC_DOT , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
+                      ___ , KC_KP_ASTERISK , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
+                      KC_KP_PLUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
+                      ___ , KC_MINUS , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -213,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MACROTMUXLAYER] = LAYOUT_ergodox(
                       // Left
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , KC_Q , TMUX_COPYMODE ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , TMUX_COPYMODE ,
                       ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , TMUX_PASTE ,
                       ___ , ___ , ___ , ___ , ___ ,
@@ -461,7 +462,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case WR_CODEFENCE:
     if (record->event.pressed) {
-      SEND_STRING("```"SS_TAP(X_ENTER));
+      SEND_STRING("```");
     }
     return false;
     break;
@@ -506,7 +507,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING("dd");
     }
     return false;
-    break;
+    break; 
 
   case VIM_INS_LINE_BELOW:
     if (record->event.pressed) {
@@ -518,6 +519,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case VIM_INS_LINE_ABOVE:
     if (record->event.pressed) {
       SEND_STRING("ko"SS_TAP( X_ESCAPE )"j");
+    }
+    return false;
+    break;
+
+  case WORD_P2P:
+    if (record->event.pressed) {
+      SEND_STRING("p2p");
     }
     return false;
     break;
