@@ -23,7 +23,8 @@ enum {
       TD_CURLYBRACKET = 0,
       TD_PAREN,
       TD_BRACKET,
-      TD_QUOTE_COUNTERINTUITIVE
+      TD_QUOTE_COUNTERINTUITIVE,
+      TD_HYPHEN_EQUALS
 };
 
 enum custom_keycodes {
@@ -63,6 +64,7 @@ enum custom_keycodes {
   WR_CODEFENCE,
   WR_ESCAPEDRETURN,
   WR_ESCAPEDDOUBLEQUOTE,
+  WR_ESCAPEDSINGLEQUOTE,
   WR_DOUBLE_LBRACKET,
   WR_DOUBLE_RBRACKET,
 
@@ -98,11 +100,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // -0
-                       TD(TD_PAREN) , TD(TD_BRACKET) , KC_KP_ASTERISK , KC_DLR , KC_TILD , KC_EXLM , KC_HASH ,
+                       KC_LOCK , ___ , KC_KP_ASTERISK , KC_DLR , KC_TILD , ___ , ___ ,
 
-                       TD(TD_CURLYBRACKET) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
+                       KC_QUOTE , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSPO , CTL_T( KC_Z ) , LT(NUMPAD, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER ,
+                       KC_LSHIFT , CTL_T( KC_Z ) , LT(NUMPAD, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER ,
 
                        ___  , ___ , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
@@ -110,14 +112,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LCS(KC_V) , // left control shift
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) ,
 
-                       KC_BSLASH , KC_COLN , KC_EQUAL , KC_MINUS , KC_UNDS , KC_QUOTE , ___ ,
+                       ___ , ___ , ___ , TD(TD_HYPHEN_EQUALS) , KC_UNDS , ___ , ___ ,
 
                        // OSM(MOD_LSFT)
-                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , TD(TD_QUOTE_COUNTERINTUITIVE) , // LSFT( KC_QUOTE ) , // note this deviates from normal norman
+                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , LSFT(KC_QUOTE) , // TD(TD_QUOTE_COUNTERINTUITIVE) , // LSFT( KC_QUOTE ) , // note this deviates from normal norman
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot and just can't afford to wait 200ms till they kick in
-                       KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSPC ,
+                       KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSHIFT ,
 
-                          CTL_T(KC_NO) , ALT_T(KC_NO) , LCA(KC_LEFT) , ___ , KC_DOWN ,
+                          CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , ___ , KC_DOWN ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        MO(UNICODEL) ,
@@ -128,11 +130,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [QWIM] = LAYOUT_ergodox(
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , SPACEMACS_WINDOW_UP , ___ , ___ , ___ ,
-                       ___ , ___ , SPACEMACS_WINDOW_LEFT , SPACEMACS_WINDOW_DOWN , SPACEMACS_WINDOW_RIGHT , ___ ,
+
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
+
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___ ,
@@ -153,16 +157,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , KC_PERC , LSFT(KC_QUOTE) , KC_LBRACKET, KC_RBRACKET,___ , ___ ,
+                       WR_ESCAPEDSINGLEQUOTE , KC_PERC , KC_QUOTE , KC_LBRACKET, KC_RBRACKET , KC_GRAVE , ___ ,
                        ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_KP_PLUS ,
-                       ___ , ___ , KC_CIRC ,  KC_GRAVE , KC_TILD , KC_HASH , KC_BSLASH ,
+                       ___ , KC_TILD , KC_CIRC ,  KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_HASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___ ,
                        // right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , KC_EXLM , KC_MINUS , KC_QUOTE , ___ , WR_ESCAPEDDOUBLEQUOTE ,
+                       ___ , KC_BSLASH , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , ___ , WR_ESCAPEDDOUBLEQUOTE ,
                        KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
                                               ___ , ___ , ___ , ___ , ___ ,
@@ -176,9 +180,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NUMPAD] = LAYOUT_ergodox(
                       // Left
                       ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
-                      ___ , ___ , ___ , WR_DOUBLE_LBRACKET , WR_DOUBLE_RBRACKET ,  ___ , ___ ,
+                      ___ , ___ , ___ , WR_DOUBLE_LBRACKET , WR_DOUBLE_RBRACKET , WR_CODEFENCE , ___ ,
                       ___ , WR_REDIR_2AND1 , WR_REDIR_STDOUT , WR_REDIR_STDERR , ___ , ___ ,
-                      ___ , ___ , ___ , WR_CODEFENCE , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -486,6 +490,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
+  case WR_ESCAPEDSINGLEQUOTE:
+    if (record->event.pressed) {
+      SEND_STRING("\\\'");
+    }
+    return false;
+    break;
+
   case VIM_BUFFER_START:
     if (record->event.pressed) {
       SEND_STRING("gg");
@@ -658,7 +669,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_CURLYBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
     [TD_PAREN] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
     [TD_BRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
-    [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE)
+    [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE),
+    [TD_HYPHEN_EQUALS] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL)
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
