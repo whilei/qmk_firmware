@@ -81,7 +81,12 @@ enum custom_keycodes {
   WORD_COULD,
   WORD_SHOULD,
   WORD_ABOUT,
-  WORD_P2P
+  WORD_P2P,
+
+  SPACEMACS_WINDOW_LEFT,
+  SPACEMACS_WINDOW_RIGHT,
+  SPACEMACS_WINDOW_UP,
+  SPACEMACS_WINDOW_DOWN
 };
 
 void eeconfig_init_user(void) {
@@ -123,8 +128,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [QWIM] = LAYOUT_ergodox(
                        // Left
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , SPACEMACS_WINDOW_UP , ___ , ___ , ___ ,
+                       ___ , ___ , SPACEMACS_WINDOW_LEFT , SPACEMACS_WINDOW_DOWN , SPACEMACS_WINDOW_RIGHT , ___ ,
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
@@ -180,9 +185,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
-                      ___ , KC_KP_ASTERISK , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
-                      KC_KP_PLUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
-                      ___ , KC_MINUS , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
+                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
+                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
+                      ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -561,6 +566,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WORD_ABOUT:
     if (record->event.pressed) {
       SEND_STRING("about ");
+    }
+    return false;
+    break;
+
+  case SPACEMACS_WINDOW_LEFT:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP(X_ESCAPE)SS_TAP(X_SPACE)"wl");
+    }
+    return false;
+    break;
+
+  case SPACEMACS_WINDOW_RIGHT:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP(X_ESCAPE)SS_TAP(X_SPACE)"wh");
+    }
+    return false;
+    break;
+
+  case SPACEMACS_WINDOW_UP:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP(X_ESCAPE)SS_TAP(X_SPACE)"wk");
+    }
+    return false;
+    break;
+
+  case SPACEMACS_WINDOW_DOWN:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP(X_ESCAPE)SS_TAP(X_SPACE)"wj");
     }
     return false;
     break;
