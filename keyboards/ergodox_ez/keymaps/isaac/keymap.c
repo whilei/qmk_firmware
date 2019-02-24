@@ -107,7 +107,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
-                       // -0
                         ___ , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_DLR , KC_LCBR, KC_RCBR, ___ ,
 
                        KC_QUOTE , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
@@ -117,18 +116,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_LOCK  , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
                        LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
-                       LCS(KC_V) , // left control shift
-                       SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) ,
+                       LCS(KC_V) , // left control shift, paste to tmux/shell
+                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) , // copy from tmux/shell
 
                        // TD(TD_HYPHEN_EQUALS)
                           ___ , KC_TILD , KC_KP_ASTERISK , KC_MINUS , KC_UNDS , ___ , ___ ,
 
                        // OSM(MOD_LSFT)
-                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , LSFT(KC_QUOTE) , // TD(TD_QUOTE_COUNTERINTUITIVE) , // LSFT( KC_QUOTE ) , // note this deviates from normal norman
+                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , LSFT(KC_QUOTE) ,
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot and just can't afford to wait 200ms till they kick in
                        KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSHIFT ,
 
-                          CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , ___ , ___ ,
+                          CTL_T(KC_NO) , ALT_T(KC_NO) , KC_UP , ___ , ___ ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        MO(UNICODEL) ,
@@ -138,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
   [QWIMAMU] = LAYOUT_ergodox(
                        // Left
-                       DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_MACRO_PLAY2 , ___ , ___ , ___ , ___ ,
+                             DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_MACRO_PLAY2 , ___ , ___ , ___ , TG(XPLANE) ,
 
                        DYN_REC_START2 , ___ , ___ , ___ , ___ , ___ , TMUX_PSPLITV ,
                        DYN_REC_STOP , ___ , ___ , ___ , ___ , ___ ,
@@ -154,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ , ___ , ___ , ___ , DOEXIT ,
                        TMUX_WCREATE , ___ , ___ , ___ , ___ , ___ , ___ ,
                        KC_H , KC_J , KC_K , KC_L , KC_0 , KC_DLR ,
-                       TMUX_WN , ___ , ___ , ___ , ___ , ___ , ___ , //p2p
+                       TMUX_WN , ___ , ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -188,8 +187,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Numpad
   [NUMPAD] = LAYOUT_ergodox(
                       // Left
-                      /* ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 , */
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
+                      /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
                       ___ , ___ , ___ , WR_DOUBLE_LBRACKET , WR_DOUBLE_RBRACKET , WR_CODEFENCE , ___ ,
                       ___ , WR_REDIR_2AND1 , WR_REDIR_STDOUT , WR_REDIR_STDERR , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , WR_SHEBANGS_BASH , ___ ,
@@ -198,8 +197,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ ,
                       ___ , ___ , ___ ,
                       // right
-                      /* KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ , */
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
+                      /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
                       ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
@@ -237,12 +236,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      EPRM , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
                       ___ , ___ , ___ ,
                       // right
-                      ___ , ___ , ___ , ___ , ___ , ___ , TG(XPLANE) ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
