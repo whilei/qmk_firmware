@@ -6,11 +6,11 @@
 #include "keymap_nordic.h"
 
 #define BASE 0 // Norman layout
-#define QWIM 1 // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
+#define QWIMAMU 1 // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
 #define SYMBOLS 2
 #define NUMPAD 3
 #define MOTION 4
-#define MACROTMUXLAYER 5 // also known as tmux mode
+#define MACROLAYER 5 // also known as tmux mode
 #define XPLANE 6
 #define UNICODEL 7
 
@@ -31,6 +31,8 @@ enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
   RGB_SLD,
+
+  // Mine/
 
   DOEXIT, // type 'exit' and tap enter
 
@@ -89,8 +91,13 @@ enum custom_keycodes {
   SPACEMACS_WINDOW_LEFT,
   SPACEMACS_WINDOW_RIGHT,
   SPACEMACS_WINDOW_UP,
-  SPACEMACS_WINDOW_DOWN
+  SPACEMACS_WINDOW_DOWN,
+
+  LOCK_SHIFT,
+
+  DYNAMIC_MACRO_RANGE
 };
+#include "dynamic_macro.h"
 
 void eeconfig_init_user(void) {
   set_unicode_input_mode(UC_LNX);
@@ -101,20 +108,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // -0
-                          TMUX_COPYMODE , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_DLR , KC_TILD , KC_KP_ASTERISK , ___ ,
+                        ___ , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_DLR , KC_LCBR, KC_RCBR, ___ ,
 
                        KC_QUOTE , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSHIFT , LT( QWIM, KC_Z ) , LT(NUMPAD, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER ,
+                       KC_LSHIFT , LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) , CTL_T( KC_C ) , KC_V , KC_B , TMUX_LEADER ,
 
                        KC_LOCK  , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
-                       LT(MOTION, KC_DELETE) , MO(MACROTMUXLAYER) , // hold for motion layer is nice for left-handed scrolling
+                       LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
                        LCS(KC_V) , // left control shift
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) ,
 
                        // TD(TD_HYPHEN_EQUALS)
-                       ___ , ___ , KC_EQUAL , KC_MINUS , KC_UNDS , KC_LCBR , KC_RCBR ,
+                          ___ , KC_TILD , KC_KP_ASTERISK , KC_MINUS , KC_UNDS , ___ , ___ ,
 
                        // OSM(MOD_LSFT)
                        ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , LSFT(KC_QUOTE) , // TD(TD_QUOTE_COUNTERINTUITIVE) , // LSFT( KC_QUOTE ) , // note this deviates from normal norman
@@ -125,17 +132,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        MO(UNICODEL) ,
-                       MO(MACROTMUXLAYER) , LT(QWIM , KC_TAB) , LT(NUMPAD, KC_ENTER)
+                       ___ , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
-  // QWIM
-  [QWIM] = LAYOUT_ergodox(
+  // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
+  [QWIMAMU] = LAYOUT_ergodox(
                        // Left
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_MACRO_PLAY2 , ___ , ___ , ___ , ___ ,
 
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , ___ ,
+                       DYN_REC_START2 , ___ , ___ , ___ , ___ , ___ , TMUX_PSPLITV ,
+                       DYN_REC_STOP , ___ , ___ , ___ , ___ , ___ ,
+                       TMUX_PSPLITH , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , TMUX_WP ,
 
                        ___ , ___ , ___ , ___ , ___ ,
 
@@ -144,10 +151,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ ,
 
                        // Right
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , TMUX_WP , ___ , ___ , TMUX_WN , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , DOEXIT ,
+                       TMUX_WCREATE , ___ , ___ , ___ , ___ , ___ , ___ ,
                        KC_H , KC_J , KC_K , KC_L , KC_0 , KC_DLR ,
-                       ___ , WORD_P2P , ___ , ___ , ___ , ___ , ___ , //p2p
+                       TMUX_WN , ___ , ___ , ___ , ___ , ___ , ___ , //p2p
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -224,24 +231,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___
                       ),
 
-  [MACROTMUXLAYER] = LAYOUT_ergodox(
+  [MACROLAYER] = LAYOUT_ergodox(
                       // Left
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , TMUX_COPYMODE ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , TMUX_PASTE ,
-                      ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      EPRM , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
                       ___ , ___ , ___ ,
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , TG(XPLANE) ,
-                      TMUX_PSPLITV , ___ , ___ , ___ , ___ , ___ , TMUX_PSPLITH ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ ,
-                      TMUX_PFS , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      TMUX_WCREATE , ___ , ___ , TMUX_WKILL , DOEXIT ,
-                      TMUX_WP , TMUX_WN ,
-                      TMUX_PLAST ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ ,
+                      ___ ,
                       ___ , ___ , ___
                       ),
 
@@ -330,6 +337,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (!process_record_dynamic_macro(keycode, record)) {
+    return false;
+  }
   switch (keycode) {
     // dynamically generate these.
     case EPRM:
@@ -619,6 +629,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+
+  /* case LOCK_SHIFT: */
+  /*   if (record->event.pressed) { */
+  /*     tap_code(KC_LOCK); */
+  /*     tap_code(KC_LSHIFT); */
+  /*   } */
+  /*   return false; */
+  /*   break; */
 
 #ifdef UNICODE_ENABLE
   case EMOJI_UHU:
