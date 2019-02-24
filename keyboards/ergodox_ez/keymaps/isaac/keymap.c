@@ -67,6 +67,7 @@ enum custom_keycodes {
   WR_ESCAPEDSINGLEQUOTE,
   WR_DOUBLE_LBRACKET,
   WR_DOUBLE_RBRACKET,
+  WR_SHEBANGS_BASH,
 
   // Emoji.. how am I just getting these
   EMOJI_UHU,
@@ -100,26 +101,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // -0
-                       KC_LOCK , ___ , KC_KP_ASTERISK , KC_DLR , KC_TILD , ___ , ___ ,
+                          TMUX_COPYMODE , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_DLR , KC_TILD , KC_KP_ASTERISK , ___ ,
 
                        KC_QUOTE , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSHIFT , CTL_T( KC_Z ) , LT(NUMPAD, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER ,
+                       KC_LSHIFT , LT( QWIM, KC_Z ) , LT(NUMPAD, KC_X) , KC_C , KC_V , KC_B , TMUX_LEADER ,
 
-                       ___  , ___ , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
+                       KC_LOCK  , CTL_T(KC_NO) , SCMD_T(KC_NO) , ALT_T(KC_NO) , KC_LGUI ,
 
                        LT(MOTION, KC_DELETE) , MO(MACROTMUXLAYER) , // hold for motion layer is nice for left-handed scrolling
                        LCS(KC_V) , // left control shift
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) ,
 
-                       ___ , ___ , ___ , TD(TD_HYPHEN_EQUALS) , KC_UNDS , ___ , ___ ,
+                       // TD(TD_HYPHEN_EQUALS)
+                       ___ , ___ , KC_EQUAL , KC_MINUS , KC_UNDS , KC_LCBR , KC_RCBR ,
 
                        // OSM(MOD_LSFT)
                        ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , LSFT(KC_QUOTE) , // TD(TD_QUOTE_COUNTERINTUITIVE) , // LSFT( KC_QUOTE ) , // note this deviates from normal norman
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot and just can't afford to wait 200ms till they kick in
                        KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSHIFT ,
 
-                          CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , ___ , KC_DOWN ,
+                          CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , ___ , ___ ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        MO(UNICODEL) ,
@@ -133,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , ___ ,
 
                        ___ , ___ , ___ , ___ , ___ ,
 
@@ -143,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        // Right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , TMUX_WP , ___ , ___ , TMUX_WN , ___ , ___ ,
                        KC_H , KC_J , KC_K , KC_L , KC_0 , KC_DLR ,
                        ___ , WORD_P2P , ___ , ___ , ___ , ___ , ___ , //p2p
 
@@ -179,16 +181,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Numpad
   [NUMPAD] = LAYOUT_ergodox(
                       // Left
-                      ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
+                      /* ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 , */
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , WR_DOUBLE_LBRACKET , WR_DOUBLE_RBRACKET , WR_CODEFENCE , ___ ,
                       ___ , WR_REDIR_2AND1 , WR_REDIR_STDOUT , WR_REDIR_STDERR , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , WR_SHEBANGS_BASH , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
                       ___ , ___ , ___ ,
                       // right
-                      KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
+                      /* KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ , */
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
@@ -493,6 +497,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_ESCAPEDSINGLEQUOTE:
     if (record->event.pressed) {
       SEND_STRING("\\\'");
+    }
+    return false;
+    break;
+
+  case WR_SHEBANGS_BASH: 
+    if (record->event.pressed) {
+      SEND_STRING("#!/usr/bin/env bash");
     }
     return false;
     break;
