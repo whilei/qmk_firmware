@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
   [QWIMAMU] = LAYOUT_ergodox(
                        // Left
-                             DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_MACRO_PLAY2 , ___ , ___ , ___ , TG(XPLANE) ,
+                             DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_MACRO_PLAY2 , ___ , ___ , ___ , ___ ,
 
                        DYN_REC_START2 , ___ , ___ , ___ , ___ , ___ , TMUX_PSPLITV ,
                        DYN_REC_STOP , ___ , ___ , ___ , ___ , ___ ,
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ ,
 
                        // Right
-                       ___ , ___ , ___ , ___ , ___ , ___ , DOEXIT ,
+                       TG(XPLANE) , ___ , ___ , ___ , ___ , ___ , DOEXIT ,
                        TMUX_WCREATE , ___ , ___ , ___ , ___ , ___ , ___ ,
                        KC_H , KC_J , KC_K , KC_L , KC_0 , KC_DLR ,
                        TMUX_WN , ___ , ___ , ___ , ___ , ___ , ___ ,
