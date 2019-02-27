@@ -6,10 +6,11 @@
 #include "keymap_nordic.h"
 
 #define BASE 0 // Norman layout
-#define QWIMAMU 1 // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
+/* #define TOPROWNUM 1 */
+#define NUMPAD 1
 #define SYMBOLS 2
-#define NUMPAD 3
-#define MOTION 4
+#define MOTION 3
+#define QWIMAMU 4 // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
 #define MACROLAYER 5 // also known as tmux mode
 #define XPLANE 6
 #define UNICODEL 7
@@ -107,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
-                        ___ , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_DLR , KC_LCBR, KC_RCBR, ___ ,
+                      TG(NUMPAD) , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_DLR , KC_LCBR, KC_RCBR, ___ ,
 
                        KC_QUOTE , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
@@ -119,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LCS(KC_V) , // left control shift, paste to tmux/shell
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) , // copy from tmux/shell
 
-                          ___ , KC_TILD , KC_KP_ASTERISK , KC_MINUS , KC_UNDS , ___ , ___ ,
+                        ___ , ___ , ___ , KC_MINUS , KC_UNDS , ___ , TG(NUMPAD) ,
 
                        // OSM(MOD_LSFT)
                        ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , LSFT(KC_QUOTE) ,
@@ -133,12 +134,101 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
+  /* [TOPROWNUM] = LAYOUT_ergodox( */
+  /*                           // Left */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , */
+  /*                           ___ , */
+  /*                           ___ , ___ , ___ , */
+  /*                           // right */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , ___ , ___ , ___ , */
+  /*                           ___ , ___ , */
+  /*                           ___ , */
+  /*                           ___ , ___ , ___ */
+  /*                              ), */
+
+  // Numpad
+  [NUMPAD] = LAYOUT_ergodox(
+                      // Left
+                      ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ ,
+                      ___ ,
+                      ___ , ___ , ___ ,
+                      // right
+                      ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
+                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
+                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
+                      ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
+                      KC_PIPE , KC_LABK , KC_RABK , KC_AMPR ,  ___ ,
+                      ___ , ___ ,
+                      ___ ,
+                      ___ , ___ , ___
+                      ),
+
+  // Symbols
+  [SYMBOLS] = LAYOUT_ergodox(
+                       // Left
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       WR_ESCAPEDSINGLEQUOTE , KC_CIRC , KC_QUOTE , KC_LBRACKET, KC_RBRACKET , KC_PERC , ___ ,
+                       ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_KP_PLUS ,
+                       ___ , KC_TILD , KC_GRAVE ,  KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_HASH , ___ ,
+                       ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ ,
+                       ___ ,
+                       ___ , ___ , ___ ,
+                       // right
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , ___ , WR_ESCAPEDDOUBLEQUOTE ,
+                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
+                       ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
+                                              ___ , ___ , ___ , ___ , ___ ,
+
+                       ___ , ___ ,
+                       ___ ,
+                       ___ , ___ , ___
+                       ),
+
+
+  // Mouse and motion
+  [MOTION] = LAYOUT_ergodox(
+                      // left
+                      ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
+                      ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , LCTL(KC_TAB) ,
+                      ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
+                      ___ , ___ , ___ , ___ ,  ___ , ___ , LCS(KC_TAB) ,
+                      ___ , ___ , ___ , ___, ___,
+                      ___ , KC_MS_BTN3 ,
+                      KC_MS_BTN4 ,
+                      KC_MS_BTN1 , KC_MS_BTN2 , KC_MS_BTN5 ,
+                      // right
+                      KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
+                      ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ ,
+                      ___ ,
+                      ___ , ___ , ___
+                      ),
+
   // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
   [QWIMAMU] = LAYOUT_ergodox(
                        // Left
-                       DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_MACRO_PLAY2 , ___ , ___ , ___ , ___ ,
+                       DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_MACRO_PLAY2 , ___ , ___ , ___ , WR_SHEBANGS_BASH ,
 
-                       DYN_REC_START2 , ___ , ___ , ___ , ___ , ___ , TMUX_PSPLITV ,
+                       DYN_REC_START2 , WR_CODEFENCE , ___ , ___ , ___ , ___ , TMUX_PSPLITV ,
                        DYN_REC_STOP , ___ , ___ , ___ , ___ , ___ ,
                        TMUX_PSPLITH , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , TMUX_WP ,
 
@@ -161,72 +251,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___
                              ),
 
-  // Symbols
-  [SYMBOLS] = LAYOUT_ergodox(
-                       // Left
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       WR_ESCAPEDSINGLEQUOTE , KC_GRAVE , KC_QUOTE , KC_LBRACKET, KC_RBRACKET , KC_PERC , ___ ,
-                       ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_KP_PLUS ,
-                       ___ , KC_TILD , KC_CIRC ,  KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_HASH , KC_BSLASH ,
-                       ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ ,
-                       ___ ,
-                       ___ , ___ , ___ ,
-                       // right
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , ___ , WR_ESCAPEDDOUBLEQUOTE ,
-                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
-                       ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
-                                              ___ , ___ , ___ , ___ , ___ ,
-
-                       ___ , ___ ,
-                       ___ ,
-                       ___ , ___ , ___
-                       ),
-
-  // Numpad
-  [NUMPAD] = LAYOUT_ergodox(
-                      // Left
-                      ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
-                      ___ , WR_CODEFENCE , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ ,
-                      ___ ,
-                      ___ , ___ , ___ ,
-                      // right
-                      KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , WR_SHEBANGS_BASH,
-                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
-                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
-                      ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
-                      KC_PIPE , KC_LABK , KC_RABK , KC_AMPR ,  ___ ,
-                      ___ , ___ ,
-                      ___ ,
-                      ___ , ___ , ___
-                      ),
-
-  // Mouse and motion
-  [MOTION] = LAYOUT_ergodox(
-                      // left
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , LCTL(KC_TAB) ,
-                      ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
-                      ___ , ___ , ___ , ___ ,  ___ , ___ , LCS(KC_TAB) ,
-                      ___ , ___ , ___ , ___, ___,
-                      ___ , KC_MS_BTN3 ,
-                      KC_MS_BTN4 ,
-                      KC_MS_BTN1 , KC_MS_BTN2 , KC_MS_BTN5 ,
-                      // right
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
-                      ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ ,
-                      ___ ,
-                      ___ , ___ , ___
-                      ),
 
   [MACROLAYER] = LAYOUT_ergodox(
                       // Left

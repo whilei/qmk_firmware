@@ -9,7 +9,7 @@ echo "What next?"
 select yn in "Teensy" "Quit"; do
 	case $yn in
 		Teensy ) sudo ./bin/teensy ;;
-		Quit ) xset r rate 170 50; exit;;
+		Quit ) xset r rate 192 50; exit;;
 	esac
 done
 
