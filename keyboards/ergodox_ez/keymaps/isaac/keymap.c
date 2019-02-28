@@ -6,14 +6,14 @@
 #include "keymap_nordic.h"
 
 #define BASE 0 // Norman layout
-/* #define TOPROWNUM 1 */
-#define NUMPAD 1
-#define SYMBOLS 2
-#define MOTION 3
-#define QWIMAMU 4 // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
-#define MACROLAYER 5 // also known as tmux mode
-#define XPLANE 6
-#define UNICODEL 7
+#define TOPROWNUM 1
+#define NUMPAD 2
+#define SYMBOLS 3
+#define MOTION 4
+#define QWIMAMU 5 // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
+#define MACROLAYER 6 // also known as tmux mode
+#define XPLANE 7
+#define UNICODEL 8
 
 #define ___ KC_TRANSPARENT
 
@@ -25,7 +25,8 @@ enum {
       TD_PAREN,
       TD_BRACKET,
       TD_QUOTE_COUNTERINTUITIVE,
-      TD_HYPHEN_EQUALS
+      TD_HYPHEN_EQUALS,
+      TD_HELPFLAG
 };
 
 enum custom_keycodes {
@@ -72,6 +73,9 @@ enum custom_keycodes {
   WR_DOUBLE_RBRACKET,
   WR_SHEBANGS_BASH,
 
+  WR_FLAGHELP,
+  WR_FLAGHELPLESS,
+
   // Emoji.. how am I just getting these
   EMOJI_UHU,
   EMOJI_FACE2,
@@ -108,11 +112,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
-                      TG(NUMPAD) , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_DLR , KC_LCBR, KC_RCBR, ___ ,
+                          // Left
+                      TG(TOPROWNUM) , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_DLR , KC_LCBR, KC_RCBR, ___ ,
 
-                       KC_QUOTE , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
+                       ___ , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSHIFT , CTL_T( KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , KC_B , TMUX_LEADER ,
+                      KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , KC_B , TMUX_LEADER ,
 
                         KC_LOCK  ,  CTL_T(KC_NO) , TG(NUMPAD) , ALT_T(KC_NO) , KC_LGUI ,
 
@@ -122,8 +127,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                         ___ , ___ , ___ , KC_MINUS , KC_UNDS , ___ , TG(NUMPAD) ,
 
+                      // Right
                        // OSM(MOD_LSFT)
-                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , LSFT(KC_QUOTE) ,
+                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot and just can't afford to wait 200ms till they kick in
                        KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSHIFT ,
 
@@ -134,31 +140,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
-  /* [TOPROWNUM] = LAYOUT_ergodox( */
-  /*                           // Left */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , */
-  /*                           ___ , */
-  /*                           ___ , ___ , ___ , */
-  /*                           // right */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , ___ , ___ , ___ , */
-  /*                           ___ , ___ , */
-  /*                           ___ , */
-  /*                           ___ , ___ , ___ */
-  /*                              ), */
+  [TOPROWNUM] = LAYOUT_ergodox(
+                            // Left
+                            ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ ,
+                            ___ ,
+                            ___ , ___ , ___ ,
+                            // right
+                            ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ , ___ , ___ , ___ ,
+                            ___ , ___ ,
+                            ___ ,
+                            ___ , ___ , ___
+                               ),
 
   // Numpad
   [NUMPAD] = LAYOUT_ergodox(
                       // Left
-                      ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
+                      /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -167,7 +174,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ ,
                       ___ , ___ , ___ ,
                       // right
-                      ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
                       ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
@@ -180,7 +188,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Symbols
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
+                       /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
                        WR_ESCAPEDSINGLEQUOTE , KC_CIRC , KC_QUOTE , KC_LBRACKET, KC_RBRACKET , KC_PERC , ___ ,
                        ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_KP_PLUS ,
                        ___ , KC_TILD , KC_GRAVE ,  KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_HASH , ___ ,
@@ -189,7 +198,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ ,
                        ___ , ___ , ___ ,
                        // right
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
+                       /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
                        ___ , ___ , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , ___ , WR_ESCAPEDDOUBLEQUOTE ,
                        KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
@@ -243,7 +253,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        TMUX_WCREATE , ___ , ___ , ___ , ___ , ___ , ___ ,
                        /* KC_H , KC_J , KC_K , KC_L , KC_0 , KC_DLR , */
                        ___ , ___ , ___ , ___ , KC_0 , KC_DLR ,
-                       TMUX_WN , ___ , ___ , ___ , ___ , ___ , ___ ,
+                       TMUX_WN , ___ , ___ , ___ , ___ , WR_FLAGHELP,  ___ , //TD( TD_HELPFLAG ) ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -518,6 +528,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
+  case WR_FLAGHELP: 
+    if (record->event.pressed) {
+      SEND_STRING("--help");
+    }
+    return false;
+    break;
+
+  case WR_FLAGHELPLESS: 
+    if (record->event.pressed) {
+      SEND_STRING("--help | less");
+    }
+    return false;
+    break;
+
   case VIM_BUFFER_START:
     if (record->event.pressed) {
       SEND_STRING("gg");
@@ -699,7 +723,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_PAREN] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
     [TD_BRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
     [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE),
-    [TD_HYPHEN_EQUALS] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL)
+    [TD_HYPHEN_EQUALS] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL),
+    [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS)
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
