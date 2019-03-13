@@ -113,19 +113,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                           // Left
-                      TG(TOPROWNUM) , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_DLR , KC_LCBR, KC_RCBR, ___ ,
+                      TG(TOPROWNUM) , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_DLR , KC_LCBR, KC_RCBR, KC_HASH ,
 
                        ___ , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , KC_B , TMUX_LEADER ,
 
-                        KC_LOCK  ,  CTL_T(KC_NO) , TG(NUMPAD) , ALT_T(KC_NO) , KC_LGUI ,
+                      ___, CTL_T(KC_NO) , TG(NUMPAD) , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
 
                        LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
                        LCS(KC_V) , // left control shift, paste to tmux/shell
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) , // copy from tmux/shell
 
-                        ___ , ___ , ___ , KC_MINUS , KC_UNDS , ___ , TG(NUMPAD) ,
+                       KC_BSLASH , KC_LBRACKET, KC_RBRACKET , KC_MINUS , KC_UNDS , KC_GRAVE , TG(NUMPAD) ,
 
                       // Right
                        // OSM(MOD_LSFT)
@@ -190,9 +190,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                       ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
                        /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-                       WR_ESCAPEDSINGLEQUOTE , KC_CIRC , KC_QUOTE , KC_LBRACKET, KC_RBRACKET , KC_PERC , ___ ,
-                       ___ , KC_AT , KC_DLR , KC_LCBR , KC_RCBR , KC_KP_PLUS ,
-                       ___ , KC_TILD , KC_GRAVE ,  KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_HASH , ___ ,
+                      WR_ESCAPEDSINGLEQUOTE , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , ___ ,
+                      ___ , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
+                      ___ , KC_TILD , KC_GRAVE , KC_LBRACKET, KC_RBRACKET , KC_HASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
@@ -215,7 +215,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MOTION] = LAYOUT_ergodox(
                       // left
                       ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
-                      ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , LCTL(KC_TAB) ,
+                      ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , ___ ,
                       ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
                       ___ , ___ , ___ , ___ ,  ___ , ___ , LCS(KC_TAB) ,
                       ___ , ___ , ___ , ___, ___,
@@ -226,7 +226,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
-                      ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
+                      LCTL(KC_TAB) , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
