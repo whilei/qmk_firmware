@@ -76,6 +76,10 @@ enum custom_keycodes {
   WR_FLAGHELP,
   WR_FLAGHELPLESS,
 
+  WR_COLONEQUALS,
+  WR_NOTEQUALS,
+  WR_EQUALSEQUALS,
+
   // Emoji.. how am I just getting these
   EMOJI_UHU,
   EMOJI_FACE2,
@@ -113,27 +117,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                           // Left
-                      TG(TOPROWNUM) , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_DLR , KC_LCBR, KC_RCBR, KC_HASH ,
+                          /* TG(TOPROWNUM) , KC_RIGHT_PAREN , KC_RCBR, KC_LEFT_PAREN , KC_LCBR, KC_DLR , KC_HASH , */
+                          TG(TOPROWNUM) , KC_UP , KC_LEFT_PAREN , KC_DLR , KC_LCBR , KC_LBRACKET , KC_HASH ,
 
-                       ___ , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
+                          OSM(MOD_LSFT) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , KC_B , TMUX_LEADER ,
 
-                      ___, CTL_T(KC_NO) , TG(NUMPAD) , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
+                          LGUI(KC_LEFT) , CTL_T(KC_NO) , TG(NUMPAD) , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
 
                        LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
                        LCS(KC_V) , // left control shift, paste to tmux/shell
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) , // copy from tmux/shell
 
-                       KC_BSLASH , KC_LBRACKET, KC_RBRACKET , KC_MINUS , KC_UNDS , KC_GRAVE , TG(NUMPAD) ,
+                          /* KC_BSLASH , ___ , KC_KP_ASTERISK , KC_MINUS , KC_UNDS , KC_GRAVE , ___ , */
+                          KC_BSLASH , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , ___ ,
 
                       // Right
                        // OSM(MOD_LSFT)
-                       ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
+                          LSFT(KC_QUOTE) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot and just can't afford to wait 200ms till they kick in
                        KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSHIFT ,
 
-                        CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , TG(MOTION) , ___ ,
+                          CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , TG(MOTION) , LGUI(KC_RIGHT) ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        MO(UNICODEL) ,
@@ -239,7 +245,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_MACRO_PLAY2 , ___ , ___ , ___ , WR_SHEBANGS_BASH ,
 
                        DYN_REC_START2 , WR_CODEFENCE , ___ , ___ , ___ , ___ , TMUX_PSPLITV ,
-                       DYN_REC_STOP , ___ , ___ , ___ , ___ , ___ ,
+                       DYN_REC_STOP , ___ , ___ , LCS(KC_C) , LCS(KC_V) , ___ ,
                        TMUX_PSPLITH , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , TMUX_WP ,
 
                        ___ , ___ , ___ , ___ , ___ ,
@@ -457,6 +463,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+
+  /* case WR_COLONEQUALS: */
+  /*   if (record->event.pressed) { */
+  /*     SEND_STRING("2>&1"); */
+  /*   } */
+  /*   return false; */
+  /*   break; */
 
   case WR_REDIR_2AND1:
     if (record->event.pressed) {
