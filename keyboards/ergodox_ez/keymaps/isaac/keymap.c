@@ -126,8 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                           ___ , CTL_T(KC_NO) , TG(NUMPAD) , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
 
-                       /* LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling */
-                          LT(MOTION, LGUI(KC_LEFT)) , LGUI(KC_RIGHT) , // hold for motion layer is nice for left-handed scrolling
+                       LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
+                          /* LT(MOTION, LGUI(KC_LEFT)) , LGUI(KC_RIGHT) , // hold for motion layer is nice for left-handed scrolling */
                        LCS(KC_V) , // left control shift, paste to tmux/shell
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) , // copy from tmux/shell
 
@@ -143,8 +143,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , TG(MOTION) , ___ ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
-                       MO(UNICODEL) ,
-                       ___ , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER)
+                       /* MO(UNICODEL) , */
+                          LGUI(KC_RIGHT) ,
+                       LGUI(KC_LEFT) , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
   [TOPROWNUM] = LAYOUT_ergodox(
