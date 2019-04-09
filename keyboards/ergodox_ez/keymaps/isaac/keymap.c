@@ -124,9 +124,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , KC_B , TMUX_LEADER ,
 
-                          LGUI(KC_LEFT) , CTL_T(KC_NO) , TG(NUMPAD) , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
+                          ___ , CTL_T(KC_NO) , TG(NUMPAD) , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
 
-                       LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
+                       /* LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling */
+                          LT(MOTION, LGUI(KC_LEFT)) , LGUI(KC_RIGHT) , // hold for motion layer is nice for left-handed scrolling
                        LCS(KC_V) , // left control shift, paste to tmux/shell
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) , // copy from tmux/shell
 
@@ -139,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot and just can't afford to wait 200ms till they kick in
                        KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSHIFT ,
 
-                          CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , TG(MOTION) , LGUI(KC_RIGHT) ,
+                          CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , TG(MOTION) , ___ ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        MO(UNICODEL) ,
