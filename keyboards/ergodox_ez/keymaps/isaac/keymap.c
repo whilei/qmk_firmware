@@ -72,6 +72,7 @@ enum custom_keycodes {
   WR_DOUBLE_LBRACKET,
   WR_DOUBLE_RBRACKET,
   WR_SHEBANGS_BASH,
+  WR_SLASHSLASH,
 
   WR_FLAGHELP,
   WR_FLAGHELPLESS,
@@ -118,9 +119,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
                           // Left
                           /* TG(TOPROWNUM) , KC_RIGHT_PAREN , KC_RCBR, KC_LEFT_PAREN , KC_LCBR, KC_DLR , KC_HASH , */
-                          TG(TOPROWNUM) , KC_UP , KC_LEFT_PAREN , KC_DLR , KC_LCBR , KC_LBRACKET , KC_HASH ,
+                          TG(TOPROWNUM) , KC_UP , KC_0 , KC_DLR , KC_PERC , KC_KP_ASTERISK , KC_HASH ,
 
-                          OSM(MOD_LSFT) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
+                          LSFT(KC_QUOTE) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
+                          /* OSM(MOD_LSFT) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE , */
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , KC_B , TMUX_LEADER ,
 
@@ -131,12 +133,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LCS(KC_V) , // left control shift, paste to tmux/shell
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) , // copy from tmux/shell
 
+                          // Right
                           /* KC_BSLASH , ___ , KC_KP_ASTERISK , KC_MINUS , KC_UNDS , KC_GRAVE , ___ , */
-                          KC_BSLASH , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , ___ ,
+                          KC_BSLASH , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , WR_SLASHSLASH ,
 
-                      // Right
                        // OSM(MOD_LSFT)
-                          LSFT(KC_QUOTE) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
+                          ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot and just can't afford to wait 200ms till they kick in
                        KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSHIFT ,
 
@@ -150,7 +152,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [TOPROWNUM] = LAYOUT_ergodox(
                             // Left
-                            ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
+                            /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
+                               ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -159,7 +162,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             ___ ,
                             ___ , ___ , ___ ,
                             // right
-                            ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
+                            /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
+                               ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -196,7 +200,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Symbols
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
-                      ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
+                      /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
+                      ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
                        /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
                       WR_ESCAPEDSINGLEQUOTE , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , ___ ,
                       ___ , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
@@ -206,7 +211,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ ,
                        ___ , ___ , ___ ,
                        // right
-                      ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
+                      /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
+                      ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
                        /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
                        ___ , ___ , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , ___ , WR_ESCAPEDDOUBLEQUOTE ,
                        KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
@@ -536,23 +542,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-  case WR_SHEBANGS_BASH: 
+  case WR_SHEBANGS_BASH:
     if (record->event.pressed) {
       SEND_STRING("#!/usr/bin/env bash");
     }
     return false;
     break;
 
-  case WR_FLAGHELP: 
+  case WR_FLAGHELP:
     if (record->event.pressed) {
       SEND_STRING("--help");
     }
     return false;
     break;
 
-  case WR_FLAGHELPLESS: 
+  case WR_FLAGHELPLESS:
     if (record->event.pressed) {
       SEND_STRING("--help | less");
+    }
+    return false;
+    break;
+
+  case WR_SLASHSLASH:
+    if (record->event.pressed) {
+      SEND_STRING("// ");
     }
     return false;
     break;
@@ -583,7 +596,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING("dd");
     }
     return false;
-    break; 
+    break;
 
   case VIM_INS_LINE_BELOW:
     if (record->event.pressed) {
