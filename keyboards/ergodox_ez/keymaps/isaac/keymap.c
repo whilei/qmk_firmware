@@ -135,10 +135,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                           // Right
                           /* KC_BSLASH , ___ , KC_KP_ASTERISK , KC_MINUS , KC_UNDS , KC_GRAVE , ___ , */
-                          KC_BSLASH , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , WR_SLASHSLASH ,
+                          KC_EXLM , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , ___ ,
 
                        // OSM(MOD_LSFT)
-                          ___ , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
+                          OSL(SYMBOLS) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot and just can't afford to wait 200ms till they kick in
                        KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSHIFT ,
 
@@ -229,7 +229,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MOTION] = LAYOUT_ergodox(
                       // left
                       ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
-                      ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , ___ ,
+                      ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , LCTL(KC_TAB) ,
                       ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
                       ___ , ___ , ___ , ___ ,  ___ , ___ , LCS(KC_TAB) ,
                       ___ , ___ , ___ , ___, ___,
@@ -240,9 +240,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
-                      LCTL(KC_TAB) , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
+                      ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ ,
+                      /* ___ , ___ , */
+                      LCS(KC_TAB), LCTL(KC_TAB),
                       ___ ,
                       ___ , ___ , ___
                       ),
