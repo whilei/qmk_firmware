@@ -81,6 +81,8 @@ enum custom_keycodes {
   WR_NOTEQUALS,
   WR_EQUALSEQUALS,
 
+  WR_MD_TODO,
+
   // Emoji.. how am I just getting these
   EMOJI_UHU,
   EMOJI_FACE2,
@@ -102,6 +104,7 @@ enum custom_keycodes {
   SPACEMACS_WINDOW_RIGHT,
   SPACEMACS_WINDOW_UP,
   SPACEMACS_WINDOW_DOWN,
+  SPACEMACS_NEOTREE_TOGGLE,
 
   LOCK_SHIFT,
 
@@ -117,36 +120,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
-                          // Left
-                          /* TG(TOPROWNUM) , KC_RIGHT_PAREN , KC_RCBR, KC_LEFT_PAREN , KC_LCBR, KC_DLR , KC_HASH , */
-                          TG(TOPROWNUM) , KC_UP , KC_0 , KC_DLR , KC_PERC , KC_KP_ASTERISK , KC_HASH ,
+                       // Left
+                       /* TG(TOPROWNUM) , KC_RIGHT_PAREN , KC_RCBR, KC_LEFT_PAREN , KC_LCBR, KC_DLR , KC_HASH , */
+                       TG(TOPROWNUM) , KC_UP , KC_0 , KC_DLR , KC_KP_ASTERISK , KC_PERC , KC_HASH ,
 
-                          LSFT(KC_QUOTE) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
-                          /* OSM(MOD_LSFT) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE , */
+                       LSFT(KC_QUOTE) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
+                       /* OSM(MOD_LSFT) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE , */
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                      KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , KC_B , TMUX_LEADER ,
+                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , KC_B , TMUX_LEADER ,
 
-                          ___ , CTL_T(KC_NO) , TG(NUMPAD) , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
+                       ___ , CTL_T(KC_NO) , ___ , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
 
                        LT(MOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
-                          /* LT(MOTION, LGUI(KC_LEFT)) , LGUI(KC_RIGHT) , // hold for motion layer is nice for left-handed scrolling */
-                       LCS(KC_V) , // left control shift, paste to tmux/shell
-                       SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_C) , // copy from tmux/shell
+                       /* LT(MOTION, LGUI(KC_LEFT)) , LGUI(KC_RIGHT) , // hold for motion layer is nice for left-handed scrolling */
+                       LCTL(KC_TAB) , // browser tab right
+                       SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_TAB) , // browser tab left
 
-                          // Right
-                          /* KC_BSLASH , ___ , KC_KP_ASTERISK , KC_MINUS , KC_UNDS , KC_GRAVE , ___ , */
-                          KC_EXLM , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , ___ ,
+                       // Right
+                       /* KC_BSLASH , ___ , KC_KP_ASTERISK , KC_MINUS , KC_UNDS , KC_GRAVE , ___ , */
+                       KC_EXLM , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , ___ ,
 
                        // OSM(MOD_LSFT)
-                          OSL(SYMBOLS) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
+                       LSFT(KC_SLASH) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot and just can't afford to wait 200ms till they kick in
                        KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(MOTION, KC_SLASH ) , KC_RSHIFT ,
 
-                          CTL_T(KC_NO) , ALT_T(KC_NO) , ___ , TG(MOTION) , ___ ,
+                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTION) , ___ ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        /* MO(UNICODEL) , */
-                          LGUI(KC_RIGHT) ,
+                       LGUI(KC_RIGHT) ,
                        LGUI(KC_LEFT) , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
@@ -186,12 +189,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ ,
                       ___ , ___ , ___ ,
                       // right
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      /* ___ , ___ , KC_PIPE , KC_LABK , KC_RABK , KC_AMPR , ___ , */
+                      ___ , ___ , KC_LABK , KC_PIPE , KC_AMPR , KC_RABK , ___ ,
                       /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
                       ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
-                      KC_PIPE , KC_LABK , KC_RABK , KC_AMPR ,  ___ ,
+                      ___ , ___ , ___ , ___ ,  ___ ,
                       ___ , ___ ,
                       ___ ,
                       ___ , ___ , ___
@@ -243,19 +247,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       /* ___ , ___ , */
-                      LCS(KC_TAB), LCTL(KC_TAB),
-                      ___ ,
-                      ___ , ___ , ___
+                      ___,  ___ ,
+                      LCTL(KC_TAB) ,
+                      LCS(KC_TAB) , ___ , ___
                       ),
 
   // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
   [QWIMAMU] = LAYOUT_ergodox(
                        // Left
-                       DYN_REC_START1 , DYN_MACRO_PLAY1 , DYN_MACRO_PLAY2 , ___ , ___ , ___ , WR_SHEBANGS_BASH ,
-
-                       DYN_REC_START2 , WR_CODEFENCE , ___ , ___ , ___ , ___ , TMUX_PSPLITV ,
-                       DYN_REC_STOP , ___ , ___ , LCS(KC_C) , LCS(KC_V) , ___ ,
-                       TMUX_PSPLITH , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , TMUX_WP ,
+                       DYN_REC_START1 , DYN_MACRO_PLAY1 , ___ , ___ , ___ , ___ , WR_SHEBANGS_BASH ,
+                       DYN_REC_START2 , DYN_MACRO_PLAY2 , LCTL(KC_W) , LCS(KC_C) , LCS(KC_V) , ___ , ___ ,
+                       DYN_REC_STOP , ___ , LCTL(KC_X) , LCTL(KC_C) , LCTL(KC_V) , ___ ,
+                       TMUX_PSPLITH , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , TMUX_PSPLITV ,
 
                        ___ , ___ , ___ , ___ , ___ ,
 
@@ -264,17 +267,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ ,
 
                        // Right
-                       TG(XPLANE) , ___ , ___ , ___ , ___ , ___ , DOEXIT ,
-                       TMUX_WCREATE , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       /* KC_H , KC_J , KC_K , KC_L , KC_0 , KC_DLR , */
+                       TG(XPLANE) , ___ , ___ , WR_MD_TODO , ___ , WR_CODEFENCE , DOEXIT ,
+                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ , ___ , ___ , KC_0 , KC_DLR ,
-                       TMUX_WN , ___ , ___ , ___ , ___ , WR_FLAGHELP,  ___ , //TD( TD_HELPFLAG ) ,
+                       ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , WR_FLAGHELP,  ___ , //TD( TD_HELPFLAG ) ,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___
-                             ),
+                      ),
 
 
   [MACROLAYER] = LAYOUT_ergodox(
@@ -571,6 +573,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
+  case WR_MD_TODO:
+    if (record->event.pressed) {
+      SEND_STRING("- [ ] ");
+    }
+    return false;
+    break;
+
   case VIM_BUFFER_START:
     if (record->event.pressed) {
       SEND_STRING("gg");
@@ -658,6 +667,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case SPACEMACS_WINDOW_LEFT:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_ESCAPE)SS_TAP(X_SPACE)"wl");
+    }
+    return false;
+    break;
+
+  case SPACEMACS_NEOTREE_TOGGLE:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP(X_ESCAPE)" ft");
     }
     return false;
     break;
