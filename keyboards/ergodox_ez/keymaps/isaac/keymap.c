@@ -118,10 +118,13 @@ void eeconfig_init_user(void) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
                        /* TG(TOPROWNUM) , KC_RIGHT_PAREN , KC_RCBR, KC_LEFT_PAREN , KC_LCBR, KC_DLR , KC_HASH , */
+
+                        /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
                        KC_TAB , KC_UP , KC_0 , KC_DLR , KC_KP_ASTERISK , KC_PERC , KC_HASH ,
 
                        LSFT(KC_QUOTE) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
@@ -152,6 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LGUI(KC_RIGHT) ,
                        LGUI(KC_LEFT) , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
+
 
   [TOPROWNUM] = LAYOUT_ergodox(
                             // Left
