@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        /* TG(TOPROWNUM) , KC_RIGHT_PAREN , KC_RCBR, KC_LEFT_PAREN , KC_LCBR, KC_DLR , KC_HASH , */
 
                         /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-                       KC_TAB , KC_UP , KC_0 , KC_DLR , KC_KP_ASTERISK , KC_PERC , KC_HASH ,
+                       KC_TAB , KC_UP , KC_0 , KC_DLR , KC_KP_ASTERISK , KC_PERC , ___ ,
 
                        LSFT(KC_QUOTE) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        /* OSM(MOD_LSFT) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE , */
@@ -141,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        // Right
                        /* KC_BSLASH , ___ , KC_KP_ASTERISK , KC_MINUS , KC_UNDS , KC_GRAVE , ___ , */
-                       KC_EXLM , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
+                       ___ , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
 
                        // OSM(MOD_LSFT)
                        LSFT(KC_SLASH) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
@@ -156,11 +156,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LGUI(KC_LEFT) , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER)
                        ),
 
+//  [TOPROWBASH] = LAYOUT_ergodox(
+//                            // Left
+//
+//                            ___ ,  , ___ , ___ , ___ , ___ , ___ ,
+//                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+//                            ___ , ___ , ___ , ___ , ___ , ___ ,
+//                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+//                            ___ , ___ , ___ , ___ , ___ ,
+//                            ___ , ___ ,
+//                            ___ ,
+//                            ___ , ___ , ___ ,
+//
+//                            // right
+//
+//                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+//                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+//                            ___ , ___ , ___ , ___ , ___ , ___ ,
+//                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+//                            ___ , ___ , ___ , ___ , ___ ,
+//                            ___ , ___ ,
+//                            ___ ,
+//                            ___ , ___ , ___
+//
+//                        ),
+
 
   [TOPROWNUM] = LAYOUT_ergodox(
                             // Left
                             /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
-                               ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, KC_DOT ,
+                            ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -170,7 +195,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             ___ , ___ , ___ ,
                             // right
                             /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
-                               KC_MINUS , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
+                            ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
