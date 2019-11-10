@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        LSFT(KC_QUOTE) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , KC_B , TMUX_LEADER ,
+                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , TMUX_LEADER ,
 
                        ___ , CTL_T(KC_NO) , ___ , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
 
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        LSFT(KC_SLASH) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
-                       KC_BSPACE , KC_P , KC_M , KC_COMMA , KC_DOT , LT(FMOTION, KC_SLASH ) , KC_RSHIFT ,
+                       KC_BSPACE , LGUI_T( KC_P ) , KC_M , KC_COMMA , KC_DOT , LT(FMOTION, KC_SLASH ) , KC_RSHIFT ,
 
                        CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(FMOTION) , TG(CAPSLAYER) ,
 
@@ -679,7 +679,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case VIM_NOH:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP( X_ESCAPE )":noh");
+      SEND_STRING(SS_TAP( X_ESCAPE )":noh"SS_TAP(X_ENTER));
     }
     return false;
     break;
