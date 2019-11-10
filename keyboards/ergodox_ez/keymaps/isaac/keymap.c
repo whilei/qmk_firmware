@@ -128,26 +128,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                       KC_TAB , KC_UP , KC_0 , KC_DLR , KC_KP_ASTERISK , KC_PERC , ___ ,
+                       LT( TOPROWALT, KC_TAB ) , KC_UP , KC_0 , KC_DLR , KC_KP_ASTERISK , KC_PERC , ___ ,
 
                        LSFT(KC_QUOTE) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , TMUX_LEADER ,
 
-                       ___ , CTL_T(KC_NO) , ___ , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
+                       ___ , CTL_T(KC_NO) , LT(FMOTION, KC_LOCKING_SCROLL) , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
 
                        LT(FMOTION, KC_DELETE) , OSL(MACROLAYER) , // hold for motion layer is nice for left-handed scrolling
                        LCTL(KC_TAB) , // browser tab right
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_TAB) , // browser tab left
 
                        // Right
-                       MO(TOPROWALT) , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
+                       ___ , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
 
-                       LSFT(KC_SLASH) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
+                       KC_QUESTION , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
                        KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , KC_COMMA , KC_DOT , LT(FMOTION, KC_SLASH ) , KC_RSHIFT ,
 
-                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(FMOTION) , TG(CAPSLAYER) ,
+                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(FMOTION) , KC_LOCK,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
