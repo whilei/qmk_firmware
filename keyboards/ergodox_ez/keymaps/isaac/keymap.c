@@ -68,6 +68,7 @@ enum custom_keycodes {
   WR_REDIR_2AND1,
   WR_REDIR_STDERR,
   WR_REDIR_STDOUT,
+  WR_IFS_EQ,
   WR_CODEFENCE,
   WR_ESCAPEDRETURN,
   WR_ESCAPEDDOUBLEQUOTE,
@@ -130,22 +131,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                        LT( TOPROWALT, KC_TAB ) , KC_UP , KC_0 , KC_DLR , KC_KP_ASTERISK , KC_PERC , ___ ,
 
-                       LSFT(KC_QUOTE) , KC_Q , KC_W , KC_D , KC_F , KC_K , VIM_CMD_MODE ,
+                       ___ , KC_Q , KC_W , KC_D , KC_F , KC_K , LSFT(KC_QUOTE) ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , TMUX_LEADER ,
 
-                       ___ , CTL_T(KC_NO) , LT(FMOTION, KC_LOCKING_SCROLL) , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
+                       LT(FMOTION, KC_LOCKING_SCROLL) , CTL_T(KC_NO) , ___ , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
 
-                       LT(FMOTION, KC_DELETE) , OSL(MACROLAYER) , // hold for motion layer is nice for left-handed scrolling
+                       LT(FMOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
                        LCTL(KC_TAB) , // browser tab right
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_TAB) , // browser tab left
 
                        // Right
                        ___ , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
 
-                       KC_QUESTION , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUOTE ,
-                       KC_Y , KC_N , KC_I , KC_O , KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
-                       KC_BSPACE , LGUI_T( KC_P ) , KC_M , KC_COMMA , KC_DOT , LT(FMOTION, KC_SLASH ) , KC_RSHIFT ,
+                       LT(MACROLAYER, KC_QUOTE) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUESTION ,
+                       KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
+                       KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(FMOTION, KC_SLASH ) , KC_RSHIFT ,
 
                        CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(FMOTION) , KC_LOCK,
 
@@ -250,7 +251,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
                       ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
-                      WR_ESCAPEDDOUBLEQUOTE , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , ___ ,
+                      ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , WR_ESCAPEDDOUBLEQUOTE ,
                       ___ , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
                       ___ , KC_TILD , KC_GRAVE , KC_LBRACKET, KC_RBRACKET , KC_HASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
@@ -259,7 +260,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ ,
                        // right
                       ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
-                      ___ , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , WR_ESCAPEDSINGLEQUOTE  ,
+                      WR_ESCAPEDSINGLEQUOTE , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
                        KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
                                               ___ , ___ , ___ , ___ , ___ ,
@@ -297,7 +298,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [QWIMAMU] = LAYOUT_ergodox(
                        // Left
                        DYN_REC_START1 , DYN_MACRO_PLAY1 , ___ , ___ , ___ , ___ , WR_SHEBANGS_BASH ,
-                       DYN_REC_START2 , DYN_MACRO_PLAY2 , LCTL(KC_W) , LCS(KC_C) , LCS(KC_V) , ___ , VIM_NOH ,
+                       DYN_REC_START2 , DYN_MACRO_PLAY2 , LCTL(KC_W) , LCS(KC_C) , LCS(KC_V) , ___ , ___ ,
                        DYN_REC_STOP , ___ , LCTL(KC_X) , LCTL(KC_C) , LCTL(KC_V) , LCTL(KC_Z) ,
                        TMUX_PSPLITH , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , TMUX_PSPLITV ,
 
@@ -309,8 +310,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        // Right
                        TG(XPLANE) , ___ , ___ , WR_MD_TODO , ___ , WR_CODEFENCE , DOEXIT ,
-                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , ___ , ___ , ___ , KC_0 , KC_DLR ,
+                       VIM_NOH , ___ , ___ , ___ , ___ , ___ , VIM_CMD_MODE ,
+                       ___ , ___ , WR_IFS_EQ , ___ , KC_0 , KC_DLR ,
                        ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , WR_FLAGHELP,  ___ , //TD( TD_HELPFLAG ) ,
 
                        ___ , ___ , ___ , ___ , ___ ,
@@ -617,6 +618,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_MD_TODO:
     if (record->event.pressed) {
       SEND_STRING("- [ ] ");
+    }
+    return false;
+    break;
+
+  case WR_IFS_EQ:
+    if (record->event.pressed) {
+      SEND_STRING("IFS=");
     }
     return false;
     break;
