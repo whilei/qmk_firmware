@@ -21,6 +21,7 @@
 
 #define LCS(code) LCTL(LSFT(code))
 #define CONALT(code) LCTL(LALT(code))
+#define CTLGUI(code) LCTL(LGUI(code))
 
 enum {
       TD_CURLYBRACKET = 0,
@@ -63,6 +64,8 @@ enum custom_keycodes {
   VIM_INS_LINE_BELOW,
   VIM_INS_LINE_ABOVE,
   VIM_NOH,
+  VIM_BUFFER_PREV,
+  VIM_BUFFER_NEXT,
 
   // WR: Write
   WR_REDIR_2AND1,
@@ -89,6 +92,9 @@ enum custom_keycodes {
 
   WR_WORD_ETHEREUM,
   WR_WORD_GITHUB_DOT_COM,
+  WR_WORD_ETCLABSCORE,
+  WR_CD_DEV_ETCLABSCORE,
+
 
   // Emoji.. how am I just getting these
   EMOJI_UHU,
@@ -126,12 +132,13 @@ void eeconfig_init_user(void) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
+
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                       LT( TOPROWALT, KC_TAB ) , KC_UP , KC_0 , KC_DLR , KC_KP_ASTERISK , KC_PERC , ___ ,
+                       LT( TOPROWALT, KC_TAB ) , KC_UP , KC_0 , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) ,
 
-                       ___ , KC_Q , KC_W , KC_D , KC_F , KC_K , LSFT(KC_QUOTE) ,
+                       LT(MACROLAYER, KC_DOUBLE_QUOTE) , KC_Q , KC_W , KC_D , KC_F , KC_K , ___ ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , TMUX_LEADER ,
 
@@ -142,9 +149,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_TAB) , // browser tab left
 
                        // Right
-                       ___ , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
+                       CTLGUI(KC_J) , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
 
-                       LT(MACROLAYER, KC_QUOTE) , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , KC_QUESTION ,
+                       KC_QUESTION , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , LT(MACROLAYER, KC_QUOTE) ,
                        KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(FMOTION, KC_SLASH ) , KC_RSHIFT ,
 
@@ -237,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ ,
                       ___ , ___ , ___ ,
                       // right
-                      ___ , ___ , KC_LABK , KC_PIPE , KC_AMPR , KC_RABK , ___ ,
+                      ___ , ___ , KC_LABK , KC_RABK , KC_AMPR , KC_PIPE , ___ ,
                       WR_REDIR_2AND1 , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
@@ -311,7 +318,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Right
                        TG(XPLANE) , ___ , ___ , WR_MD_TODO , ___ , WR_CODEFENCE , DOEXIT ,
                        VIM_NOH , ___ , ___ , ___ , ___ , ___ , VIM_CMD_MODE ,
-                       ___ , ___ , WR_IFS_EQ , ___ , KC_0 , KC_DLR ,
+                       VIM_BUFFER_PREV , VIM_BUFFER_PREV , ___ , ___ , KC_0 , KC_DLR ,
                        ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , WR_FLAGHELP,  ___ , //TD( TD_HELPFLAG ) ,
 
                        ___ , ___ , ___ , ___ , ___ ,
@@ -323,9 +330,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [MACROLAYER] = LAYOUT_ergodox(
                       // Left
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , WR_WORD_ETHEREUM , ___ , WR_WORD_GITHUB_DOT_COM ,
+                      ___ , ___ , ___ , WR_CD_DEV_ETCLABSCORE , ___ , ___ , ___ ,
+                      ___ , WR_WORD_GITHUB_DOT_COM , WR_WORD_ETHEREUM , WR_WORD_ETCLABSCORE , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
@@ -636,9 +643,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
+  case WR_WORD_ETCLABSCORE:
+    if (record->event.pressed) {
+      SEND_STRING("etclabscore");
+    }
+    return false;
+    break;
+
   case WR_WORD_GITHUB_DOT_COM:
     if (record->event.pressed) {
       SEND_STRING("github.com/");
+    }
+    return false;
+    break;
+
+  case WR_CD_DEV_ETCLABSCORE:
+    if (record->event.pressed) {
+      SEND_STRING("cd ~/dev/etclabscore");
     }
     return false;
     break;
@@ -688,6 +709,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case VIM_NOH:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP( X_ESCAPE )":noh"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
+  case VIM_BUFFER_PREV:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP( X_ESCAPE )":bprev"SS_TAP(X_ENTER));
+    }
+    return false;
+    break;
+
+  case VIM_BUFFER_NEXT:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP( X_ESCAPE )":bnext"SS_TAP(X_ENTER));
     }
     return false;
     break;
