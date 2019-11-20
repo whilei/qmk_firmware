@@ -10,16 +10,19 @@
 #define TOPROWALT 2
 #define TOPROWNUM 3
 #define NUMPAD 4
-#define SYMBOLS 5
-#define FMOTION 6
-#define QWIMAMU 7 // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
-#define MACROLAYER 8 // words, and stuff
-#define XPLANE 9
-#define UNICODEL 10
+#define FLAYER 5
+#define SYMBOLS 6
+#define MOTIONLAYER 7
+#define QWIMAMU 8 // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
+#define GOLANDLAYER 9
+#define MACROLAYER 10 // words, and stuff
+#define XPLANE 11
+#define UNICODEL 12
 
 #define ___ KC_TRANSPARENT
 
 #define LCS(code) LCTL(LSFT(code))
+#define LSALT(code) LALT(LSFT(code))
 #define CONALT(code) LCTL(LALT(code))
 #define CTLGUI(code) LCTL(LGUI(code))
 
@@ -94,6 +97,9 @@ enum custom_keycodes {
   WR_WORD_GITHUB_DOT_COM,
   WR_WORD_ETCLABSCORE,
   WR_CD_DEV_ETCLABSCORE,
+  WR_BUILD_BIN_GETH,
+  WR_GETH,
+  WR_PIPE_LESS,
 
 
   // Emoji.. how am I just getting these
@@ -136,26 +142,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                       LT( TOPROWALT, KC_TAB ) , KC_UP , KC_0 , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) ,
+                       LT( TOPROWALT, KC_TAB ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) ,
 
-                       LT(MACROLAYER, KC_DOUBLE_QUOTE) , KC_Q , KC_W , KC_D , KC_F , KC_K , ___ ,
+                       KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , ___ ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , TMUX_LEADER ,
+                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , MO(GOLANDLAYER) ,
 
-                       LT(FMOTION, KC_LOCKING_SCROLL) , CTL_T(KC_NO) , ___ , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
+                      LT(MOTIONLAYER, KC_LOCKING_SCROLL) , CTL_T(KC_NO) , ___ , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
 
-                       LT(FMOTION, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
+                       LT(MOTIONLAYER, KC_DELETE) , KC_LOCK , // hold for motion layer is nice for left-handed scrolling
                        LCTL(KC_TAB) , // browser tab right
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_TAB) , // browser tab left
-
                        // Right
-                       CTLGUI(KC_J) , KC_COLON , KC_EQUAL , KC_MINUS , KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
+                       CTLGUI(KC_J) , KC_COLON , KC_EQUAL , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
 
-                       KC_QUESTION , KC_J , KC_U , KC_R , KC_L , KC_SCOLON , LT(MACROLAYER, KC_QUOTE) ,
+                       KC_QUESTION , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , KC_QUOTE ,
                        KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
-                       KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(FMOTION, KC_SLASH ) , KC_RSHIFT ,
+                       KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
 
-                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(FMOTION) , KC_LOCK,
+                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER) , ___ ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
@@ -188,7 +193,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [TOPROWALT] = LAYOUT_ergodox(
                            // Left
-
                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                            ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -254,6 +258,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___
                       ),
 
+ [FLAYER] = LAYOUT_ergodox(
+                           // Left
+
+                           ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
+                           ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                           ___ , ___ , ___ , ___ , ___ , ___ ,
+                           ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                           ___ , ___ , ___ , ___ , ___ ,
+                           ___ , ___ ,
+                           ___ ,
+                           ___ , ___ , ___ ,
+
+                           // right
+
+                           KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
+                           ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                           ___ , ___ , ___ , ___ , ___ , ___ ,
+                           ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                           ___ , ___ , ___ , ___ , ___ ,
+                           ___ , ___ ,
+                           ___ ,
+                           ___ , ___ , ___
+
+                       ),
+
   // Symbols
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
@@ -279,9 +308,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   // Mouse and motion
-  [FMOTION] = LAYOUT_ergodox(
+  [MOTIONLAYER] = LAYOUT_ergodox(
                       // left
-                      ___ , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 , KC_F6 ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , LCTL(KC_TAB) ,
                       ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
                       ___ , ___ , ___ , ___ ,  ___ , ___ , LCS(KC_TAB) ,
@@ -291,7 +320,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_MS_BTN1 , KC_MS_BTN2 , KC_MS_BTN5 ,
 
                       // right
-                      KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
                       ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
@@ -317,7 +346,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        // Right
                        TG(XPLANE) , ___ , ___ , WR_MD_TODO , ___ , WR_CODEFENCE , DOEXIT ,
-                       VIM_NOH , ___ , ___ , ___ , ___ , ___ , VIM_CMD_MODE ,
+                       VIM_NOH , ___ , ___ , ___ , WR_PIPE_LESS , ___ , VIM_CMD_MODE ,
                        VIM_BUFFER_PREV , VIM_BUFFER_PREV , ___ , ___ , KC_0 , KC_DLR ,
                        ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , WR_FLAGHELP,  ___ , //TD( TD_HELPFLAG ) ,
 
@@ -327,13 +356,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___
                       ),
 
+  [GOLANDLAYER] = LAYOUT_ergodox(
+      // Left
+                                 // move up, down
+                                 LALT(KC_SCOLON) , CONALT(KC_ENTER) , ___ , ___ , ___ , LALT(KC_R) , LCS(KC_F10) , // un-select last occurrence, start new line above, move line up, run test
+                                 LALT(KC_L) , LSFT(KC_ENTER) , LCTL(KC_4) , LSFT(KC_F6) , LSALT(KC_7) , LALT(KC_I) , ___ , // select next highlighted occurrence, start new line,  close tab, rename, find, move line down
+                                 LCTL(KC_Y) , LCTL(KC_BSLASH) , ___ , ___ , LCS(KC_N) , LCS(KC_A) , // comment line, expand selection, open file, actions
+                                 LCS(KC_9) , LCTL(KC_SLASH) , ___ , ___ , ___ , LCS(KC_COMMA) , ___ , // back, delete line, clone caret below
+                                ___ , ___ , ___ , ___ , ___ ,
+                                ___ , ___ ,
+                                ___ ,
+                                ___ , ___ , ___ ,
+                                // right
+                                 ___ , LALT(KC_1) , LALT(KC_2) , LALT(KC_3) , LALT(KC_4) , LALT(KC_5) , ___ ,
+                                ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                                ___ , ___ , ___ , ___ , ___ , ___ ,
+                                ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                                ___ , ___ , ___ , ___ , ___ ,
+                                ___ , ___ ,
+                                ___ ,
+                                ___ , ___ , ___
+                                 ),
 
   [MACROLAYER] = LAYOUT_ergodox(
                       // Left
-                      ___ , ___ , ___ , WR_CD_DEV_ETCLABSCORE , ___ , ___ , ___ ,
-                      ___ , WR_WORD_GITHUB_DOT_COM , WR_WORD_ETHEREUM , WR_WORD_ETCLABSCORE , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , WR_WORD_ETCLABSCORE , WR_WORD_ETHEREUM , WR_WORD_GITHUB_DOT_COM ,
+                      ___ , ___ , ___ , ___ , ___ , WR_BUILD_BIN_GETH , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -615,6 +665,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
+  case WR_PIPE_LESS:
+    if (record->event.pressed) {
+      SEND_STRING("| less");
+    }
+    return false;
+    break;
+
   case WR_SLASHSLASH:
     if (record->event.pressed) {
       SEND_STRING("// ");
@@ -660,6 +717,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_CD_DEV_ETCLABSCORE:
     if (record->event.pressed) {
       SEND_STRING("cd ~/dev/etclabscore");
+    }
+    return false;
+    break;
+
+  case WR_BUILD_BIN_GETH:
+    if (record->event.pressed) {
+      SEND_STRING("./build/bin/geth");
+    }
+    return false;
+    break;
+
+  case WR_GETH:
+    if (record->event.pressed) {
+      SEND_STRING("geth");
     }
     return false;
     break;
