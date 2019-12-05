@@ -97,9 +97,12 @@ enum custom_keycodes {
   WR_WORD_GITHUB_DOT_COM,
   WR_WORD_ETCLABSCORE,
   WR_CD_DEV_ETCLABSCORE,
+  WR_WORD_MEOWSBITS,
   WR_BUILD_BIN_GETH,
   WR_GETH,
   WR_PIPE_LESS,
+  WR_LESS,
+  WR_GREP,
 
 
   // Emoji.. how am I just getting these
@@ -148,11 +151,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , MO(GOLANDLAYER) ,
 
-                      LT(MOTIONLAYER, KC_LOCKING_SCROLL) , CTL_T(KC_NO) , ___ , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
+                       KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
 
                        LT(MOTIONLAYER, KC_DELETE) , KC_LOCK , // hold for motion layer is nice for left-handed scrolling
                        LCTL(KC_TAB) , // browser tab right
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_TAB) , // browser tab left
+
+
                        // Right
                        CTLGUI(KC_J) , KC_COLON , KC_EQUAL , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
 
@@ -321,9 +326,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
-                      ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
+                      ___ , ___ , KC_HOME , ___ , KC_END , ___ , ___ ,
+                      KC_END , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
+                      ___ , KC_HOME , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___,  ___ ,
                       LCTL(KC_TAB) ,
@@ -346,8 +351,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        // Right
                        TG(XPLANE) , ___ , ___ , WR_MD_TODO , ___ , WR_CODEFENCE , DOEXIT ,
-                       VIM_NOH , ___ , ___ , ___ , WR_PIPE_LESS , ___ , VIM_CMD_MODE ,
-                       VIM_BUFFER_PREV , VIM_BUFFER_PREV , ___ , ___ , KC_0 , KC_DLR ,
+                       VIM_CMD_MODE , ___ , ___ , WR_GREP , WR_LESS , ___ , VIM_NOH ,
+                       VIM_BUFFER_PREV , VIM_BUFFER_PREV , KC_PIPE , ___ , KC_0 , KC_DLR ,
                        ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , WR_FLAGHELP,  ___ , //TD( TD_HELPFLAG ) ,
 
                        ___ , ___ , ___ , ___ , ___ ,
@@ -359,16 +364,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [GOLANDLAYER] = LAYOUT_ergodox(
       // Left
                                  // move up, down
-                                 LALT(KC_SCOLON) , CONALT(KC_ENTER) , ___ , ___ , ___ , LALT(KC_R) , LCS(KC_F10) , // un-select last occurrence, start new line above, move line up, run test
-                                 LALT(KC_L) , LSFT(KC_ENTER) , LCTL(KC_4) , LSFT(KC_F6) , LSALT(KC_7) , LALT(KC_I) , ___ , // select next highlighted occurrence, start new line,  close tab, rename, find, move line down
-                                 LCTL(KC_Y) , LCTL(KC_BSLASH) , ___ , ___ , LCS(KC_N) , LCS(KC_A) , // comment line, expand selection, open file, actions
+                                 LALT(KC_SCOLON) , CONALT(KC_ENTER) , ___ , LSFT(KC_F2) , KC_F2 , LALT(KC_R) , LCS(KC_F10) , // un-select last occurrence, start new line above, prev error, next error, move line up, run test
+                                 LALT(KC_L) , LSFT(KC_ENTER) , LCTL(KC_4) , LSFT(KC_F6) , LSALT(KC_7) , LALT(KC_I) , MEH(KC_F) , // select next highlighted occurrence, start new line,  close tab, rename, find, move line down
+                                 LCTL(KC_Y) , LCTL(KC_BSLASH) , ___ , ___ , LCS(KC_N) , LCS(KC_A) , // comment line, expand selection, select thru line start/end, open file, actions
                                  LCS(KC_9) , LCTL(KC_SLASH) , ___ , ___ , ___ , LCS(KC_COMMA) , ___ , // back, delete line, clone caret below
                                 ___ , ___ , ___ , ___ , ___ ,
                                 ___ , ___ ,
                                 ___ ,
                                 ___ , ___ , ___ ,
                                 // right
-                                 ___ , LALT(KC_1) , LALT(KC_2) , LALT(KC_3) , LALT(KC_4) , LALT(KC_5) , ___ ,
+                                 LALT(KC_7) , LALT(KC_1) , LALT(KC_2) , LALT(KC_3) , LALT(KC_4) , LALT(KC_5) , ___ ,
                                 ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                                 ___ , ___ , ___ , ___ , ___ , ___ ,
                                 ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -382,8 +387,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       // Left
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , WR_WORD_ETCLABSCORE , WR_WORD_ETHEREUM , WR_WORD_GITHUB_DOT_COM ,
-                      ___ , ___ , ___ , ___ , ___ , WR_BUILD_BIN_GETH , ___ ,
+                      ___ , ___ , ___ , WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM ,
+                      ___ , ___ , ___ , WR_WORD_ETCLABSCORE, ___ , WR_BUILD_BIN_GETH , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -392,7 +397,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , WR_WORD_MEOWSBITS , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -672,6 +677,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
+  case WR_LESS:
+    if (record->event.pressed) {
+      SEND_STRING("less");
+    }
+    return false;
+    break;
+
+  case WR_GREP:
+    if (record->event.pressed) {
+      SEND_STRING("grep");
+    }
+    return false;
+    break;
+
   case WR_SLASHSLASH:
     if (record->event.pressed) {
       SEND_STRING("// ");
@@ -710,6 +729,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_WORD_GITHUB_DOT_COM:
     if (record->event.pressed) {
       SEND_STRING("github.com/");
+    }
+    return false;
+    break;
+
+  case WR_WORD_MEOWSBITS:
+    if (record->event.pressed) {
+      SEND_STRING("meowsbits");
     }
     return false;
     break;
