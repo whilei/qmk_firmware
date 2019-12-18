@@ -5,26 +5,28 @@
 #include "keymap_german.h"
 #include "keymap_nordic.h"
 
-#define BASE 0 // Norman layout
-#define CAPSLAYER 1
-#define TOPROWALT 2
-#define TOPROWNUM 3
-#define NUMPAD 4
-#define FLAYER 5
-#define SYMBOLS 6
-#define MOTIONLAYER 7
-#define QWIMAMU 8 // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
-#define GOLANDLAYER 9
-#define MACROLAYER 10 // words, and stuff
-#define XPLANE 11
-#define UNICODEL 12
-
 #define ___ KC_TRANSPARENT
 
 #define LCS(code) LCTL(LSFT(code))
 #define LSALT(code) LALT(LSFT(code))
 #define CONALT(code) LCTL(LALT(code))
 #define CTLGUI(code) LCTL(LGUI(code))
+
+enum {
+  BASE = 0, // Norman layout
+  CAPSLAYER ,
+  TOPROWALT,
+  TOPROWNUM,
+  NUMPAD ,
+  FLAYER ,
+  SYMBOLS ,
+  MOTIONLAYER ,
+  QWIMAMU,  // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
+  GOLANDLAYER ,
+  MACROLAYER , // words, and stuff
+  XPLANE,
+  UNICODEL ,
+};
 
 enum {
       TD_CURLYBRACKET = 0,
