@@ -96,6 +96,7 @@ enum custom_keycodes {
   WR_MD_TODO,
 
   WR_WORD_ETHEREUM,
+  WR_WORD_GOETHEREUM,
   WR_WORD_GITHUB_DOT_COM,
   WR_WORD_ETCLABSCORE,
   WR_CD_DEV_ETCLABSCORE,
@@ -149,13 +150,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                        LT( TOPROWALT, KC_TAB ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) ,
 
-                       KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , ___ ,
+                       KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_LOCK ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , MO(GOLANDLAYER) ,
 
                        KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI , // KC_LOTdy2KNqd6jRY5nvRAgZ3RGaLXzXYUCK  ,
 
-                       LT(MOTIONLAYER, KC_DELETE) , KC_LOCK , // hold for motion layer is nice for left-handed scrolling
+                       LT(MOTIONLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
                        LCTL(KC_TAB) , // browser tab right
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_TAB) , // browser tab left
 
@@ -388,9 +389,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MACROLAYER] = LAYOUT_ergodox(
                       // Left
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , WR_WORD_GOETHEREUM , ___ , ___ , ___ ,
                       ___ , ___ , ___ , WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM ,
-                      ___ , ___ , ___ , WR_WORD_ETCLABSCORE, ___ , WR_BUILD_BIN_GETH , ___ ,
+                      ___ , KC_SLASH , ___ , WR_WORD_ETCLABSCORE, WR_WORD_MEOWSBITS , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -399,7 +400,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , WR_WORD_MEOWSBITS , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -717,6 +718,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_WORD_ETHEREUM:
     if (record->event.pressed) {
       SEND_STRING("ethereum");
+    }
+    return false;
+    break;
+
+  case WR_WORD_GOETHEREUM:
+    if (record->event.pressed) {
+      SEND_STRING("go-ethereum");
     }
     return false;
     break;
