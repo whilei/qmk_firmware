@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , MO(GOLANDLAYER) ,
 
-                       KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI , // KC_LOCK  ,
+                       KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI , // KC_LOTdy2KNqd6jRY5nvRAgZ3RGaLXzXYUCK  ,
 
                        LT(MOTIONLAYER, KC_DELETE) , KC_LOCK , // hold for motion layer is nice for left-handed scrolling
                        LCTL(KC_TAB) , // browser tab right
@@ -672,21 +672,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case WR_PIPE_LESS:
     if (record->event.pressed) {
-      SEND_STRING("| less");
+      SEND_STRING("| less ");
     }
     return false;
     break;
 
   case WR_LESS:
     if (record->event.pressed) {
-      SEND_STRING("less");
+      SEND_STRING("less ");
     }
     return false;
     break;
 
   case WR_GREP:
     if (record->event.pressed) {
-      SEND_STRING("grep");
+      SEND_STRING("grep ");
     }
     return false;
     break;
