@@ -101,6 +101,7 @@ enum custom_keycodes {
   WR_WORD_ETCLABSCORE,
   WR_CD_DEV_ETCLABSCORE,
   WR_WORD_MEOWSBITS,
+  WR_WORD_RETURN,
   WR_BUILD_BIN_GETH,
   WR_GETH,
   WR_PIPE_LESS,
@@ -150,13 +151,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                        LT( TOPROWALT, KC_TAB ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) ,
 
-                       KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_LOCK ,
+                       KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , ___ ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , MO(GOLANDLAYER) ,
 
-                       KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI , // KC_LOTdy2KNqd6jRY5nvRAgZ3RGaLXzXYUCK  ,
+                       KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
 
-                       LT(MOTIONLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
+                       LT(MOTIONLAYER, KC_DELETE) , TG(MOTIONLAYER) , // hold for motion layer is nice for left-handed scrolling
                        LCTL(KC_TAB) , // browser tab right
                        SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_TAB) , // browser tab left
 
@@ -168,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
 
-                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER) , ___ ,
+                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , KC_LOCK , LGUI(KC_M) ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
@@ -305,7 +306,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // right
                       ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
                       WR_ESCAPEDSINGLEQUOTE , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
-                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
+                      KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
                                               ___ , ___ , ___ , ___ , ___ ,
 
@@ -318,20 +319,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Mouse and motion
   [MOTIONLAYER] = LAYOUT_ergodox(
                       // left
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , LCTL(KC_TAB) ,
+                      KC_ENTER , LCTL(KC_W) , LGUI(KC_O) , LGUI(KC_M) , LCS(KC_TAB) , LCTL(KC_TAB) , LCTL(KC_T) ,
+                      KC_MS_BTN1 , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP ,
                       ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
-                      ___ , ___ , ___ , ___ ,  ___ , ___ , LCS(KC_TAB) ,
+                      ___ , LGUI(KC_LEFT) , LGUI(KC_H) , LGUI(KC_L) , LGUI(KC_RIGHT) , ___ , KC_PGDOWN ,
                       ___ , ___ , ___ , ___, ___,
-                      ___ , KC_MS_BTN3 ,
+                      ___ , ___ ,
                       KC_MS_BTN4 ,
                       KC_MS_BTN1 , KC_MS_BTN2 , KC_MS_BTN5 ,
 
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , KC_HOME , ___ , KC_END , ___ , ___ ,
-                      KC_END , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
-                      ___ , KC_HOME , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
+                      ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
+                      ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___,  ___ ,
                       LCTL(KC_TAB) ,
@@ -370,7 +371,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  LALT(KC_SCOLON) , CONALT(KC_ENTER) , ___ , LSFT(KC_F2) , KC_F2 , LALT(KC_R) , LCS(KC_F10) , // un-select last occurrence, start new line above, prev error, next error, move line up, run test
                                  LALT(KC_L) , LSFT(KC_ENTER) , LCTL(KC_4) , LSFT(KC_F6) , LSALT(KC_7) , LALT(KC_I) , MEH(KC_F) , // select next highlighted occurrence, start new line,  close tab, rename, find, move line down
                                  LCTL(KC_Y) , LCTL(KC_BSLASH) , ___ , ___ , LCS(KC_N) , LCS(KC_A) , // comment line, expand selection, select thru line start/end, open file, actions
-                                 LCS(KC_9) , LCTL(KC_SLASH) , ___ , ___ , ___ , LCS(KC_COMMA) , ___ , // back, delete line, clone caret below
+                                 LCS(KC_9) , LCTL(KC_SLASH) , ___ , LSFT(KC_F7) , KC_F7 , LCS(KC_COMMA) , ___ , // back, delete line, (resolve conflicts)prev,next conflict, clone caret below
                                 ___ , ___ , ___ , ___ , ___ ,
                                 ___ , ___ ,
                                 ___ ,
@@ -398,7 +399,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , WR_WORD_RETURN , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
@@ -746,6 +747,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_WORD_MEOWSBITS:
     if (record->event.pressed) {
       SEND_STRING("meowsbits");
+    }
+    return false;
+    break;
+
+  case WR_WORD_RETURN:
+    if (record->event.pressed) {
+      SEND_STRING("return ");
     }
     return false;
     break;
