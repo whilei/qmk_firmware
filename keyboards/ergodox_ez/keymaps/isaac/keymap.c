@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                        LT( TOPROWALT, KC_TAB ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) ,
 
-                       KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , ___ ,
+                       KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , OSM(MOD_LSFT) ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , MO(GOLANDLAYER) ,
 
@@ -399,7 +399,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , WR_WORD_RETURN , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
