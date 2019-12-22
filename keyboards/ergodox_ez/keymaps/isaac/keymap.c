@@ -34,7 +34,8 @@ enum {
       TD_BRACKET,
       TD_QUOTE_COUNTERINTUITIVE,
       TD_HYPHEN_EQUALS,
-      TD_HELPFLAG
+      TD_HELPFLAG,
+      TD_QUESTION_CAPSLAYER
 };
 
 enum custom_keycodes {
@@ -165,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Right
                        CTLGUI(KC_J) , KC_COLON , KC_EQUAL , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
 
-                       KC_QUESTION , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , KC_QUOTE ,
+                       TD(TD_QUESTION_CAPSLAYER) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , KC_QUOTE ,
                        KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
 
@@ -192,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , LSFT( KC_J ) , LSFT( KC_U ) , LSFT( KC_R ) , LSFT( KC_L ) , KC_COLON , ___ ,
                        LSFT( KC_Y ) , LSFT( KC_N ) , LSFT( KC_I ) , LSFT( KC_O ) , LSFT( KC_H ) , ___ ,
-                       ___ , LSFT( KC_P ) , LSFT( KC_M ) , LSFT( KC_COMMA ) , LSFT( KC_DOT ) , LSFT(KC_SLASH) , ___ ,
+                       ___ , LSFT( KC_P ) , LSFT( KC_M ) ,  KC_COMMA  ,  KC_DOT  , KC_SLASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ ,
@@ -981,7 +982,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   return true;
-}
+};
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_CURLYBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
@@ -990,6 +991,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE),
     [TD_HYPHEN_EQUALS] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL),
     [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS)
+    /* [TD_QUESTION_CAPSLAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, CAPSLAYER) */
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
