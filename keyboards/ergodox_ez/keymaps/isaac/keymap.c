@@ -62,6 +62,11 @@ enum custom_keycodes {
   TMUX_PSPLITH, // pane split horizontally
   TMUX_PSPLITV, // pane split vertically
 
+  TMUX_PANE_UP,
+  TMUX_PANE_DOWN,
+  TMUX_PANE_RIGHT,
+  TMUX_PANE_LEFT,
+
   VIM_CMD_MODE,
   VIM_BUFFER_START,
   VIM_BUFFER_END,
@@ -98,6 +103,7 @@ enum custom_keycodes {
 
   WR_WORD_ETHEREUM,
   WR_WORD_GOETHEREUM,
+  WR_WORD_MULTIGETH,
   WR_WORD_GITHUB_DOT_COM,
   WR_WORD_ETCLABSCORE,
   WR_CD_DEV_ETCLABSCORE,
@@ -108,6 +114,9 @@ enum custom_keycodes {
   WR_PIPE_LESS,
   WR_LESS,
   WR_GREP,
+  WR_WORD_SYSTEM,
+
+  WR_GOSRC_ETHEREUM_GOETHEREUM,
 
 
   // Emoji.. how am I just getting these
@@ -159,8 +168,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
 
                        LT(MOTIONLAYER, KC_DELETE) , TG(MOTIONLAYER) , // hold for motion layer is nice for left-handed scrolling
-                       LCTL(KC_TAB) , // browser tab right
-                       SFT_T(KC_SPACE) , KC_BSPACE , LCS(KC_TAB) , // browser tab left
+                       ___ , // LCTL(KC_TAB) , // browser tab right
+                       SFT_T(KC_SPACE) , KC_BSPACE , ___, //  LCS(KC_TAB) , // browser tab left
 
 
                        // Right
@@ -170,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
 
-                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , KC_LOCK , LGUI(KC_M) ,
+                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , ___ , LGUI(KC_M) ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
@@ -262,7 +271,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       WR_REDIR_2AND1 , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
-                      ___ , ___ , ___ , ___ ,  ___ ,
+                      ___ , KC_COMMA , ___ , ___ ,  ___ ,
                       ___ , ___ ,
                       ___ ,
                       ___ , ___ , ___
@@ -297,7 +306,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
                       ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
-                      ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , WR_ESCAPEDDOUBLEQUOTE ,
+                      ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , ___ , // WR_ESCAPEDDOUBLEQUOTE
                       ___ , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
                       ___ , KC_TILD , KC_GRAVE , KC_LBRACKET, KC_RBRACKET , KC_HASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
@@ -306,7 +315,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ ,
                        // right
                       ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
-                      WR_ESCAPEDSINGLEQUOTE , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
+                      ___ , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ , // WR_ESCAPEDSINGLEQUOTE
                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
                                               ___ , ___ , ___ , ___ , ___ ,
@@ -336,8 +345,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___,  ___ ,
-                      LCTL(KC_TAB) ,
-                      LCS(KC_TAB) , ___ , ___
+                      ___ ,
+                      ___ , ___ , ___
                       ),
 
   // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
@@ -350,9 +359,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        ___ , ___ , ___ , ___ , ___ ,
 
-                       ___ , ___ ,
-                       ___ ,
-                       ___ , ___ , ___ ,
+                       TMUX_PANE_LEFT , TMUX_PANE_RIGHT ,
+                       TMUX_PANE_UP ,
+                       ___ , ___ , TMUX_PANE_DOWN ,
 
                        // Right
                        TG(XPLANE) , ___ , ___ , WR_MD_TODO , ___ , WR_CODEFENCE , DOEXIT ,
@@ -390,9 +399,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [MACROLAYER] = LAYOUT_ergodox(
                       // Left
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , WR_WORD_GOETHEREUM , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM ,
+                      ___ , WR_GOSRC_ETHEREUM_GOETHEREUM , WR_BUILD_BIN_GETH , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , WR_WORD_GOETHEREUM , WR_WORD_MULTIGETH , ___ , ___ ,
+                      ___ , ___ , WR_WORD_SYSTEM , WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM ,
                       ___ , KC_SLASH , ___ , WR_WORD_ETCLABSCORE, WR_WORD_MEOWSBITS , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
@@ -563,6 +572,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
+  case TMUX_PANE_UP:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")SS_TAP(X_UP));
+    }
+    return false;
+    break;
+
+  case TMUX_PANE_DOWN:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")SS_TAP(X_DOWN));
+    }
+    return false;
+    break;
+
+  case TMUX_PANE_RIGHT:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")SS_TAP(X_RIGHT));
+    }
+    return false;
+    break;
+
+  case TMUX_PANE_LEFT:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")SS_TAP(X_LEFT));
+    }
+    return false;
+    break;
+
   case DOEXIT:
     if (record->event.pressed) {
       SEND_STRING("exit"SS_TAP(X_ENTER));
@@ -720,6 +757,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_WORD_ETHEREUM:
     if (record->event.pressed) {
       SEND_STRING("ethereum");
+    }
+    return false;
+    break;
+
+  case WR_WORD_MULTIGETH:
+    if (record->event.pressed) {
+      SEND_STRING("multigeth");
+    }
+    return false;
+    break;
+
+  case WR_WORD_SYSTEM:
+    if (record->event.pressed) {
+      SEND_STRING("system");
+    }
+    return false;
+    break;
+
+  case WR_GOSRC_ETHEREUM_GOETHEREUM:
+    if (record->event.pressed) {
+      SEND_STRING("~/go/src/github.com/ethereum/go-ethereum/");
     }
     return false;
     break;
@@ -990,8 +1048,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_BRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
     [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE),
     [TD_HYPHEN_EQUALS] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL),
-    [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS)
-    /* [TD_QUESTION_CAPSLAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, CAPSLAYER) */
+    [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS),
+    [TD_QUESTION_CAPSLAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, CAPSLAYER)
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
