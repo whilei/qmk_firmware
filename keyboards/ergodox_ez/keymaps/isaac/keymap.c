@@ -15,6 +15,7 @@
 enum {
   BASE = 0, // Norman layout
   CAPSLAYER ,
+  /* DELAYER, // German chars */
   TOPROWALT,
   TOPROWNUM,
   NUMPAD ,
@@ -41,8 +42,7 @@ enum {
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
-  RGB_SLD,
-
+  RGB_SLD, 
   // Mine/
 
   DOEXIT, // type 'exit' and tap enter
@@ -91,6 +91,10 @@ enum custom_keycodes {
   WR_DOUBLE_RBRACKET,
   WR_SHEBANGS_BASH,
   WR_SLASHSLASH,
+  WR_HTTP,
+  WR_HTTPS,
+  WR_PROTO_COLON_SLASHSLASH,
+  WR_LOCALHOST,
 
   WR_FLAGHELP,
   WR_FLAGHELPLESS,
@@ -159,27 +163,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                       LT( TOPROWALT, KC_TAB ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) ,
+                        KC_TAB , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
-                       KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , OSM(MOD_LSFT) ,
+                       KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , MO(GOLANDLAYER) ,
+                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
                        KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
 
-                       LT(MOTIONLAYER, KC_DELETE) , TG(MOTIONLAYER) , // hold for motion layer is nice for left-handed scrolling
+                       /*  */
+                       LT(GOLANDLAYER, KC_DELETE) , LT(MOTIONLAYER, ___) , // hold for motion layer is nice for left-handed scrolling
                        ___ , // LCTL(KC_TAB) , // browser tab right
-                       SFT_T(KC_SPACE) , KC_BSPACE , ___, //  LCS(KC_TAB) , // browser tab left
+                       SFT_T(KC_SPACE) , KC_BSPACE , ___ , //  LCS(KC_TAB) , // browser tab left
 
 
                        // Right
-                       CTLGUI(KC_J) , KC_COLON , KC_EQUAL , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
+                       CTLGUI(KC_J) , KC_COLON , KC_EQUAL , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , ___ ,
 
-                       TD(TD_QUESTION_CAPSLAYER) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , KC_QUOTE ,
+                       TD(TD_QUESTION_CAPSLAYER) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , KC_QUOTE , // LT(DELAYER, KC_QUOTE) ,
                        KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
 
-                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , ___ , LGUI(KC_M) ,
+                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(TOPROWNUM) , TG(MOTIONLAYER) ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
@@ -209,6 +214,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ ,
                        ___ , ___ , ___
                        ),
+
+ /* [DELAYER] = LAYOUT_ergodox( */
+ /*                           // Left */
+ /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+ /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+ /*                           ___ , DE_AE , DE_SS , DE_EURO , ___ , ___ , */
+ /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+ /*                           ___ , ___ , ___ , ___ , ___ , */
+ /*                           ___ , ___ , */
+ /*                           ___ , */
+ /*                           ___ , ___ , ___ , */
+
+ /*                           // right */
+
+ /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+ /*                           ___ , ___ , DE_UE , ___ , ___ , ___ , ___ , */
+ /*                           ___ , ___ , ___ , DE_OE , ___ , ___ , */
+ /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+ /*                           ___ , ___ , ___ , ___ , ___ , */
+ /*                           ___ , ___ , */
+ /*                           ___ , */
+ /*                           ___ , ___ , ___ */
+
+ /*                       ), */
 
  [TOPROWALT] = LAYOUT_ergodox(
                            // Left
@@ -268,7 +297,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       ___ , ___ , KC_LABK , KC_RABK , KC_AMPR , KC_PIPE , ___ ,
-                      WR_REDIR_2AND1 , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
+                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
                       ___ , KC_COMMA , ___ , ___ ,  ___ ,
@@ -409,9 +438,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , WR_LOCALHOST , WR_HTTPS , ___ , // WR_PROTO_COLON_SLASHSLASH 
+                      ___ , ___ , ___ , ___ , WR_HTTP , ___ ,
+                      ___ , ___ , ___ , WR_REDIR_2AND1 , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -701,6 +730,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_FLAGHELP:
     if (record->event.pressed) {
       SEND_STRING("--help");
+    }
+    return false;
+    break;
+
+  case WR_HTTP:
+    if (record->event.pressed) {
+      SEND_STRING("http");
+    }
+    return false;
+    break;
+
+  case WR_HTTPS:
+    if (record->event.pressed) {
+      SEND_STRING("https");
+    }
+    return false;
+    break;
+
+  case WR_PROTO_COLON_SLASHSLASH:
+    if (record->event.pressed) {
+      SEND_STRING("://");
+    }
+    return false;
+    break;
+
+  case WR_LOCALHOST:
+    if (record->event.pressed) {
+      SEND_STRING("localhost");
     }
     return false;
     break;
