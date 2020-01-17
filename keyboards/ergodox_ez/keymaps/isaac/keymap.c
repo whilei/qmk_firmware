@@ -22,6 +22,7 @@ enum {
   FLAYER ,
   SYMBOLS ,
   MOTIONLAYER ,
+  MOUSELAYER,
   QWIMAMU,  // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
   GOLANDLAYER ,
   MACROLAYER , // words, and stuff
@@ -184,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
 
-                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(TOPROWNUM) , TG(MOTIONLAYER) ,
+                        CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), TG(TOPROWNUM) ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
@@ -357,15 +358,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Mouse and motion
   [MOTIONLAYER] = LAYOUT_ergodox(
+                                 /* // Left */
+                                 /* ___ , ___ , ___ , ___ , KC_MS_WH_UP , ___ , ___ , */
+                                 /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+                                 /* ___ , ___ , ___ , ___ , ___ , ___ , */
+                                 /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+                                 /* ___ , ___ , ___ , ___ , ___ , */
+                                 /* ___ , ___ , */
+                                 /* ___ , */
+                                 /* ___ , ___ , ___ , */
+
+                                 /* ___ , LGUI(KC_LEFT) , LGUI(KC_H) , LGUI(KC_L) , LGUI(KC_RIGHT) , ___ , KC_PGDOWN , */
+
                       // left
-                      KC_ENTER , LCTL(KC_W) , LGUI(KC_O) , LGUI(KC_M) , LCS(KC_TAB) , LCTL(KC_TAB) , LCTL(KC_T) ,
-                      KC_MS_BTN1 , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP ,
-                      ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
-                      ___ , LGUI(KC_LEFT) , LGUI(KC_H) , LGUI(KC_L) , LGUI(KC_RIGHT) , ___ , KC_PGDOWN ,
+                      /* LGUI(KC_M) , ___ , LCS(KC_PGUP) , LCS(KC_PGDOWN) , LCS(KC_TAB) , LCTL(KC_TAB) , ___ , */
+                      /* LCTL(KC_T) , ___ , KC_MS_WH_LEFT , ___ , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP , */
+
+                      ___ , ___ , ___ , LCS(KC_PGUP) , LCS(KC_PGDOWN) , KC_MS_WH_LEFT , KC_MS_WH_RIGHT ,
+                      LCTL(KC_T) , ___ , ___ , LCS(KC_TAB) , LCTL(KC_TAB) , KC_MS_WH_UP , KC_PGUP ,
+                      LCTL(KC_W) , ___ , ___ , ___ , ___ , KC_MS_WH_DOWN ,
+                      LGUI(KC_M) , ___ , ___ , ___ , ___ , ___ , KC_PGDOWN ,
                       ___ , ___ , ___ , ___, ___,
                       ___ , ___ ,
-                      KC_MS_BTN4 ,
-                      KC_MS_BTN1 , KC_MS_BTN2 , KC_MS_BTN5 ,
+                      ___ ,
+                      KC_MS_BTN1 , KC_ENTER , ___ ,
 
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -377,6 +393,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ ,
                       ___ , ___ , ___
                       ),
+
+  [MOUSELAYER] = LAYOUT_ergodox(
+
+                      // Left
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , KC_MS_UP , ___ , ___ , ___ ,
+                      ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ ,
+                      KC_MS_BTN4 ,
+                      KC_MS_BTN1 , KC_MS_BTN2 , KC_MS_BTN5 ,
+
+                      // right
+
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ , ___ , ___ , ___ ,
+                      ___ , ___ ,
+                      ___ ,
+                      ___ , ___ , ___
+
+  ),
+
 
   // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
   [QWIMAMU] = LAYOUT_ergodox(
