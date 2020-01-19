@@ -37,7 +37,8 @@ enum {
       TD_QUOTE_COUNTERINTUITIVE,
       TD_HYPHEN_EQUALS,
       TD_HELPFLAG,
-      TD_QUESTION_CAPSLAYER
+      TD_QUESTION_CAPSLAYER,
+      TD_TAB_TMUXQ
 };
 
 enum custom_keycodes {
@@ -164,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                        KC_TAB , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+                       TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
                        KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
                        LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
@@ -206,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        // Right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , LSFT( KC_J ) , LSFT( KC_U ) , LSFT( KC_R ) , LSFT( KC_L ) , KC_COLON , ___ ,
+                       ___ , LSFT( KC_J ) , LSFT( KC_U ) , LSFT( KC_R ) , LSFT( KC_L ) , KC_SCOLON , ___ ,
                        LSFT( KC_Y ) , LSFT( KC_N ) , LSFT( KC_I ) , LSFT( KC_O ) , LSFT( KC_H ) , ___ ,
                        ___ , LSFT( KC_P ) , LSFT( KC_M ) ,  KC_COMMA  ,  KC_DOT  , KC_SLASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
@@ -266,7 +267,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [TOPROWNUM] = LAYOUT_ergodox(
                             // Left
-                            ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
+                            ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -275,7 +276,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             ___ ,
                             ___ , ___ , ___ ,
                             // right
-                            ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
+                            ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -374,10 +375,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       /* LGUI(KC_M) , ___ , LCS(KC_PGUP) , LCS(KC_PGDOWN) , LCS(KC_TAB) , LCTL(KC_TAB) , ___ , */
                       /* LCTL(KC_T) , ___ , KC_MS_WH_LEFT , ___ , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP , */
 
-                      ___ , ___ , ___ , LCS(KC_PGUP) , LCS(KC_PGDOWN) , KC_MS_WH_LEFT , KC_MS_WH_RIGHT ,
+                      LGUI(KC_M) , ___ , ___ , LCS(KC_PGUP) , LCS(KC_PGDOWN) , KC_MS_WH_LEFT , KC_MS_WH_RIGHT ,
                       LCTL(KC_T) , ___ , ___ , LCS(KC_TAB) , LCTL(KC_TAB) , KC_MS_WH_UP , KC_PGUP ,
                       LCTL(KC_W) , ___ , ___ , ___ , ___ , KC_MS_WH_DOWN ,
-                      LGUI(KC_M) , ___ , ___ , ___ , ___ , ___ , KC_PGDOWN ,
+                      ___ , ___ , ___ , ___ , ___ , ___ , KC_PGDOWN ,
                       ___ , ___ , ___ , ___, ___,
                       ___ , ___ ,
                       ___ ,
@@ -438,7 +439,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        TG(XPLANE) , ___ , ___ , WR_MD_TODO , ___ , WR_CODEFENCE , DOEXIT ,
                        VIM_CMD_MODE , ___ , ___ , WR_GREP , WR_LESS , ___ , VIM_NOH ,
                        VIM_BUFFER_PREV , VIM_BUFFER_PREV , KC_PIPE , ___ , KC_0 , KC_DLR ,
-                       ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , WR_FLAGHELP,  ___ , //TD( TD_HELPFLAG ) ,
+                       ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , TD(TD_HELPFLAG) ,  ___ , //TD( TD_HELPFLAG ) , // WR_FLAGHELP,  
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -688,6 +689,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case TMUX_PANE_SELECT:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTRL("b")"q");
+      /* SS_TAP(OSL(TOPROWNUM)); */
+      /* OSL(TOPROWNUM); */
+
+      /* set_oneshot_layer(TOPROWNUM,  ONESHOT_START); */
+      /* clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED); */
+
+      // https://www.reddit.com/r/olkb/comments/4izhrp/qmk_oneshot_question/
+      // https://github.com/algernon/ergodox-layout/commit/6b81e4765d7cc04381558e51b4167d7d7fb344a5
+      layer_on(TOPROWNUM);
+      set_oneshot_layer(TOPROWNUM, ONESHOT_START);
+      clear_oneshot_layer_state(ONESHOT_PRESSED);
+
+      /* layer_on(TOPROWNUM); */
+      /* WAIT(1000); // wait ms */
+      /* layer_off(TOPROWNUM); */
+
+
+      /* layer_on(TOPROWNUM); */
+      /* layer_off(TOPROWNUM); */
+    } else {
     }
     return false;
     break;
@@ -1141,13 +1162,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 };
 
+// https://www.reddit.com/r/MechanicalKeyboards/comments/8vg1jq/qmk_tap_dance_dynamic_macros_help/
+void macroFlagHelpLess(qk_tap_dance_state_t *state, void *user_data) {
+  keyrecord_t kr;
+  if (state->count == 1)
+    {
+      kr.event.pressed = true;
+      process_record_user(WR_FLAGHELP, &kr);
+    }
+  else if (state->count == 2)
+    {
+      kr.event.pressed = true;
+      process_record_user( WR_FLAGHELPLESS, &kr );
+    }
+}
+
+// https://www.reddit.com/r/MechanicalKeyboards/comments/8vg1jq/qmk_tap_dance_dynamic_macros_help/
+void macroTabOrTmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
+  keyrecord_t kr;
+  if (state->count == 1)
+    {
+      kr.event.pressed = true;
+      SEND_STRING(SS_TAP(X_TAB));
+    }
+  else if (state->count == 2)
+    {
+      kr.event.pressed = true;
+      process_record_user( TMUX_PANE_SELECT, &kr );
+    }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_CURLYBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
     [TD_PAREN] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
     [TD_BRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
     [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE),
     [TD_HYPHEN_EQUALS] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL),
-    [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS),
+    /* [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS), */
+    [TD_HELPFLAG] = ACTION_TAP_DANCE_FN(macroFlagHelpLess),
+    [TD_TAB_TMUXQ] = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
     [TD_QUESTION_CAPSLAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, CAPSLAYER)
 };
 
