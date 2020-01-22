@@ -12,6 +12,14 @@
 #define CONALT(code) LCTL(LALT(code))
 #define CTLGUI(code) LCTL(LGUI(code))
 
+// https://www.reddit.com/r/olkb/comments/72u8ou/qmk_mouse_keys_rock/
+
+/* #define MOUSEKEY_INTERVAL 16 */
+/* #define MOUSEKEY_DELAY 0 */
+/* #define MOUSEKEY_TIME_TO_MAX 60 */
+/* #define MOUSEKEY_MAX_SPEED 7 */
+/* #define MOUSEKEY_WHEEL_DELAY 0 */
+
 enum {
   BASE = 0, // Norman layout
   CAPSLAYER ,
@@ -44,7 +52,7 @@ enum {
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
-  RGB_SLD, 
+  RGB_SLD,
   // Mine/
 
   DOEXIT, // type 'exit' and tap enter
@@ -168,14 +176,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
                        KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
-                       LT(SYMBOLS , KC_ESCAPE) , KC_A , KC_S , KC_E , KC_T , KC_G ,
+                       LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
                        KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
 
                        /*  */
-                       LT(GOLANDLAYER, KC_DELETE) , LT(MOTIONLAYER, ___) , // hold for motion layer is nice for left-handed scrolling
-                       ___ , // LCTL(KC_TAB) , // browser tab right
+                       LT(GOLANDLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
+                       TG(MOTIONLAYER) , // LCTL(KC_TAB) , // browser tab right
                        SFT_T(KC_SPACE) , KC_BSPACE , ___ , //  LCS(KC_TAB) , // browser tab left
 
 
@@ -320,6 +328,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            ___ ,
                            ___ , ___ , ___ ,
 
+
                            // right
 
                            KC_F7 , KC_F8 , KC_F9 , KC_F10 , KC_F11 , KC_F12 , ___ ,
@@ -336,7 +345,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Symbols
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
-                      ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
+                      /* ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ , */
+                      ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
                       ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , ___ , // WR_ESCAPEDDOUBLEQUOTE
                       ___ , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
                       ___ , KC_TILD , KC_GRAVE , KC_LBRACKET, KC_RBRACKET , KC_HASH , ___ ,
@@ -345,7 +355,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ ,
                        ___ , ___ , ___ ,
                        // right
-                      ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
+                      /* ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ , */
+                      ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
                       ___ , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ , // WR_ESCAPEDSINGLEQUOTE
                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
@@ -375,14 +386,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       /* LGUI(KC_M) , ___ , LCS(KC_PGUP) , LCS(KC_PGDOWN) , LCS(KC_TAB) , LCTL(KC_TAB) , ___ , */
                       /* LCTL(KC_T) , ___ , KC_MS_WH_LEFT , ___ , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP , */
 
-                      LGUI(KC_M) , ___ , ___ , LCS(KC_PGUP) , LCS(KC_PGDOWN) , KC_MS_WH_LEFT , KC_MS_WH_RIGHT ,
-                      LCTL(KC_T) , ___ , ___ , LCS(KC_TAB) , LCTL(KC_TAB) , KC_MS_WH_UP , KC_PGUP ,
-                      LCTL(KC_W) , ___ , ___ , ___ , ___ , KC_MS_WH_DOWN ,
-                      ___ , ___ , ___ , ___ , ___ , ___ , KC_PGDOWN ,
+                      /* LGUI(KC_M) , ___ , ___ , LCS(KC_PGUP) , LCS(KC_PGDOWN) , KC_MS_WH_LEFT , KC_MS_WH_RIGHT , */
+                      /* LCTL(KC_T) , ___ , ___ , LCS(KC_TAB) , LCTL(KC_TAB) , KC_MS_WH_UP , KC_PGUP , */
+                      /* LCTL(KC_W) , ___ , ___ , ___ , ___ , KC_MS_WH_DOWN , */
+
+                      ___ , ___ , LCS(KC_PGUP) , LCS(KC_TAB) , LCTL(KC_TAB) , LCS(KC_PGDOWN) , ___ ,
+                      ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP ,
+                      ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
+                      ___ , ___ , ___ , ___ , LGUI(KC_M) , ___ , KC_PGDOWN ,
                       ___ , ___ , ___ , ___, ___,
-                      ___ , ___ ,
+                      LCTL(KC_MS_BTN1) , ___ ,
                       ___ ,
-                      KC_MS_BTN1 , KC_ENTER , ___ ,
+                      KC_MS_BTN1 , KC_MS_BTN2 , ___ , //KC_ENTER
 
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -439,7 +454,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        TG(XPLANE) , ___ , ___ , WR_MD_TODO , ___ , WR_CODEFENCE , DOEXIT ,
                        VIM_CMD_MODE , ___ , ___ , WR_GREP , WR_LESS , ___ , VIM_NOH ,
                        VIM_BUFFER_PREV , VIM_BUFFER_PREV , KC_PIPE , ___ , KC_0 , KC_DLR ,
-                       ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , TD(TD_HELPFLAG) ,  ___ , //TD( TD_HELPFLAG ) , // WR_FLAGHELP,  
+                       ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , TD(TD_HELPFLAG) ,  ___ , //TD( TD_HELPFLAG ) , // WR_FLAGHELP,
 
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -481,7 +496,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , WR_LOCALHOST , WR_HTTPS , ___ , // WR_PROTO_COLON_SLASHSLASH 
+                      ___ , ___ , ___ , ___ , WR_LOCALHOST , WR_HTTPS , ___ , // WR_PROTO_COLON_SLASHSLASH
                       ___ , ___ , ___ , ___ , WR_HTTP , ___ ,
                       ___ , ___ , ___ , WR_REDIR_2AND1 , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
