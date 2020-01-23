@@ -118,6 +118,7 @@ enum custom_keycodes {
   WR_WORD_ETHEREUM,
   WR_WORD_GOETHEREUM,
   WR_WORD_MULTIGETH,
+  WR_WORD_MULTIGETH_DASHED,
   WR_WORD_GITHUB_DOT_COM,
   WR_WORD_ETCLABSCORE,
   WR_CD_DEV_ETCLABSCORE,
@@ -390,7 +391,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       /* LCTL(KC_T) , ___ , ___ , LCS(KC_TAB) , LCTL(KC_TAB) , KC_MS_WH_UP , KC_PGUP , */
                       /* LCTL(KC_W) , ___ , ___ , ___ , ___ , KC_MS_WH_DOWN , */
 
-                      ___ , ___ , LCS(KC_PGUP) , LCS(KC_TAB) , LCTL(KC_TAB) , LCS(KC_PGDOWN) , ___ ,
+                      ___ , LCTL(KC_W) , LCS(KC_PGUP) , LCS(KC_TAB) , LCTL(KC_TAB) , LCS(KC_PGDOWN) , LCTL(KC_T) ,
                       ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP ,
                       ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
                       ___ , ___ , ___ , ___ , LGUI(KC_M) , ___ , KC_PGDOWN ,
@@ -486,7 +487,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [MACROLAYER] = LAYOUT_ergodox(
                       // Left
-                      ___ , WR_GOSRC_ETHEREUM_GOETHEREUM , WR_BUILD_BIN_GETH , ___ , ___ , ___ , ___ ,
+                      ___ , WR_GOSRC_ETHEREUM_GOETHEREUM , WR_BUILD_BIN_GETH , ___ , WR_WORD_MULTIGETH_DASHED , ___ , ___ ,
                       ___ , ___ , ___ , WR_WORD_GOETHEREUM , WR_WORD_MULTIGETH , ___ , ___ ,
                       ___ , ___ , WR_WORD_SYSTEM , WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM ,
                       ___ , KC_SLASH , ___ , WR_WORD_ETCLABSCORE, WR_WORD_MEOWSBITS , ___ , ___ ,
@@ -899,6 +900,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_WORD_MULTIGETH:
     if (record->event.pressed) {
       SEND_STRING("multigeth");
+    }
+    return false;
+    break;
+
+  case WR_WORD_MULTIGETH_DASHED:
+    if (record->event.pressed) {
+      SEND_STRING("multi-geth");
     }
     return false;
     break;
