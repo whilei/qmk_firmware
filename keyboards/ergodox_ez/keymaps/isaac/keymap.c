@@ -46,7 +46,8 @@ enum {
       TD_HYPHEN_EQUALS,
       TD_HELPFLAG,
       TD_QUESTION_CAPSLAYER,
-      TD_TAB_TMUXQ
+      TD_TAB_TMUXQ,
+      TD_DQUOTE_MOTION
 };
 
 enum custom_keycodes {
@@ -176,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                        TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , KC_KP_ASTERISK , KC_PERC , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
-                       KC_DOUBLE_QUOTE , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
+                       TD(TD_DQUOTE_MOTION) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
@@ -184,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        /*  */
                        LT(GOLANDLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
-                       TG(MOTIONLAYER) , // LCTL(KC_TAB) , // browser tab right
+                       ___ , // LCTL(KC_TAB) , // browser tab right
                        SFT_T(KC_SPACE) , KC_BSPACE , ___ , //  LCS(KC_TAB) , // browser tab left
 
 
@@ -192,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        CTLGUI(KC_J) , KC_COLON , KC_EQUAL , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , ___ ,
 
                        TD(TD_QUESTION_CAPSLAYER) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , KC_QUOTE , // LT(DELAYER, KC_QUOTE) ,
-                       KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait
+                       KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
 
                         CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), TG(TOPROWNUM) ,
@@ -276,7 +277,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [TOPROWNUM] = LAYOUT_ergodox(
                             // Left
-                            ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
+                            /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
+                            ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5 , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -285,7 +287,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             ___ ,
                             ___ , ___ , ___ ,
                             // right
-                            ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
+                            /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
+                            ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -346,8 +349,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Symbols
   [SYMBOLS] = LAYOUT_ergodox(
                        // Left
-                      /* ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ , */
-                      ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
+                      ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
+                      /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
                       ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , ___ , // WR_ESCAPEDDOUBLEQUOTE
                       ___ , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
                       ___ , KC_TILD , KC_GRAVE , KC_LBRACKET, KC_RBRACKET , KC_HASH , ___ ,
@@ -356,8 +359,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ ,
                        ___ , ___ , ___ ,
                        // right
-                      /* ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ , */
-                      ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ ,
+                      ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
+                      /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
                       ___ , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ , // WR_ESCAPEDSINGLEQUOTE
                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
                        ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ ,
@@ -391,14 +394,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       /* LCTL(KC_T) , ___ , ___ , LCS(KC_TAB) , LCTL(KC_TAB) , KC_MS_WH_UP , KC_PGUP , */
                       /* LCTL(KC_W) , ___ , ___ , ___ , ___ , KC_MS_WH_DOWN , */
 
-                      ___ , LCTL(KC_W) , LCS(KC_PGUP) , LCS(KC_TAB) , LCTL(KC_TAB) , LCS(KC_PGDOWN) , LCTL(KC_T) ,
-                      ___ , ___ , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP ,
+                      ___ , ___ , LCS(KC_PGUP) , LCS(KC_TAB) , LCTL(KC_TAB) , LCS(KC_PGDOWN) , ___ ,
+                      ___ , LCTL(KC_W) , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP ,
                       ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
                       ___ , ___ , ___ , ___ , LGUI(KC_M) , ___ , KC_PGDOWN ,
                       ___ , ___ , ___ , ___, ___,
-                      LCTL(KC_MS_BTN1) , ___ ,
-                      ___ ,
-                      KC_MS_BTN1 , KC_MS_BTN2 , ___ , //KC_ENTER
+                      LGUI(KC_H) , LGUI(KC_L) ,
+                      LGUI(KC_RIGHT) ,
+                      KC_MS_BTN1 , KC_MS_BTN2 , LGUI(KC_LEFT) , //KC_ENTER
 
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -713,8 +716,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       // https://www.reddit.com/r/olkb/comments/4izhrp/qmk_oneshot_question/
       // https://github.com/algernon/ergodox-layout/commit/6b81e4765d7cc04381558e51b4167d7d7fb344a5
-      layer_on(TOPROWNUM);
-      set_oneshot_layer(TOPROWNUM, ONESHOT_START);
+
+      /* layer_on(TOPROWNUM); */
+      /* set_oneshot_layer(TOPROWNUM, ONESHOT_START); */
+      /* clear_oneshot_layer_state(ONESHOT_PRESSED); */
+
+      layer_on(NUMPAD);
+      set_oneshot_layer(NUMPAD, ONESHOT_START);
       clear_oneshot_layer_state(ONESHOT_PRESSED);
 
       /* layer_on(TOPROWNUM); */
@@ -815,14 +823,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case WR_HTTP:
     if (record->event.pressed) {
-      SEND_STRING("http");
+      SEND_STRING("http://");
     }
     return false;
     break;
 
   case WR_HTTPS:
     if (record->event.pressed) {
-      SEND_STRING("https");
+      SEND_STRING("https://");
     }
     return false;
     break;
@@ -1224,7 +1232,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     /* [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS), */
     [TD_HELPFLAG] = ACTION_TAP_DANCE_FN(macroFlagHelpLess),
     [TD_TAB_TMUXQ] = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
-    [TD_QUESTION_CAPSLAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, CAPSLAYER)
+    [TD_QUESTION_CAPSLAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, CAPSLAYER),
+    [TD_DQUOTE_MOTION] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER)
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
