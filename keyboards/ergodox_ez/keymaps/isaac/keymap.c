@@ -47,7 +47,8 @@ enum {
       TD_HELPFLAG,
       TD_QUESTION_CAPSLAYER,
       TD_TAB_TMUXQ,
-      TD_DQUOTE_MOTION
+      TD_DQUOTE_MOTION,
+      TD_TODO_DONE
 };
 
 enum custom_keycodes {
@@ -184,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
 
                        /*  */
-                       LT(GOLANDLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
+                       LT(GOLANDLAYER, KC_DELETE) , TG(CAPSLAYER) , // hold for motion layer is nice for left-handed scrolling
                        ___ , // LCTL(KC_TAB) , // browser tab right
                        SFT_T(KC_SPACE) , KC_BSPACE , ___ , //  LCS(KC_TAB) , // browser tab left
 
@@ -455,7 +456,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , TMUX_PANE_DOWN ,
 
                        // Right
-                       TG(XPLANE) , ___ , ___ , WR_MD_TODO , ___ , WR_CODEFENCE , DOEXIT ,
+                       TG(XPLANE) , ___ , ___ , TD(TD_TODO_DONE) , ___ , WR_CODEFENCE , DOEXIT ,
                        VIM_CMD_MODE , ___ , ___ , WR_GREP , WR_LESS , ___ , VIM_NOH ,
                        VIM_BUFFER_PREV , VIM_BUFFER_PREV , KC_PIPE , ___ , KC_0 , KC_DLR ,
                        ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , TD(TD_HELPFLAG) ,  ___ , //TD( TD_HELPFLAG ) , // WR_FLAGHELP,
@@ -1223,6 +1224,17 @@ void macroTabOrTmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void macroTodoDone(qk_tap_dance_state_t *state, void *user_date) {
+  if (state->count == 1)
+    {
+      SEND_STRING("- [ ] ");
+    }
+  else if (state->count == 2)
+    {
+      SEND_STRING("- [x] ");
+    }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_CURLYBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
     [TD_PAREN] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
@@ -1233,7 +1245,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_HELPFLAG] = ACTION_TAP_DANCE_FN(macroFlagHelpLess),
     [TD_TAB_TMUXQ] = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
     [TD_QUESTION_CAPSLAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, CAPSLAYER),
-    [TD_DQUOTE_MOTION] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER)
+    [TD_DQUOTE_MOTION] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER),
+    [TD_TODO_DONE] = ACTION_TAP_DANCE_FN(macroTodoDone)
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
