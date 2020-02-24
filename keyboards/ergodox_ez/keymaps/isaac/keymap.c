@@ -121,6 +121,9 @@ enum custom_keycodes {
   WR_WORD_GOETHEREUM,
   WR_WORD_MULTIGETH,
   WR_WORD_MULTIGETH_DASHED,
+  WR_WORD_COREGETH_DASHED,
+  WR_WORD_EIP,
+  WR_WORD_ECIP,
   WR_WORD_GITHUB_DOT_COM,
   WR_WORD_ETCLABSCORE,
   WR_CD_DEV_ETCLABSCORE,
@@ -185,19 +188,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
 
                        /*  */
-                       LT(GOLANDLAYER, KC_DELETE) , TG(CAPSLAYER) , // hold for motion layer is nice for left-handed scrolling
+                       LT(GOLANDLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
                        ___ , // LCTL(KC_TAB) , // browser tab right
-                       SFT_T(KC_SPACE) , KC_BSPACE , ___ , //  LCS(KC_TAB) , // browser tab left
+                       SFT_T(KC_SPACE) , KC_BSPACE , TG(CAPSLAYER) , //  LCS(KC_TAB) , // browser tab left
 
 
                        // Right
-                       CTLGUI(KC_J) , KC_COLON , KC_EQUAL , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , ___ ,
+                       CTLGUI(KC_J) , KC_COLON , KC_EQUAL , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
 
                        TD(TD_QUESTION_CAPSLAYER) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , KC_QUOTE , // LT(DELAYER, KC_QUOTE) ,
                        KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
 
-                        CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), TG(TOPROWNUM) ,
+                      CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), ___ ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
@@ -492,7 +495,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MACROLAYER] = LAYOUT_ergodox(
                       // Left
                       ___ , WR_GOSRC_ETHEREUM_GOETHEREUM , WR_BUILD_BIN_GETH , ___ , WR_WORD_MULTIGETH_DASHED , ___ , ___ ,
-                      ___ , ___ , ___ , WR_WORD_GOETHEREUM , WR_WORD_MULTIGETH , ___ , ___ ,
+                      ___ , WR_WORD_EIP , WR_WORD_ECIP , WR_WORD_GOETHEREUM , WR_WORD_MULTIGETH , WR_WORD_COREGETH_DASHED , ___ ,
                       ___ , ___ , WR_WORD_SYSTEM , WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM ,
                       ___ , KC_SLASH , ___ , WR_WORD_ETCLABSCORE, WR_WORD_MEOWSBITS , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
@@ -916,6 +919,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_WORD_MULTIGETH_DASHED:
     if (record->event.pressed) {
       SEND_STRING("multi-geth");
+    }
+    return false;
+    break;
+
+  case WR_WORD_COREGETH_DASHED:
+    if (record->event.pressed) {
+      SEND_STRING("core-geth");
+    }
+    return false;
+    break;
+
+  case WR_WORD_EIP:
+    if (record->event.pressed) {
+      SEND_STRING("EIP");
+    }
+    return false;
+    break;
+
+  case WR_WORD_ECIP:
+    if (record->event.pressed) {
+      SEND_STRING("ECIP");
     }
     return false;
     break;
