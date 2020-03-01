@@ -185,11 +185,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
-                       KC_MS_WH_DOWN,  CTL_T(KC_NO) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
+                       KC_MS_WH_DOWN,  CTL_T(KC_MINUS) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
 
                        /*  */
                        LT(GOLANDLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
-                       ___ , // LCTL(KC_TAB) , // browser tab right
+                       OSM(MOD_LCTL) , // LCTL(KC_TAB) , // browser tab right
                        SFT_T(KC_SPACE) , KC_BSPACE , TG(CAPSLAYER) , //  LCS(KC_TAB) , // browser tab left
 
 
