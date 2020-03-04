@@ -189,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        /*  */
                        LT(GOLANDLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
-                       OSM(MOD_LCTL) , // LCTL(KC_TAB) , // browser tab right
+                       ___ , // LCTL(KC_TAB) , // browser tab right
                        SFT_T(KC_SPACE) , KC_BSPACE , TG(CAPSLAYER) , //  LCS(KC_TAB) , // browser tab left
 
 
