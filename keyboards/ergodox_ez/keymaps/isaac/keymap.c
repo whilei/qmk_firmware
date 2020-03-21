@@ -179,9 +179,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                       TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , ___ , ___ , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+                       TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , ___ , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
-                       TD(TD_DQUOTE_MOTION) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
+                       OSL(TOPROWNUM) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                        KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
@@ -189,18 +189,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        /*  */
                        LT(GOLANDLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
-                       ___ , // LCTL(KC_TAB) , // browser tab right
-                       SFT_T(KC_SPACE) , KC_BSPACE , TG(CAPSLAYER) , //  LCS(KC_TAB) , // browser tab left
+                       ___ , // LCTL(KC_TAB) ,
+                       SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE , //  LCS(KC_TAB) , // browser tab left
 
 
                        // Right
-                       CTLGUI(KC_J) , KC_PERC , KC_COLON , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , TG(TOPROWNUM) ,
+                       CTLGUI(KC_J) , KC_PERC , KC_COLON , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
 
                        TD(TD_QUESTION_CAPSLAYER) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , KC_QUOTE , // LT(DELAYER, KC_QUOTE) ,
                        KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
 
-                      CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), ___ ,
+                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), ___ ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
@@ -314,9 +314,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ ,
                       ___ , ___ , ___ ,
                       // right
-                      ___ , ___ , KC_LABK , KC_RABK , KC_AMPR , KC_PIPE , ___ ,
+                      ___ , ___ , KC_LABK , KC_RABK , KC_AMPR , KC_PIPE , ___ , //
                       ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
-                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_DOT , ___ ,
+                      KC_MINUS , KC_4 , KC_5 , KC_6 , ___,  KC_DOT , //
                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
                       ___ , KC_COMMA , ___ , ___ ,  ___ ,
                       ___ , ___ ,
@@ -461,7 +461,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Right
                        TG(XPLANE) , ___ , ___ , TD(TD_TODO_DONE) , ___ , WR_CODEFENCE , DOEXIT ,
                        VIM_CMD_MODE , ___ , ___ , WR_GREP , WR_LESS , ___ , VIM_NOH ,
-                       VIM_BUFFER_PREV , VIM_BUFFER_PREV , KC_PIPE , ___ , KC_0 , KC_DLR ,
+                       VIM_BUFFER_PREV , VIM_BUFFER_NEXT , KC_PIPE , ___ , KC_0 , KC_DLR ,
                        ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , TD(TD_HELPFLAG) ,  ___ , //TD( TD_HELPFLAG ) , // WR_FLAGHELP,
 
                        ___ , ___ , ___ , ___ , ___ ,
@@ -1245,6 +1245,13 @@ void macroTabOrTmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
     {
       kr.event.pressed = true;
       process_record_user( TMUX_PANE_SELECT, &kr );
+    }
+    else if (state->count == 3)
+    {
+      SEND_STRING(SS_LCTRL("b")SS_LCTRL("b")"q");
+      layer_on(NUMPAD);
+      set_oneshot_layer(NUMPAD, ONESHOT_START);
+      clear_oneshot_layer_state(ONESHOT_PRESSED);
     }
 }
 
