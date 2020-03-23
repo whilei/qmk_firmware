@@ -175,11 +175,10 @@ void eeconfig_init_user(void) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
-
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                       TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , ___ , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , LSFT(KC_RIGHT) , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
                        OSL(TOPROWNUM) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
@@ -188,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_MS_WH_DOWN,  CTL_T(KC_MINUS) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
 
                        /*  */
-                       LT(GOLANDLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
+                       LT(GOLANDLAYER, KC_DELETE) , OSL(GOLANDLAYER) , // hold for motion layer is nice for left-handed scrolling
                        ___ , // LCTL(KC_TAB) ,
                        SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE , //  LCS(KC_TAB) , // browser tab left
 
@@ -200,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
 
-                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), ___ ,
+                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), LT(GOLANDLAYER, KC_NO) ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
@@ -482,10 +481,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 ___ ,
                                 ___ , ___ , ___ ,
                                 // right
-                                 LALT(KC_7) , LALT(KC_1) , LALT(KC_2) , LALT(KC_3) , LALT(KC_4) , LALT(KC_5) , ___ ,
-                                ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                                LALT(KC_7) , LALT(KC_1) , LALT(KC_2) , LALT(KC_3) , LALT(KC_4) , LALT(KC_5) , LALT(KC_F12) ,
+                                LALT(KC_9) , ___ , ___ , ___ , ___ , ___ , ___ ,
                                 ___ , ___ , ___ , ___ , ___ , ___ ,
-                                ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                                ___ , ___ , MEH(KC_PGUP) , MEH(KC_RBRACKET) , MEH(KC_LBRACKET) , MEH(KC_PGDN) , ___ ,
+
                                 ___ , ___ , ___ , ___ , ___ ,
                                 ___ , ___ ,
                                 ___ ,
