@@ -188,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        /*  */
                        LT(GOLANDLAYER, KC_DELETE) , OSL(GOLANDLAYER) , // hold for motion layer is nice for left-handed scrolling
-                       ___ , // LCTL(KC_TAB) ,
+                       KC_INSERT , // LCTL(KC_TAB) ,
                        SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE , //  LCS(KC_TAB) , // browser tab left
 
 
@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        CTLGUI(KC_J) , KC_PERC , KC_COLON , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
 
                        TD(TD_QUESTION_CAPSLAYER) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , KC_QUOTE , // LT(DELAYER, KC_QUOTE) ,
-                       KC_Y , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
+                        LT(GOLANDLAYER, KC_Y) , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
 
                        CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), LT(GOLANDLAYER, KC_NO) ,
@@ -204,7 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
                        LGUI(KC_LEFT) , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER)
-                       ),
+                          ),
 
   [CAPSLAYER] = LAYOUT_ergodox(
                        // Left
@@ -314,8 +314,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       ___ , ___ , KC_LABK , KC_RABK , KC_AMPR , KC_PIPE , ___ , //
-                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
-                      KC_MINUS , KC_4 , KC_5 , KC_6 , ___,  KC_DOT , //
+                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , ___ , KC_COMMA ,
+                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_SLASH ,  KC_DOT ,
                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
                       ___ , KC_COMMA , ___ , ___ ,  ___ ,
                       ___ , ___ ,
@@ -469,27 +469,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___
                       ),
 
+  //
+  // Find word at caret : ctrl+3
+  // Find next/move to next occurrence : F3
+  // Find prev/move to prev occurrence: Shift+F3
+  // Select all occurrences: Ctrl+Alt+L
+  // Select navigation bar: Alt+Home
+  // ---
+  // Add selection for next occurrence: Alt+L
+  // Unselect next occurrence: Alt+;
+
   [GOLANDLAYER] = LAYOUT_ergodox(
       // Left
                                  // move up, down
                                  LALT(KC_SCOLON) , CONALT(KC_ENTER) , ___ , LSFT(KC_F2) , KC_F2 , LALT(KC_R) , LCS(KC_F10) , // un-select last occurrence, start new line above, prev error, next error, move line up, run test
                                  LALT(KC_L) , LSFT(KC_ENTER) , LCTL(KC_4) , LSFT(KC_F6) , LSALT(KC_7) , LALT(KC_I) , MEH(KC_F) , // select next highlighted occurrence, start new line,  close tab, rename, find, move line down
-                                 LCTL(KC_Y) , LCTL(KC_BSLASH) , ___ , ___ , LCS(KC_N) , LCS(KC_A) , // comment line, expand selection, select thru line start/end, open file, actions
-                                 LCS(KC_9) , LCTL(KC_SLASH) , ___ , LSFT(KC_F7) , KC_F7 , LCS(KC_COMMA) , ___ , // back, delete line, (resolve conflicts)prev,next conflict, clone caret below
+                                 LCTL(KC_Y) , LCTL(KC_BSLASH) , ___ , ___ , LCS(KC_N) , LCS(KC_A) , // delete line, expand selection, select thru line start/end, open file, actions
+                                 LCS(KC_9) , LCTL(KC_SLASH) , ___ , LSFT(KC_F7) , KC_F7 , LCS(KC_COMMA) , ___ , // back, comment line, (resolve conflicts)prev,next conflict, clone caret below
                                 ___ , ___ , ___ , ___ , ___ ,
                                 ___ , ___ ,
                                 ___ ,
                                 ___ , ___ , ___ ,
                                 // right
                                 LALT(KC_7) , LALT(KC_1) , LALT(KC_2) , LALT(KC_3) , LALT(KC_4) , LALT(KC_5) , LALT(KC_F12) ,
-                                LALT(KC_9) , ___ , ___ , ___ , ___ , ___ , ___ ,
-                                ___ , ___ , ___ , ___ , ___ , ___ ,
-                                ___ , ___ , MEH(KC_PGUP) , MEH(KC_RBRACKET) , MEH(KC_LBRACKET) , MEH(KC_PGDN) , ___ ,
+                                 LALT(KC_HOME) , ___ , ___ , ___ , ___ , ___ , LALT(KC_9) ,
+                                 ___ , ___ , ___ , ___ , ___ , LCTL(KC_1) , // show error description
+                                 ___  , ___ , MEH(KC_PGUP) , MEH(KC_RBRACKET) , MEH(KC_LBRACKET) , MEH(KC_PGDN) , ___ , // Find word at caret
 
                                 ___ , ___ , ___ , ___ , ___ ,
                                 ___ , ___ ,
-                                ___ ,
-                                ___ , ___ , ___
+                                 LSFT(KC_F3) ,
+                                 KC_F3 , LCTL(KC_3) , ___
                                  ),
 
   [MACROLAYER] = LAYOUT_ergodox(
