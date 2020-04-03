@@ -180,9 +180,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                           TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , LSFT(KC_RIGHT) , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
-                       OSL(TOPROWNUM) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
+                          OSL(TOPROWNUM) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
-                       KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , OSM(MOD_LSFT) , // MO(GOLANDLAYER)
+                          KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
                        KC_MS_WH_DOWN,  CTL_T(KC_MINUS) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
 
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        TD(TD_QUESTION_CAPSLAYER) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , KC_QUOTE , // LT(DELAYER, KC_QUOTE) ,
                         LT(GOLANDLAYER, KC_Y) , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
-                       KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT ,
+                          KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , OSM(MOD_LSFT) , // KC_RSHIFT ,
 
                        CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), LT(GOLANDLAYER, KC_NO) ,
 
@@ -567,6 +567,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             )
 
 };
+
+LEADER_EXTERNS();
+
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    SEQ_TWO_KEYS(KC_G, KC_T) {
+      /* SEND_STRING(SS_LSFT( SS_LCTL(KC_F10) )) */
+
+      register_code(KC_LSHIFT);
+      register_code(KC_LCTL);
+      register_code(KC_F10);
+
+      unregister_code(KC_LSHIFT);
+      unregister_code(KC_LCTL);
+      unregister_code(KC_F10);
+    }
+
+    /* SEQ_ONE_KEY(KC_W, KC_L) { */
+    /*   // Anything you can do in a macro. */
+    /*   SEND_STRING() */
+    /* } */
+    /* SEQ_TWO_KEYS(KC_D, KC_D) { */
+    /*   SEND_STRING(SS_LCTL("a") SS_LCTL("c")); */
+    /* } */
+    /* SEQ_THREE_KEYS(KC_D, KC_D, KC_S) { */
+    /*   SEND_STRING("https://start.duckduckgo.com\n"); */
+    /* } */
+    /* SEQ_TWO_KEYS(KC_A, KC_S) { */
+    /*   register_code(KC_LGUI); */
+    /*   register_code(KC_S); */
+    /*   unregister_code(KC_S); */
+    /*   unregister_code(KC_LGUI); */
+    /* } */
+  }
+}
 
 bool suspended = false;
 const uint16_t PROGMEM fn_actions[] = {
