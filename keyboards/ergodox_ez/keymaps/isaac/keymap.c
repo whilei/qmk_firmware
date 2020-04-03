@@ -45,7 +45,7 @@ enum {
       TD_QUOTE_COUNTERINTUITIVE,
       TD_HYPHEN_EQUALS,
       TD_HELPFLAG,
-      TD_QUESTION_CAPSLAYER,
+      TD_QUESTION_TOPROWNUM,
       TD_TAB_TMUXQ,
       TD_DQUOTE_MOTION,
       TD_TODO_DONE
@@ -180,11 +180,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                           TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , LSFT(KC_RIGHT) , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
-                          OSL(TOPROWNUM) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
+                          ___ , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                           KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
-                       KC_MS_WH_DOWN,  CTL_T(KC_MINUS) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
+                       KC_MS_WH_DOWN,  ___ , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
 
                        /*  */
                        LT(GOLANDLAYER, KC_DELETE) , OSL(GOLANDLAYER) , // hold for motion layer is nice for left-handed scrolling
@@ -195,11 +195,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Right
                        CTLGUI(KC_J) , KC_PERC , KC_COLON , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
 
-                       TD(TD_QUESTION_CAPSLAYER) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , KC_QUOTE , // LT(DELAYER, KC_QUOTE) ,
-                        LT(GOLANDLAYER, KC_Y) , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
-                          KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , OSM(MOD_LSFT) , // KC_RSHIFT ,
+                       TD(TD_QUESTION_TOPROWNUM) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , ___ , // LT(DELAYER, KC_QUOTE) ,
+                       LT(GOLANDLAYER, KC_Y) , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
+                       KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), LT(GOLANDLAYER, KC_NO) ,
+                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), ___ ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
@@ -1323,7 +1323,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     /* [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS), */
     [TD_HELPFLAG] = ACTION_TAP_DANCE_FN(macroFlagHelpLess),
     [TD_TAB_TMUXQ] = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
-    [TD_QUESTION_CAPSLAYER] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, CAPSLAYER),
+    [TD_QUESTION_TOPROWNUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, TOPROWNUM),
     [TD_DQUOTE_MOTION] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER),
     [TD_TODO_DONE] = ACTION_TAP_DANCE_FN(macroTodoDone)
 };
