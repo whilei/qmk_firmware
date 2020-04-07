@@ -2,8 +2,8 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-#include "keymap_german.h"
-#include "keymap_nordic.h"
+/* #include "keymap_german.h" */
+/* #include "keymap_nordic.h" */
 
 #define ___ KC_TRANSPARENT
 
@@ -38,6 +38,7 @@ enum {
   UNICODEL ,
 };
 
+// TAP DANCES
 enum {
       TD_CURLYBRACKET = 0,
       TD_PAREN,
@@ -48,7 +49,9 @@ enum {
       TD_QUESTION_TOPROWNUM,
       TD_TAB_TMUXQ,
       TD_DQUOTE_MOTION,
-      TD_TODO_DONE
+      TD_TODO_DONE,
+      TD_LABK_COMMA,
+      TD_RABK_DOT ,
 };
 
 enum custom_keycodes {
@@ -193,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
                        // Right
-                       CTLGUI(KC_J) , KC_PERC , KC_COLON , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
+                       CTLGUI(KC_J) , ___ , ___ , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
 
                        TD(TD_QUESTION_TOPROWNUM) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , ___ , // LT(DELAYER, KC_QUOTE) ,
                        LT(GOLANDLAYER, KC_Y) , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
@@ -313,11 +316,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ ,
                       ___ , ___ , ___ ,
                       // right
-                      ___ , ___ , KC_LABK , KC_RABK , KC_AMPR , KC_PIPE , ___ , //
-                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , ___ , KC_COMMA ,
-                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_SLASH ,  KC_DOT ,
-                      ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_0 , KC_ENTER ,
-                      ___ , KC_COMMA , ___ , ___ ,  ___ ,
+                      ___ , ___ , KC_LABK , KC_RABK , KC_PIPE , KC_AMPR ,  ___ , //
+                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_COMMA , KC_EQUAL ,
+                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_0 ,  KC_SLASH ,
+                      ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_DOT , KC_ENTER ,
+                      ___ , ___ , ___ , ___ ,  ___ ,
                       ___ , ___ ,
                       ___ ,
                       ___ , ___ , ___
@@ -354,7 +357,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                       ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
                       /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
-                      ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , ___ , // WR_ESCAPEDDOUBLEQUOTE
+                      ___ , LSFT(KC_SLASH), KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , ___ , // WR_ESCAPEDDOUBLEQUOTE
                       KC_DOT , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
                       ___ , KC_TILD , KC_GRAVE , KC_LBRACKET, KC_RBRACKET , KC_HASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
@@ -364,9 +367,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // right
                       ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
                       /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
-                      ___ , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
+                      ___ , KC_PERC , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
-                      ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ , //
+                      ___ , KC_KP_ASTERISK , KC_UNDS , TD( TD_LABK_COMMA ) , TD( TD_RABK_DOT ) , ___ , ___ , //
                                               ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ ,
@@ -1210,56 +1213,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   /*   return false; */
   /*   break; */
 
-#ifdef UNICODE_ENABLE
-  case EMOJI_UHU:
-    if (record->event.pressed) {
-      send_unicode_hex_string("2299 FE4F 2299");
-    }
-    return false;
-    break;
+/* #ifdef UNICODE_ENABLE */
+/*   case EMOJI_UHU: */
+/*     if (record->event.pressed) { */
+/*       send_unicode_hex_string("2299 FE4F 2299"); */
+/*     } */
+/*     return false; */
+/*     break; */
 
-  case EMOJI_FACE2:
-    if (record->event.pressed) {
-      send_unicode_hex_string("0028 2022 005F 2022 0029");
-    }
-    return false;
-    break;
+/*   case EMOJI_FACE2: */
+/*     if (record->event.pressed) { */
+/*       send_unicode_hex_string("0028 2022 005F 2022 0029"); */
+/*     } */
+/*     return false; */
+/*     break; */
 
-  case EMOJI_FACE1:
-    if (record->event.pressed) {
-      send_unicode_hex_string("0028 002D 005F 002D 0029");
-    }
-    return false;
-    break;
+/*   case EMOJI_FACE1: */
+/*     if (record->event.pressed) { */
+/*       send_unicode_hex_string("0028 002D 005F 002D 0029"); */
+/*     } */
+/*     return false; */
+/*     break; */
 
-  case EMOJI_EGGY2:
-    if (record->event.pressed) {
-      send_unicode_hex_string("30CE 0028 0020 309C 002D 309C 30CE 0029");
-    }
-    return false;
-    break;
+/*   case EMOJI_EGGY2: */
+/*     if (record->event.pressed) { */
+/*       send_unicode_hex_string("30CE 0028 0020 309C 002D 309C 30CE 0029"); */
+/*     } */
+/*     return false; */
+/*     break; */
 
-  case EMOJI_SMILE2:
-    if (record->event.pressed) {
-      send_unicode_hex_string("0028 0298 203F 0298 0029");
-    }
-    return false;
-    break;
+/*   case EMOJI_SMILE2: */
+/*     if (record->event.pressed) { */
+/*       send_unicode_hex_string("0028 0298 203F 0298 0029"); */
+/*     } */
+/*     return false; */
+/*     break; */
 
-  case EMOJI_SHRUG: // // ¯\_(ツ)_/¯
-    if (record->event.pressed) {
-      send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
-    }
-    return false;
-    break;
-#endif
+/*   case EMOJI_SHRUG: // // ¯\_(ツ)_/¯ */
+/*     if (record->event.pressed) { */
+/*       send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF"); */
+/*     } */
+/*     return false; */
+/*     break; */
+/* #endif */
 
-  case EMOJI_YAY:
-    if (record->event.pressed) {
-      SEND_STRING ("\\o/");
-    }
-    return false;
-    break;
+  /* case EMOJI_YAY: */
+  /*   if (record->event.pressed) { */
+  /*     SEND_STRING ("\\o/"); */
+  /*   } */
+  /*   return false; */
+  /*   break; */
 
   }
 
@@ -1325,7 +1328,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_TAB_TMUXQ] = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
     [TD_QUESTION_TOPROWNUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, TOPROWNUM),
     [TD_DQUOTE_MOTION] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER),
-    [TD_TODO_DONE] = ACTION_TAP_DANCE_FN(macroTodoDone)
+    [TD_TODO_DONE] = ACTION_TAP_DANCE_FN(macroTodoDone),
+    [TD_LABK_COMMA] = ACTION_TAP_DANCE_DOUBLE(KC_LABK, KC_COMMA),
+    [TD_RABK_DOT] = ACTION_TAP_DANCE_DOUBLE(KC_RABK, KC_DOT)
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
