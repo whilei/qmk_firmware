@@ -54,6 +54,101 @@ enum {
       TD_RABK_DOT ,
 };
 
+/* ------------------------------------------------------------------ */
+// https://beta.docs.qmk.fm/using-qmk/software-features/feature_tap_dance
+
+typedef struct {
+  bool is_press_action;
+  int state;
+} tap;
+
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+  DOUBLE_TAP = 3,
+  DOUBLE_HOLD = 4,
+  DOUBLE_SINGLE_TAP = 5, //send two single taps
+  TRIPLE_TAP = 6,
+  TRIPLE_HOLD = 7
+};
+
+//Tap dance enums
+enum {
+  X_CTL = 0,
+  ALT_UNI
+  /* SOME_OTHER_DANCE */
+};
+
+int cur_dance (qk_tap_dance_state_t *state);
+
+//for the x tap dance. Put it here so it can be used in any keymap
+void x_finished (qk_tap_dance_state_t *state, void *user_data);
+void x_reset (qk_tap_dance_state_t *state, void *user_data);
+
+/* ------------------------------------------------------------------ */
+
+enum unicode_names {
+  UNIC_COPYRIGHT,
+  UNIC_REGISTERED,
+
+  UNIC_KEYBOARD,
+  UNIC_OPTION,
+  UNIC_COMMAND,
+
+  UNIC_MDASH,
+  UNIC_PILCROW,
+  UNIC_OBELISM,
+  UNIC_BLOCK,
+  UNIC_STACK,
+
+  UNIC_ZAP,
+  UNIC_TOOLS,
+
+  UNIC_CHECKMARK,
+  UNIC_THUMPSUP,
+
+  UNIC_THINKING,
+  UNIC_TIMERCLOCK,
+
+  SNEK,
+  UNIC_SQUIRREL,
+  UNIC_CAT
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+  [UNIC_COPYRIGHT] = 0x00A9, // ©
+  [UNIC_REGISTERED] = 0x00AE, // ®
+
+  [UNIC_KEYBOARD] = 0x2328, // ⌨
+  [UNIC_OPTION] = 0x2325, // ⌥
+  [UNIC_COMMAND] = 0x2318, // ⌘
+
+  [UNIC_MDASH] = 0x2014, // —
+  [UNIC_PILCROW] = 0x00B6, // ⁋
+  [UNIC_OBELISM] = 0x205B, // ⁛
+  [UNIC_BLOCK] = 0x2588, // █
+  [UNIC_STACK] = 0x26C1, // ⛁
+
+  [UNIC_ZAP] = 0x26A1, // :zap:
+  [UNIC_TOOLS] = 0x1F6E1, // :tools:
+
+  [UNIC_CHECKMARK] = 0x2705, // :white_checkmark:
+  [UNIC_THUMPSUP] = 0x1F44D, // :+1:
+
+  [UNIC_THINKING] = 0x1F914, // :thought:
+  [UNIC_TIMERCLOCK] = 0x23F2, // :timer_clock:
+
+  [SNEK]  = 0x1F40D, // 🐍
+  [UNIC_SQUIRREL] = 0x1F43F, // :squirrel:
+  [UNIC_CAT] = 0x1F408, // :cat:
+
+  /* [UNIC_TEA] = 0x1F375 // :tea: */
+  /* [UNIC_BANG]  = 0x203D,  // ‽ */
+  /* [UNIC_IRONY] = 0x2E2E,  // ⸮ */
+  /* [UNIC_OBELISM] = 0x205B // ⁛ */
+  /* [UNIC_THUMPSDN] = 0x1F44E // :-1: */
+};
+
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -169,11 +264,10 @@ enum custom_keycodes {
 
   DYNAMIC_MACRO_RANGE
 };
-#include "dynamic_macro.h"
 
-void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
-}
+/* void econfig_init_user(void) { */
+/*   set_unicode_input_mode(UC_LNX); */
+/* } */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -187,7 +281,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                           KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
-                       KC_MS_WH_DOWN,  ___ , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI ,
+                          KC_MS_WH_DOWN,  OSL(UNICODEL) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI , // TD(ALT_UNI)
 
                        /*  */
                        LT(GOLANDLAYER, KC_DELETE) , OSL(GOLANDLAYER) , // hold for motion layer is nice for left-handed scrolling
@@ -196,13 +290,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
                        // Right
-                       CTLGUI(KC_J) , ___ , ___ , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
+                          CTLGUI(KC_J) , ___ , ___ , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
 
                        TD(TD_QUESTION_TOPROWNUM) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , ___ , // LT(DELAYER, KC_QUOTE) ,
                        LT(GOLANDLAYER, KC_Y) , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-                       CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), ___ ,
+                          CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), ___ ,
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
@@ -550,20 +644,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [UNICODEL] = LAYOUT_ergodox(
                             // Left
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , EMOJI_YAY , EMOJI_SHRUG ,
-                            ___ , EMOJI_SMILE2 , EMOJI_EGGY2 , EMOJI_FACE1 , EMOJI_FACE2 , EMOJI_UHU , ___ ,
+                              X(SNEK) , ___ , ___ , ___ , ___ , ___ , X(UNIC_CHECKMARK) ,
+                              ___ , ___ , ___ , ___ , ___ , ___ , X(UNIC_THUMPSUP) ,
+                              ___ , ___ , X(UNIC_STACK) , ___ , ___ , ___ ,
+                              ___ , X(UNIC_ZAP) , ___ , X(UNIC_COPYRIGHT) , ___ , X(UNIC_BLOCK) , ___ ,
                             ___ , ___ , ___ , ___ , ___ ,
                             ___ , ___ ,
                             ___ ,
                             ___ , ___ , ___ ,
                             // right
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                              ___ , ___ , ___ , X(UNIC_MDASH) , ___ , ___ , X(UNIC_SQUIRREL) ,
+                              ___ , ___ , ___ , X(UNIC_REGISTERED) , ___ , ___ , X(UNIC_CAT) ,
                             ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                            ___ , ___ , ___ , ___ , ___ ,
+                              ___ , X(UNIC_PILCROW) , ___ , ___ , ___ , X(UNIC_THINKING) , X(UNIC_TIMERCLOCK) ,
+                              ___ , X(UNIC_OPTION) , ___ , ___ , X(UNIC_KEYBOARD) ,
                             ___ , ___ ,
                             ___ ,
                             ___ , ___ , ___
@@ -628,9 +722,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!process_record_dynamic_macro(keycode, record)) {
-    return false;
-  }
+  /* if (!process_record_dynamic_macro(keycode, record)) { */
+  /*   return false; */
+  /* } */
   switch (keycode) {
     // dynamically generate these.
     case EPRM:
@@ -1317,21 +1411,6 @@ void macroTodoDone(qk_tap_dance_state_t *state, void *user_date) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_CURLYBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
-    [TD_PAREN] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
-    [TD_BRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
-    [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE),
-    [TD_HYPHEN_EQUALS] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL),
-    /* [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS), */
-    [TD_HELPFLAG] = ACTION_TAP_DANCE_FN(macroFlagHelpLess),
-    [TD_TAB_TMUXQ] = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
-    [TD_QUESTION_TOPROWNUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, TOPROWNUM),
-    [TD_DQUOTE_MOTION] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER),
-    [TD_TODO_DONE] = ACTION_TAP_DANCE_FN(macroTodoDone),
-    [TD_LABK_COMMA] = ACTION_TAP_DANCE_DOUBLE(KC_LABK, KC_COMMA),
-    [TD_RABK_DOT] = ACTION_TAP_DANCE_DOUBLE(KC_RABK, KC_DOT)
-};
 
 uint32_t layer_state_set_user(uint32_t state) {
 
@@ -1373,4 +1452,132 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
     return state;
 
+};
+
+/* --- */
+// https://beta.docs.qmk.fm/using-qmk/software-features/feature_tap_dance
+
+/* Return an integer that corresponds to what kind of tap dance should be executed.
+ *
+ * How to figure out tap dance state: interrupted and pressed.
+ *
+ * Interrupted: If the state of a dance dance is "interrupted", that means that another key has been hit
+ *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
+ *
+ * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
+ *  has ended, but the key is still being pressed down. This generally means the key is being "held".
+ *
+ * One thing that is currenlty not possible with qmk software in regards to tap dance is to mimic the "permissive hold"
+ *  feature. In general, advanced tap dances do not work well if they are used with commonly typed letters.
+ *  For example "A". Tap dances are best used on non-letter keys that are not hit while typing letters.
+ *
+ * Good places to put an advanced tap dance:
+ *  z,q,x,j,k,v,b, any function key, home/end, comma, semi-colon
+ *
+ * Criteria for "good placement" of a tap dance key:
+ *  Not a key that is hit frequently in a sentence
+ *  Not a key that is used frequently to double tap, for example 'tab' is often double tapped in a terminal, or
+ *    in a web form. So 'tab' would be a poor choice for a tap dance.
+ *  Letters used in common words as a double. For example 'p' in 'pepper'. If a tap dance function existed on the
+ *    letter 'p', the word 'pepper' would be quite frustating to type.
+ *
+ * For the third point, there does exist the 'DOUBLE_SINGLE_TAP', however this is not fully tested
+ *
+ */
+int cur_dance (qk_tap_dance_state_t *state) {
+  if (state->count == 1) {
+    if (state->interrupted || !state->pressed)  return SINGLE_TAP;
+    //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
+    else return SINGLE_HOLD;
+  }
+  else if (state->count == 2) {
+    /*
+     * DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
+     * action when hitting 'pp'. Suggested use case for this return value is when you want to send two
+     * keystrokes of the key, and not the 'double tap' action/macro.
+    */
+    if (state->interrupted) return DOUBLE_SINGLE_TAP;
+    else if (state->pressed) return DOUBLE_HOLD;
+    else return DOUBLE_TAP;
+  }
+  //Assumes no one is trying to type the same letter three times (at least not quickly).
+  //If your tap dance key is 'KC_W', and you want to type "www." quickly - then you will need to add
+  //an exception here to return a 'TRIPLE_SINGLE_TAP', and define that enum just like 'DOUBLE_SINGLE_TAP'
+  if (state->count == 3) {
+    if (state->interrupted || !state->pressed)  return TRIPLE_TAP;
+    else return TRIPLE_HOLD;
+  }
+  else return 8; //magic number. At some point this method will expand to work for more presses
+}
+
+//instanalize an instance of 'tap' for the 'x' tap dance.
+static tap xtap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void alt_uni_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+  case SINGLE_TAP:
+    // Something?
+  case SINGLE_HOLD: register_code(KC_LALT); break;
+  case DOUBLE_TAP:
+    layer_on(UNICODEL);
+    set_oneshot_layer(UNICODEL, ONESHOT_START);
+    clear_oneshot_layer_state(ONESHOT_PRESSED);
+  }
+};
+
+void alt_uni_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+  case SINGLE_HOLD: unregister_code(KC_LALT); break;
+  /* case DOUBLE_TAP: */
+    /* clear_oneshot_layer_state(ONESHOT_PRESSED); */
+  }
+  xtap_state.state = 0;
+};
+
+void x_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP: register_code(KC_X); break;
+    case SINGLE_HOLD: register_code(KC_LCTRL); break;
+    case DOUBLE_TAP: register_code(KC_ESC); break;
+    case DOUBLE_HOLD: register_code(KC_LALT); break;
+    case DOUBLE_SINGLE_TAP: register_code(KC_X); unregister_code(KC_X); register_code(KC_X);
+    //Last case is for fast typing. Assuming your key is `f`:
+    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+  }
+};
+
+void x_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP: unregister_code(KC_X); break;
+    case SINGLE_HOLD: unregister_code(KC_LCTRL); break;
+    case DOUBLE_TAP: unregister_code(KC_ESC); break;
+    case DOUBLE_HOLD: unregister_code(KC_LALT);
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_X);
+  }
+  xtap_state.state = 0;
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_CURLYBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
+  [TD_PAREN] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
+  [TD_BRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
+  [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE),
+  [TD_HYPHEN_EQUALS] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL),
+  /* [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS), */
+  [TD_HELPFLAG] = ACTION_TAP_DANCE_FN(macroFlagHelpLess),
+  [TD_TAB_TMUXQ] = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
+  [TD_QUESTION_TOPROWNUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, TOPROWNUM),
+  [TD_DQUOTE_MOTION] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER),
+  [TD_TODO_DONE] = ACTION_TAP_DANCE_FN(macroTodoDone),
+  [TD_LABK_COMMA] = ACTION_TAP_DANCE_DOUBLE(KC_LABK, KC_COMMA),
+  [TD_RABK_DOT] = ACTION_TAP_DANCE_DOUBLE(KC_RABK, KC_DOT),
+
+  [X_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,x_finished, x_reset),
+  [ALT_UNI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_uni_finished, alt_uni_reset)
 };

@@ -2,7 +2,8 @@
 # See rules at https://docs.qmk.fm/#/config_options?id=the-rulesmk-file
 COMMAND_ENABLE = no
 RGBLIGHT_ENABLE = no
-# KEY_LOCK_ENABLE = yes
-# UNICODEMAP_ENABLE = yes
+UNICODE_ENABLE = no
+UNICODEMAP_ENABLE = yes
+UCIS_ENABLE = no
 TAP_DANCE_ENABLE = yes
 LEADER_ENABLE = yes
