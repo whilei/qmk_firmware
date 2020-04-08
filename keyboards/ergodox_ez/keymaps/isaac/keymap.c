@@ -224,6 +224,7 @@ enum custom_keycodes {
   WR_WORD_ECIP,
   WR_WORD_GITHUB_DOT_COM,
   WR_WORD_ETCLABSCORE,
+  WR_WORD_OPENRPC,
   WR_CD_DEV_ETCLABSCORE,
   WR_WORD_MEOWSBITS,
   WR_WORD_RETURN,
@@ -451,7 +452,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                       ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
                       /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
-                      ___ , LSFT(KC_SLASH), KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , ___ , // WR_ESCAPEDDOUBLEQUOTE
+                      ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , ___ , // WR_ESCAPEDDOUBLEQUOTE
                       KC_DOT , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
                       ___ , KC_TILD , KC_GRAVE , KC_LBRACKET, KC_RBRACKET , KC_HASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
@@ -461,7 +462,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // right
                       ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
                       /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
-                      ___ , KC_PERC , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
+                      ___ , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
                       ___ , KC_KP_ASTERISK , KC_UNDS , TD( TD_LABK_COMMA ) , TD( TD_RABK_DOT ) , ___ , ___ , //
                                               ___ , ___ , ___ , ___ , ___ ,
@@ -612,7 +613,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , WR_LOCALHOST , WR_HTTPS , ___ , // WR_PROTO_COLON_SLASHSLASH
-                      ___ , ___ , ___ , ___ , WR_HTTP , ___ ,
+                      ___ , ___ , ___ , WR_WORD_OPENRPC , WR_HTTP , ___ ,
                       ___ , ___ , ___ , WR_REDIR_2AND1 , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
@@ -1113,6 +1114,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_WORD_ETCLABSCORE:
     if (record->event.pressed) {
       SEND_STRING("etclabscore");
+    }
+    return false;
+    break;
+
+  case WR_WORD_OPENRPC:
+    if (record->event.pressed) {
+      SEND_STRING("open-rpc");
     }
     return false;
     break;
