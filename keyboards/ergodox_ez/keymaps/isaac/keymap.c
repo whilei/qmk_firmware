@@ -112,7 +112,9 @@ enum unicode_names {
 
   SNEK,
   UNIC_SQUIRREL,
-  UNIC_CAT
+  UNIC_CAT,
+
+  UNIC_OMICRON
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -142,6 +144,7 @@ const uint32_t PROGMEM unicode_map[] = {
   [UNIC_SQUIRREL] = 0x1F43F, // :squirrel:
   [UNIC_CAT] = 0x1F408, // :cat:
 
+  [UNIC_OMICRON] = 0x03BF //omicron o
   /* [UNIC_TEA] = 0x1F375 // :tea: */
   /* [UNIC_BANG]  = 0x203D,  // ‽ */
   /* [UNIC_IRONY] = 0x2E2E,  // ⸮ */
@@ -294,7 +297,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           CTLGUI(KC_J) , ___ , ___ , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
 
                        TD(TD_QUESTION_TOPROWNUM) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , ___ , // LT(DELAYER, KC_QUOTE) ,
-                       LT(GOLANDLAYER, KC_Y) , KC_N , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
+                       KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                        KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , OSM(MOD_LSFT) , // KC_RSHIFT ,
 
                           CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), ___ ,
@@ -583,21 +586,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  LALT(KC_SCOLON) , CONALT(KC_ENTER) , ___ , LSFT(KC_F2) , KC_F2 , LALT(KC_R) , LCS(KC_F10) , // un-select last occurrence, start new line above, prev error, next error, move line up, run test
                                  LALT(KC_L) , LSFT(KC_ENTER) , LCTL(KC_4) , LSFT(KC_F6) , LSALT(KC_7) , LALT(KC_I) , MEH(KC_F) , // select next highlighted occurrence, start new line,  close tab, rename, find, move line down
                                  LCTL(KC_Y) , LCTL(KC_BSLASH) , ___ , ___ , LCS(KC_N) , LCS(KC_A) , // delete line, expand selection, select thru line start/end, open file, actions
-                                 LCS(KC_9) , LCTL(KC_SLASH) , ___ , LSFT(KC_F7) , KC_F7 , LCS(KC_COMMA) , ___ , // back, comment line, (resolve conflicts)prev,next conflict, clone caret below
+                                 LCS(KC_9) , LCTL(KC_SLASH) , ___ , LSFT(KC_F7) , KC_F7 , LCS(KC_COMMA) , LALT(KC_1) , // back, comment line, (resolve conflicts)prev,next conflict, clone caret below
                                 ___ , ___ , ___ , ___ , ___ ,
                                 ___ , ___ ,
                                 ___ ,
                                 ___ , ___ , ___ ,
                                 // right
                                 LALT(KC_7) , LALT(KC_1) , LALT(KC_2) , LALT(KC_3) , LALT(KC_4) , LALT(KC_5) , LALT(KC_F12) ,
-                                 LALT(KC_HOME) , ___ , ___ , ___ , ___ , ___ , LALT(KC_9) ,
+                                 LALT(KC_HOME) , ___ , ___ , LSFT(KC_F3) , KC_F3 , LCTL(KC_5) , LALT(KC_9) , // prev, next occurrence (word at caret), rerun last, vcs
                                  ___ , ___ , ___ , ___ , ___ , LCTL(KC_1) , // show error description
-                                 ___  , ___ , MEH(KC_PGUP) , MEH(KC_RBRACKET) , MEH(KC_LBRACKET) , MEH(KC_PGDN) , ___ , // Find word at caret
+                                 LCS(KC_G)  ,  MEH(KC_PGUP) , ___ , MEH(KC_RBRACKET) , MEH(KC_LBRACKET) , MEH(KC_PGDN) , MEH(KC_Z) , // Toggle minimap
 
                                 ___ , ___ , ___ , ___ , ___ ,
                                 ___ , ___ ,
-                                 LSFT(KC_F3) ,
-                                 KC_F3 , LCTL(KC_3) , ___
+                                 ___ ,
+                                 ___ , LCTL(KC_3) , ___
                                  ),
 
   [MACROLAYER] = LAYOUT_ergodox(
@@ -656,7 +659,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             // right
                               ___ , ___ , ___ , X(UNIC_MDASH) , ___ , ___ , X(UNIC_SQUIRREL) ,
                               ___ , ___ , ___ , X(UNIC_REGISTERED) , ___ , ___ , X(UNIC_CAT) ,
-                            ___ , ___ , ___ , ___ , ___ , ___ ,
+                              ___ , ___ , ___ , X(UNIC_OMICRON) , ___ , ___ ,
                               ___ , X(UNIC_PILCROW) , ___ , ___ , ___ , X(UNIC_THINKING) , X(UNIC_TIMERCLOCK) ,
                               ___ , X(UNIC_OPTION) , ___ , ___ , X(UNIC_KEYBOARD) ,
                             ___ , ___ ,
