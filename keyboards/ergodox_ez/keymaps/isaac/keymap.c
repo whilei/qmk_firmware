@@ -584,8 +584,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [GOLANDLAYER] = LAYOUT_ergodox(
       // Left
                                  // move up, down
-                                 LALT(KC_SCOLON) , CONALT(KC_ENTER) , ___ , LSFT(KC_F2) , KC_F2 , LALT(KC_R) , LCS(KC_F10) , // un-select last occurrence, start new line above, prev error, next error, move line up, run test
-                                 LALT(KC_L) , LSFT(KC_ENTER) , LCTL(KC_4) , LSFT(KC_F6) , LSALT(KC_7) , LALT(KC_I) , LALT(KC_HOME) ,  // select next highlighted occurrence, start new line,  close tab, rename, find, move line down, navigator focus
+                                 LALT(KC_SCOLON) , CONALT(KC_ENTER) , ___ , LSFT(KC_F2) , KC_F2 , LALT(KC_R) , LALT(KC_HOME) , // un-select last occurrence, start new line above, prev error, next error, move line up, navigator focus
+                                 LALT(KC_L) , LSFT(KC_ENTER) , LCTL(KC_4) , LSFT(KC_F6) , LSALT(KC_7) , LALT(KC_I) , LCS(KC_F10) ,   // select next highlighted occurrence, start new line,  close tab, rename, find, move line down, run test
                                  LCTL(KC_Y) , LCTL(KC_BSLASH) , ___ , ___ , LCS(KC_N) , LCS(KC_A) , // delete line, expand selection, select thru line start/end, open file, actions
                                  LCS(KC_9) , LCTL(KC_SLASH) , ___ , LSFT(KC_F7) , KC_F7 , LCS(KC_COMMA) , LALT(KC_1) , // back, comment line, (resolve conflicts)prev,next conflict, clone caret below, project view
                                 ___ , ___ , ___ , ___ , ___ ,
