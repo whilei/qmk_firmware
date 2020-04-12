@@ -75,7 +75,8 @@ enum {
 //Tap dance enums
 enum {
   X_CTL = 0,
-  ALT_UNI
+  ALT_UNI,
+  SHIFT_CAP
   /* SOME_OTHER_DANCE */
 };
 
@@ -299,7 +300,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        TD(TD_QUESTION_TOPROWNUM) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , ___ , // LT(DELAYER, KC_QUOTE) ,
                        KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
-                       KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , OSM(MOD_LSFT) , // KC_RSHIFT ,
+                          KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
                           CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), ___ ,
 
@@ -456,8 +457,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                       ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
                       /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
-                      ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , ___ , // WR_ESCAPEDDOUBLEQUOTE
-                      KC_DOT , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
+                      ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , KC_COMMA , // WR_ESCAPEDDOUBLEQUOTE
+                      ___ , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
                       ___ , KC_TILD , KC_GRAVE , KC_LBRACKET, KC_RBRACKET , KC_HASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
                        ___ , ___ ,
@@ -466,7 +467,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // right
                       ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
                       /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
-                      ___ , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
+                      KC_DOT , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
                       ___ , KC_KP_ASTERISK , KC_UNDS , TD( TD_LABK_COMMA ) , TD( TD_RABK_DOT ) , ___ , ___ , //
                                               ___ , ___ , ___ , ___ , ___ ,
@@ -1559,6 +1560,41 @@ void alt_uni_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 };
 
+// shift_cap is a custom shift (via the capslayer, since my actual capslock is eternally
+// fucked because of my x settings which have fucked it for all keyboards. so i use a custom layer
+// to be capslock).
+// - on one tap, it's effectively one-shot modifier for shift.
+// - on one hold, it's shift
+// - on two taps, it's capslock
+void shift_cap_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+  case SINGLE_TAP:
+    layer_on(CAPSLAYER);
+    set_oneshot_layer(CAPSLAYER, ONESHOT_START);
+    clear_oneshot_layer_state(ONESHOT_PRESSED);
+    break;
+  case SINGLE_HOLD: register_code(KC_LSHIFT); break;
+  case DOUBLE_TAP:
+    if (layer_state_is(CAPSLAYER)) {
+      layer_off(CAPSLAYER);
+    } else {
+      layer_on(CAPSLAYER);
+    }
+    break;
+  }
+};
+
+void shift_cap_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+  case SINGLE_TAP: break;
+  case SINGLE_HOLD: unregister_code(KC_LSHIFT); break;
+  case DOUBLE_TAP: break;
+  }
+  xtap_state.state = 0;
+};
+
+
 void x_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
@@ -1600,5 +1636,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_RABK_DOT] = ACTION_TAP_DANCE_DOUBLE(KC_RABK, KC_DOT),
 
   [X_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,x_finished, x_reset),
-  [ALT_UNI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_uni_finished, alt_uni_reset)
+  [ALT_UNI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_uni_finished, alt_uni_reset),
+  [SHIFT_CAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_cap_finished, shift_cap_reset)
 };
