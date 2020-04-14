@@ -549,9 +549,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
   [QWIMAMU] = LAYOUT_ergodox(
                        // Left
-                       DYN_REC_START1 , DYN_MACRO_PLAY1 , ___ , ___ , ___ , ___ , WR_SHEBANGS_BASH ,
-                       DYN_REC_START2 , DYN_MACRO_PLAY2 , LCTL(KC_W) , LCS(KC_C) , LCS(KC_V) , ___ , ___ ,
-                       DYN_REC_STOP , ___ , LCTL(KC_X) , LCTL(KC_C) , LCTL(KC_V) , LCTL(KC_Z) ,
+                       DYN_REC_STOP   , ___ ,  ___ , ___ , ___ , ___ , WR_SHEBANGS_BASH ,
+                       DYN_REC_START1 , DYN_MACRO_PLAY1 ,  LCTL(KC_W) , LCS(KC_C) , LCS(KC_V) , ___ , ___ ,
+                       DYN_REC_START2 , DYN_MACRO_PLAY2 ,  LCTL(KC_X) , LCTL(KC_C) , LCTL(KC_V) , LCTL(KC_Z) ,
                        TMUX_PSPLITH , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , TMUX_PSPLITV ,
 
                        ___ , ___ , ___ , ___ , ___ ,
@@ -592,7 +592,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 ___ , ___ , ___ , ___ , ___ ,
                                 ___ , ___ ,
                                 ___ ,
-                                ___ , ___ , ___ ,
+                                 LCS(KC_SPACE) , ___ , ___ , // autocomplete types
                                 // right
                                  LALT(KC_7) , LALT(KC_1) , LALT(KC_2) , LALT(KC_3) , LALT(KC_4) , LALT(KC_5) , LALT(KC_9) , // ... , focus git view
                                  MEH(KC_F) ,  ___ , ___ , LSFT(KC_F3) , KC_F3 , LCTL(KC_5) , LALT(KC_F12) , // gofmt, prev / next occurrence (word at caret), rerun last, focus console view
