@@ -12,6 +12,7 @@
 #define CONALT(code) LCTL(LALT(code))
 #define CTLGUI(code) LCTL(LGUI(code))
 
+
 // https://www.reddit.com/r/olkb/comments/72u8ou/qmk_mouse_keys_rock/
 
 /* #define MOUSEKEY_INTERVAL 16 */
@@ -302,7 +303,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                           KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-                          CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), ___ ,
+                          CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
