@@ -77,7 +77,8 @@ enum {
 enum {
   X_CTL = 0,
   ALT_UNI,
-  SHIFT_CAP
+  SHIFT_CAP,
+  ONEORMO_SYMBOLS,
   /* SOME_OTHER_DANCE */
 };
 
@@ -297,10 +298,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
                        // Right
-                          CTLGUI(KC_J) , ___ , ___ , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
+                          CTLGUI(KC_J) , ___ , CTLGUI(KC_MINUS) , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
 
                        TD(TD_QUESTION_TOPROWNUM) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , ___ , // LT(DELAYER, KC_QUOTE) ,
-                       KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
+                          KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                           KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
                           CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone
@@ -469,7 +470,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
                       /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
                       KC_DOT , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
-                      KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , WR_ESCAPEDRETURN ,
+                      KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , ___ , // < WR_ESCAPEDRETURN ,
                       ___ , KC_KP_ASTERISK , KC_UNDS , TD( TD_LABK_COMMA ) , TD( TD_RABK_DOT ) , ___ , ___ , //
                                               ___ , ___ , ___ , ___ , ___ ,
 
@@ -597,7 +598,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 // right
                                  LALT(KC_7) , LALT(KC_1) , LALT(KC_2) , LALT(KC_3) , LALT(KC_4) , LALT(KC_5) , LALT(KC_9) , // ... , focus git view
                                  MEH(KC_F) ,  ___ , ___ , LSFT(KC_F3) , KC_F3 , LCTL(KC_5) , LALT(KC_F12) , // gofmt, prev / next occurrence (word at caret), rerun last, focus console view
-                                 ___ , ___ ,  MEH(KC_RBRACKET) , MEH(KC_LBRACKET) , ___ , LCTL(KC_1) , // cursor to pane left / right, show error description
+                                 ___ , ___ , ___ , MEH(KC_RBRACKET) , MEH(KC_LBRACKET) ,  LCTL(KC_1) , // cursor to pane left / right, show error description
                                  LCS(KC_G)  ,  MEH(KC_PGUP) , ___ , LCA(KC_LBRACKET) , LCA(KC_RBRACKET) , MEH(KC_PGDN) , MEH(KC_Z) , // Toggle minimap, shift pane left, streth pane l/r, shift pan right, toggle distraction free
 
                                  // LCA(KC_LBRACKET), LCA(KC_RBRACKET) // Stretch panes left / right
@@ -1595,6 +1596,27 @@ void shift_cap_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 };
 
+void oneormore_symbols_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+  case SINGLE_TAP:
+    layer_on(SYMBOLS);
+    set_oneshot_layer(SYMBOLS, ONESHOT_START);
+    clear_oneshot_layer_state(ONESHOT_PRESSED);
+    break;
+  case SINGLE_HOLD: layer_on(SYMBOLS); break;
+  case DOUBLE_TAP: layer_invert(SYMBOLS); break;
+  }
+};
+
+void oneormore_symbols_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+  case SINGLE_TAP: break;
+  case SINGLE_HOLD: layer_off(SYMBOLS); break;
+  case DOUBLE_TAP: break;
+  }
+  xtap_state.state = 0;
+};
 
 void x_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
@@ -1638,5 +1660,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
   [X_CTL]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,x_finished, x_reset),
   [ALT_UNI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_uni_finished, alt_uni_reset),
-  [SHIFT_CAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_cap_finished, shift_cap_reset)
+  [SHIFT_CAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_cap_finished, shift_cap_reset),
+  [ONEORMO_SYMBOLS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, oneormore_symbols_finished, oneormore_symbols_reset),
 };
