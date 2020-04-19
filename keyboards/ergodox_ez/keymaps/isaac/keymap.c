@@ -270,6 +270,8 @@ enum custom_keycodes {
 
   LOCK_SHIFT,
 
+  SYMBOLS_ONE_OR_HOLD,
+
   DYNAMIC_MACRO_RANGE
 };
 
@@ -283,25 +285,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , LSFT(KC_RIGHT) , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , ___ , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
-                          ___ , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
+                          TG(TOPROWNUM) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                           KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
                           KC_MS_WH_DOWN,  OSL(UNICODEL) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI , // TD(ALT_UNI)
 
                        /*  */
-                       LT(GOLANDLAYER, KC_DELETE) , OSL(GOLANDLAYER) , // hold for motion layer is nice for left-handed scrolling
+                          LT(GOLANDLAYER, KC_DELETE) , TG(MOTIONLAYER) , // hold for motion layer is nice for left-handed scrolling
                        KC_INSERT , // LCTL(KC_TAB) ,
                        SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE , //  LCS(KC_TAB) , // browser tab left
 
 
                        // Right
-                          CTLGUI(KC_J) , ___ , CTLGUI(KC_MINUS) , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
+                       CTLGUI(KC_J) , ___ , ___ , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
 
                        TD(TD_QUESTION_TOPROWNUM) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , ___ , // LT(DELAYER, KC_QUOTE) ,
-                          KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
+                          KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , SYMBOLS_ONE_OR_HOLD, // MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                           KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
                           CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone
@@ -327,7 +329,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                        ___ , LSFT( KC_J ) , LSFT( KC_U ) , LSFT( KC_R ) , LSFT( KC_L ) , KC_SCOLON , ___ ,
                        LSFT( KC_Y ) , LSFT( KC_N ) , LSFT( KC_I ) , LSFT( KC_O ) , LSFT( KC_H ) , ___ ,
-                       ___ , LSFT( KC_P ) , LSFT( KC_M ) ,  KC_COMMA  ,  KC_DOT  , KC_SLASH , ___ ,
+                       ___ , LSFT( KC_P ) , LSFT( KC_M ) ,  ___  ,  ___  , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ ,
@@ -459,7 +461,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                       ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
                       /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
-                      ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , KC_COMMA , // WR_ESCAPEDDOUBLEQUOTE
+                      ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , KC_LABK , // WR_ESCAPEDDOUBLEQUOTE
                       ___ , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
                       ___ , KC_TILD , KC_GRAVE , KC_LBRACKET, KC_RBRACKET , KC_HASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
@@ -469,9 +471,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // right
                       ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
                       /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
-                      KC_DOT , LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
+                      KC_RABK, LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , ___ , // < WR_ESCAPEDRETURN ,
-                      ___ , KC_KP_ASTERISK , KC_UNDS , TD( TD_LABK_COMMA ) , TD( TD_RABK_DOT ) , ___ , ___ , //
+                      /* ___ , KC_KP_ASTERISK , KC_UNDS , TD( TD_LABK_COMMA ) , TD( TD_RABK_DOT ) , ___ , ___ , // */
+                      ___ , KC_KP_ASTERISK , KC_UNDS , ___ , ___ , ___ , ___ , //
                                               ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ ,
@@ -731,12 +734,26 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 };
 
+static uint16_t key_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   /* if (!process_record_dynamic_macro(keycode, record)) { */
   /*   return false; */
   /* } */
   switch (keycode) {
     // dynamically generate these.
+   case SYMBOLS_ONE_OR_HOLD:
+     if (record->event.pressed) {
+       key_timer = timer_read();
+       layer_on(SYMBOLS);
+     } else {
+       layer_off(SYMBOLS);
+       if (timer_elapsed(key_timer) < 150) {
+         set_oneshot_layer(SYMBOLS, ONESHOT_START);
+         clear_oneshot_layer_state(ONESHOT_PRESSED);
+       }
+     }
+     return false;
+     break;
     case EPRM:
       if (record->event.pressed) {
         eeconfig_init();
@@ -1572,7 +1589,7 @@ void shift_cap_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
   case SINGLE_TAP:
-    layer_on(CAPSLAYER);
+    /* layer_on(CAPSLAYER); */
     set_oneshot_layer(CAPSLAYER, ONESHOT_START);
     clear_oneshot_layer_state(ONESHOT_PRESSED);
     break;
@@ -1592,6 +1609,7 @@ void shift_cap_reset (qk_tap_dance_state_t *state, void *user_data) {
   case SINGLE_TAP: break;
   case SINGLE_HOLD: unregister_code(KC_LSHIFT); break;
   case DOUBLE_TAP: break;
+  case DOUBLE_HOLD: unregister_code(KC_LSHIFT); break;
   }
   xtap_state.state = 0;
 };
