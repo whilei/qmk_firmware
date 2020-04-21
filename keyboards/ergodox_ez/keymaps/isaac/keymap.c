@@ -285,7 +285,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , ___ , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , KC_DOWN , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
                           TG(TOPROWNUM) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
@@ -300,11 +300,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
                        // Right
-                       CTLGUI(KC_J) , ___ , ___ , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , OSL(FLAYER) ,
-
-                       TD(TD_QUESTION_TOPROWNUM) , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , ___ , // LT(DELAYER, KC_QUOTE) ,
-                          KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , SYMBOLS_ONE_OR_HOLD, // MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
-                          KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
+                          CTLGUI(KC_J) , ___ , LSFT(KC_A) , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , MO(FLAYER) ,
+                          /* TD(TD_QUESTION_TOPROWNUM) */
+                          KC_QUESTION , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) ,
+                          KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , MO(SYMBOLS), // SYMBOLS_ONE_OR_HOLD, // MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
+                          KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT, // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
                           CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone
 
@@ -506,11 +506,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       /* LCTL(KC_W) , ___ , ___ , ___ , ___ , KC_MS_WH_DOWN , */
 
                       ___ , ___ , LCS(KC_PGUP) , LCS(KC_TAB) , LCTL(KC_TAB) , LCS(KC_PGDOWN) , ___ ,
-                      ___ , LCTL(KC_W) , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP ,
-                      ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN ,
+                      /* ___ , LCTL(KC_W) , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP , */
+                      /* ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN , */
+                      ___ , LCTL(KC_W) , KC_MS_WH_UP , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT ,  KC_PGUP ,
+                      ___ , ___ , KC_MS_WH_DOWN , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT ,
                       ___ , ___ , ___ , ___ , LGUI(KC_M) , ___ , KC_PGDOWN ,
                       ___ , ___ , ___ , ___, ___,
-                      LGUI(KC_H) , LGUI(KC_L) ,
+                      /* LGUI(KC_H) , LGUI(KC_L) , */
+                      ___ , ___ ,
                       LGUI(KC_RIGHT) ,
                       KC_MS_BTN1 , KC_MS_BTN2 , LGUI(KC_LEFT) , //KC_ENTER
 
