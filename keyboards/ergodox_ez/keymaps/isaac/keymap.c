@@ -287,14 +287,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                           TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , KC_DOWN , CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
-                          TG(TOPROWNUM) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , KC_ENTER ,
+                          TG(TOPROWNUM) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , MT(MOD_MEH, KC_ENTER ),
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                           KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
-                          KC_MS_WH_DOWN,  OSL(UNICODEL) , KC_MS_WH_UP , ALT_T(KC_NO) , KC_LGUI , // TD(ALT_UNI)
+                          KC_MS_WH_DOWN,  OSL(UNICODEL) , KC_MS_WH_UP , MT(MOD_LALT, KC_TILD) , MT(MOD_LGUI, KC_QUOTE), // TD(ALT_UNI)
 
                        /*  */
-                          LT(GOLANDLAYER, KC_DELETE) , TG(MOTIONLAYER) , // hold for motion layer is nice for left-handed scrolling
+                          LT(GOLANDLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
                        KC_INSERT , // LCTL(KC_TAB) ,
                        SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE , //  LCS(KC_TAB) , // browser tab left
 
@@ -302,11 +302,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Right
                           CTLGUI(KC_J) , ___ , LSFT(KC_A) , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , MO(FLAYER) ,
                           /* TD(TD_QUESTION_TOPROWNUM) */
-                          KC_QUESTION , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) ,
+                          KC_BSPACE , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , OSL(SYMBOLS) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON ) 
                           KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , MO(SYMBOLS), // SYMBOLS_ONE_OR_HOLD, // MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
-                          KC_BSPACE , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT, // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
+                          OSM(MOD_LSFT) , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT, // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-                          CTL_T(KC_NO) , ALT_T(KC_NO) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone
+                          MT(MOD_LCTL, KC_SLASH) , MT(MOD_LALT, KC_SCOLON) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
@@ -461,7 +461,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Left
                       ___ , KC_1 , KC_2 , KC_3 , KC_4 , KC_5, ___ ,
                       /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
-                      ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , KC_LABK , // WR_ESCAPEDDOUBLEQUOTE
+                      ___ , KC_PERC , KC_QUOTE , KC_LCBR , KC_RCBR ,  KC_CIRC , KC_COMMA , // WR_ESCAPEDDOUBLEQUOTE
                       ___ , KC_AT , KC_DLR , KC_LEFT_PAREN , KC_RIGHT_PAREN, KC_KP_PLUS ,
                       ___ , KC_TILD , KC_GRAVE , KC_LBRACKET, KC_RBRACKET , KC_HASH , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
@@ -471,10 +471,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // right
                       ___ , KC_6 , KC_7 , KC_8 , KC_9 , KC_0 , ___ ,
                       /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
-                      KC_RABK, LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
+                      KC_DOT, LSFT(KC_SLASH) , KC_EXLM , KC_MINUS , LSFT( KC_QUOTE ) , KC_SCOLON , ___ ,
                       KC_COLN, KC_EQUAL , KC_PIPE , KC_AMPR , KC_BSLASH , ___ , // < WR_ESCAPEDRETURN ,
                       /* ___ , KC_KP_ASTERISK , KC_UNDS , TD( TD_LABK_COMMA ) , TD( TD_RABK_DOT ) , ___ , ___ , // */
-                      ___ , KC_KP_ASTERISK , KC_UNDS , ___ , ___ , ___ , ___ , //
+                      ___ , KC_KP_ASTERISK , KC_UNDS , KC_LABK , KC_RABK , ___ , ___ , //
                                               ___ , ___ , ___ , ___ , ___ ,
 
                        ___ , ___ ,
