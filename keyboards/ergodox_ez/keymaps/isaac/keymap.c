@@ -291,7 +291,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                           KC_LSHIFT ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
-                          KC_MS_WH_DOWN,  OSL(UNICODEL) , KC_MS_WH_UP , MT(MOD_LALT, KC_TILD) , MT(MOD_LGUI, KC_QUOTE), // TD(ALT_UNI)
+                          KC_MS_WH_DOWN,  OSL(UNICODEL) , KC_MS_WH_UP , MT(MOD_LALT, KC_TILD) , MT(MOD_LGUI, KC_QUESTION), // TD(ALT_UNI)
 
                        /*  */
                           LT(GOLANDLAYER, KC_DELETE) , ___ , // hold for motion layer is nice for left-handed scrolling
@@ -306,7 +306,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , MO(SYMBOLS), // SYMBOLS_ONE_OR_HOLD, // MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                           KC_QUESTION , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , KC_RSHIFT, // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-                          MT(MOD_LCTL, KC_SLASH) , MT(MOD_LALT, KC_SCOLON) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone
+                          MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_SCOLON) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone
 
                        LGUI(KC_H) , LGUI(KC_L) ,
                        LGUI(KC_RIGHT) ,
