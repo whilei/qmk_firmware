@@ -302,7 +302,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Right
                           CTLGUI(KC_J) , ___ , ___ ,  LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , LGUI(KC_ENTER)  ,
                           /* TD(TD_QUESTION_TOPROWNUM) */
-                          KC_BSPACE , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , LSFT(KC_QUOTE) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON ) 
+                          KC_BSPACE , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , LSFT(KC_QUOTE) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
                           KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , MO(SYMBOLS), // SYMBOLS_ONE_OR_HOLD, // MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                           KC_QUESTION , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP) , // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
@@ -422,9 +422,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       ___ , ___ , KC_LABK , KC_RABK , KC_PIPE , KC_AMPR ,  ___ , //
-                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_COMMA , KC_EQUAL ,
-                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_0 ,  KC_SLASH ,
-                      ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_DOT , KC_ENTER ,
+                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_COMMA , ___ ,
+                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_0 ,  KC_EQUAL,
+                      KC_SLASH , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_DOT , KC_ENTER ,
                       ___ , ___ , ___ , ___ ,  ___ ,
                       ___ , ___ ,
                       ___ ,
