@@ -79,6 +79,7 @@ enum {
   ALT_UNI,
   SHIFT_CAP,
   ONEORMO_SYMBOLS,
+  SHIFT_QUESTION
   /* SOME_OTHER_DANCE */
 };
 
@@ -300,13 +301,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
                        // Right
-                          /*CTLGUI(KC_J)*/ ___ , ___ , ___ ,  LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , LGUI(KC_ENTER) ,
+                          /*CTLGUI(KC_J)*/ LCS(KC_TAB) , LCTL(KC_TAB) , LSFT(KC_QUOTE) , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , LGUI(KC_ENTER) ,
                           /* TD(TD_QUESTION_TOPROWNUM) */
-                          KC_BSPACE , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , LSFT(KC_QUOTE) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
-                          KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H , MO(SYMBOLS), // SYMBOLS_ONE_OR_HOLD, // MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
-                          KC_QUESTION , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP) , // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
+                          KC_BSPACE , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
+                          KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H ,  TD( ONEORMO_SYMBOLS ) , // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
+                          TD( SHIFT_QUESTION ) , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP) , // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-                          MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_DOT) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone
+                          MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_EQUAL) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone
                           /* MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_SCOLON) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone */
 
                        LGUI(KC_H) , LGUI(KC_L) ,
@@ -328,7 +329,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        // Right
                        ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                       ___ , LSFT( KC_J ) , LSFT( KC_U ) , LSFT( KC_R ) , LSFT( KC_L ) , KC_SCOLON , ___ ,
+                       ___ , LSFT( KC_J ) , LSFT( KC_U ) , LSFT( KC_R ) , LSFT( KC_L ) , ___ , ___ ,
                        LSFT( KC_Y ) , LSFT( KC_N ) , LSFT( KC_I ) , LSFT( KC_O ) , LSFT( KC_H ) , ___ ,
                        ___ , LSFT( KC_P ) , LSFT( KC_M ) ,  ___  ,  ___  , ___ , ___ ,
                        ___ , ___ , ___ , ___ , ___ ,
@@ -573,7 +574,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        // Right
                        TG(XPLANE) , ___ , ___ , TD(TD_TODO_DONE) , ___ , WR_CODEFENCE , DOEXIT ,
-                       VIM_CMD_MODE , ___ , ___ , WR_GREP , WR_LESS , ___ , VIM_NOH ,
+                       ___ , ___ , ___ , WR_GREP , WR_LESS , ___ , VIM_NOH ,
                        VIM_BUFFER_PREV , VIM_BUFFER_NEXT , KC_PIPE , ___ , KC_0 , KC_DLR ,
                        ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , TD(TD_HELPFLAG) ,  ___ , //TD( TD_HELPFLAG ) , // WR_FLAGHELP,
 
@@ -1626,7 +1627,7 @@ void oneormore_symbols_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
   case SINGLE_TAP:
-    layer_on(SYMBOLS);
+    /* layer_on(SYMBOLS); */
     set_oneshot_layer(SYMBOLS, ONESHOT_START);
     clear_oneshot_layer_state(ONESHOT_PRESSED);
     break;
@@ -1669,6 +1670,29 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 };
 
+void shift_question_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+  case SINGLE_TAP: register_code(KC_LSHIFT); register_code(KC_SLASH); break;
+    case SINGLE_HOLD: register_code(KC_LSHIFT); break;
+    /* case DOUBLE_TAP: register_code(KC_ESC); break; */
+    /* case DOUBLE_HOLD: register_code(KC_LALT); break; */
+    /* case DOUBLE_SINGLE_TAP: register_code(KC_X); unregister_code(KC_X); register_code(KC_X); */
+  }
+};
+
+void shift_question_reset  (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+    case SINGLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_SLASH); break;
+    case SINGLE_HOLD: unregister_code(KC_LSHIFT); break;
+    /* case DOUBLE_TAP: unregister_code(KC_ESC); break; */
+    /* case DOUBLE_HOLD: unregister_code(KC_LALT); */
+    /* case DOUBLE_SINGLE_TAP: unregister_code(KC_X); */
+  }
+  xtap_state.state = 0;
+};
+
+
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CURLYBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
   [TD_PAREN] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
@@ -1688,4 +1712,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [ALT_UNI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_uni_finished, alt_uni_reset),
   [SHIFT_CAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_cap_finished, shift_cap_reset),
   [ONEORMO_SYMBOLS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, oneormore_symbols_finished, oneormore_symbols_reset),
+  [SHIFT_QUESTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_question_finished, shift_question_reset)
 };
