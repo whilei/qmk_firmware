@@ -292,7 +292,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                           TD(SHIFT_CAP) ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
-                          KC_MS_WH_DOWN,  OSL(UNICODEL) , KC_MS_WH_UP , MT(MOD_LALT, KC_SLASH) , MT(MOD_LGUI, KC_KP_ASTERISK), // TD(ALT_UNI)
+                          KC_MS_WH_DOWN,  OSL(UNICODEL) , KC_MS_WH_UP , MT(MOD_LALT, KC_KP_ASTERISK) , MT(MOD_LGUI, KC_TAB), // TD(ALT_UNI)
 
                        /*  */
                           LT(GOLANDLAYER, KC_DELETE) , TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
@@ -1683,7 +1683,7 @@ void shift_question_finished (qk_tap_dance_state_t *state, void *user_data) {
 
 void shift_question_reset  (qk_tap_dance_state_t *state, void *user_data) {
   switch (xtap_state.state) {
-    case SINGLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_SLASH); break;
+  case SINGLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_SLASH); break;
     case SINGLE_HOLD: unregister_code(KC_LSHIFT); break;
     /* case DOUBLE_TAP: unregister_code(KC_ESC); break; */
     /* case DOUBLE_HOLD: unregister_code(KC_LALT); */
