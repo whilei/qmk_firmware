@@ -41,6 +41,8 @@ enum {
 
 // TAP DANCES
 enum {
+  X_CTL = 0,
+
       TD_CURLYBRACKET = 0,
       TD_PAREN,
       TD_BRACKET,
@@ -53,6 +55,15 @@ enum {
       TD_TODO_DONE,
       TD_LABK_COMMA,
       TD_RABK_DOT ,
+
+      //Tap dance enums
+      ALT_UNI,
+      SHIFT_CAP,
+      ONEORMO_SYMBOLS,
+      SHIFT_QUESTION,
+      AWESOME_TAG_FORWARD_BACK
+      /* SOME_OTHER_DANCE */
+
 };
 
 /* ------------------------------------------------------------------ */
@@ -73,15 +84,6 @@ enum {
   TRIPLE_HOLD = 7
 };
 
-//Tap dance enums
-enum {
-  X_CTL = 0,
-  ALT_UNI,
-  SHIFT_CAP,
-  ONEORMO_SYMBOLS,
-  SHIFT_QUESTION
-  /* SOME_OTHER_DANCE */
-};
 
 int cur_dance (qk_tap_dance_state_t *state);
 
@@ -286,7 +288,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , KC_DOWN , ___ , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , KC_DOWN , LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
                           CTLGUI(KC_K) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , MT(MOD_MEH, KC_ENTER ),
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
@@ -303,7 +305,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Right
                           /*CTLGUI(KC_J)*/ LCS(KC_TAB) , LCTL(KC_TAB) , LSFT(KC_QUOTE) , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , LGUI(KC_ENTER) ,
                           /* TD(TD_QUESTION_TOPROWNUM) */
-                          KC_BSPACE , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
+                          KC_BSPACE , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , TD(AWESOME_TAG_FORWARD_BACK) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
                           KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H ,  TD( ONEORMO_SYMBOLS ) , // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                           TD( SHIFT_QUESTION ) , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP) , // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
@@ -1692,6 +1694,23 @@ void shift_question_reset  (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 };
 
+void awesome_fb_tag_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+    case SINGLE_TAP: register_code(KC_LGUI); register_code(KC_RIGHT); break;
+    case DOUBLE_TAP: register_code(KC_LGUI); register_code(KC_LEFT); break;
+  }
+};
+
+void awesome_fb_tag_reset  (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+  case SINGLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_RIGHT); break;
+  case DOUBLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_LEFT); break;
+  }
+  xtap_state.state = 0;
+};
+
+
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CURLYBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
@@ -1712,5 +1731,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [ALT_UNI] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_uni_finished, alt_uni_reset),
   [SHIFT_CAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_cap_finished, shift_cap_reset),
   [ONEORMO_SYMBOLS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, oneormore_symbols_finished, oneormore_symbols_reset),
-  [SHIFT_QUESTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_question_finished, shift_question_reset)
+  [SHIFT_QUESTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_question_finished, shift_question_reset),
+  [AWESOME_TAG_FORWARD_BACK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_fb_tag_finished, awesome_fb_tag_reset)
 };
