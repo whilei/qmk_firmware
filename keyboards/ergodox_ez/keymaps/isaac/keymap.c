@@ -120,7 +120,10 @@ enum unicode_names {
   UNIC_SQUIRREL,
   UNIC_CAT,
 
-  UNIC_OMICRON
+  UNIC_OMICRON,
+
+  UNIC_SUBSET_OF,
+  UNIC_SUPERSET_OF,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
@@ -150,7 +153,11 @@ const uint32_t PROGMEM unicode_map[] = {
   [UNIC_SQUIRREL] = 0x1F43F, // :squirrel:
   [UNIC_CAT] = 0x1F408, // :cat:
 
-  [UNIC_OMICRON] = 0x03BF //omicron o
+  [UNIC_OMICRON] = 0x03BF, //omicron o
+
+  [UNIC_SUBSET_OF] = 0x2282,
+  [UNIC_SUPERSET_OF] = 0x2283,
+
   /* [UNIC_TEA] = 0x1F375 // :tea: */
   /* [UNIC_BANG]  = 0x203D,  // ‽ */
   /* [UNIC_IRONY] = 0x2E2E,  // ⸮ */
@@ -288,13 +295,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , KC_DOWN , LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , KC_DOWN , KC_WWW_FORWARD , // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
                           CTLGUI(KC_K) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , MT(MOD_MEH, KC_ENTER ),
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                           TD(SHIFT_CAP) ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
-                          KC_MS_WH_DOWN,  OSL(UNICODEL) , KC_MS_WH_UP , MT(MOD_LALT, KC_KP_ASTERISK) , MT(MOD_LGUI, KC_TAB), // TD(ALT_UNI)
+                          OSL(UNICODEL) , KC_MS_WH_DOWN, KC_MS_WH_UP ,  MT(MOD_LALT, KC_KP_ASTERISK) , MT(MOD_LGUI, KC_TAB), // TD(ALT_UNI)
 
                        /*  */
                           LT(GOLANDLAYER, KC_DELETE) , TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
@@ -303,7 +310,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
                        // Right
-                          /*CTLGUI(KC_J)*/ LCS(KC_TAB) , LCTL(KC_TAB) , LSFT(KC_QUOTE) , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , LGUI(KC_ENTER) ,
+                          /*CTLGUI(KC_J)*/  ___, ___ , LSFT(KC_QUOTE) , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , LGUI(KC_ENTER) , //LCS(KC_TAB) , LCTL(KC_TAB)
                           /* TD(TD_QUESTION_TOPROWNUM) */
                           KC_BSPACE , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , TD(AWESOME_TAG_FORWARD_BACK) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
                           KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H ,  TD( ONEORMO_SYMBOLS ) , // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
@@ -666,8 +673,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [UNICODEL] = LAYOUT_ergodox(
                             // Left
-                              X(SNEK) , ___ , ___ , ___ , ___ , ___ , X(UNIC_CHECKMARK) ,
-                              ___ , ___ , ___ , ___ , ___ , ___ , X(UNIC_THUMPSUP) ,
+                              X(SNEK) , ___ , ___ , ___ , ___ , X(UNIC_SUPERSET_OF) , X(UNIC_CHECKMARK) ,
+                              ___ , ___ , ___ , ___ , ___ , X(UNIC_SUBSET_OF) , X(UNIC_THUMPSUP) ,
                               ___ , ___ , X(UNIC_STACK) , ___ , ___ , ___ ,
                               ___ , X(UNIC_ZAP) , ___ , X(UNIC_COPYRIGHT) , ___ , X(UNIC_BLOCK) , ___ ,
                             ___ , ___ , ___ , ___ , ___ ,
