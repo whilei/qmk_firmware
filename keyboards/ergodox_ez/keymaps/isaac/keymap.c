@@ -233,7 +233,7 @@ enum custom_keycodes {
 
   WR_WORD_ETHEREUM,
   WR_WORD_GOETHEREUM,
-  WR_WORD_MULTIGETH,
+  WR_WORD_OPENETHEREUM,
   WR_WORD_MULTIGETH_DASHED,
   WR_WORD_COREGETH_DASHED,
   WR_WORD_EIP,
@@ -251,6 +251,8 @@ enum custom_keycodes {
   WR_LESS,
   WR_GREP,
   WR_WORD_SYSTEM,
+  WR_WORD_ETCSYSTEMDSYSTEM,
+  WR_WORD_JOURNALCTL,
 
   WR_GOSRC_ETHEREUM_GOETHEREUM,
 
@@ -630,8 +632,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [MACROLAYER] = LAYOUT_ergodox(
                       // Left
-                      ___ , WR_GOSRC_ETHEREUM_GOETHEREUM , WR_BUILD_BIN_GETH , ___ , WR_WORD_MULTIGETH_DASHED , ___ , ___ ,
-                      ___ , WR_WORD_EIP , WR_WORD_ECIP , WR_WORD_GOETHEREUM , WR_WORD_MULTIGETH , WR_WORD_COREGETH_DASHED , ___ ,
+                      ___ , WR_GOSRC_ETHEREUM_GOETHEREUM , WR_BUILD_BIN_GETH , ___ , WR_WORD_MULTIGETH_DASHED , WR_WORD_OPENETHEREUM , ___ ,
+                      ___ , ___ , WR_WORD_ETCSYSTEMDSYSTEM , WR_WORD_GOETHEREUM , WR_WORD_COREGETH_DASHED , ___ , ___ ,
                       ___ , ___ , WR_WORD_SYSTEM , WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM ,
                       ___ , KC_SLASH , ___ , WR_WORD_ETCLABSCORE, WR_WORD_MEOWSBITS , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
@@ -640,8 +642,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
-                      ___ , ___ , ___ , ___ , WR_WORD_OPEN_RPC , WR_HTTPS , ___ , // WR_PROTO_COLON_SLASHSLASH
-                      ___ , ___ , ___ , WR_WORD_OPENRPC , WR_HTTP , ___ ,
+                      ___ , WR_WORD_JOURNALCTL , ___ , ___ , ___ , WR_HTTPS , ___ , // WR_PROTO_COLON_SLASHSLASH
+                      ___ , ___ , ___ , WR_WORD_OPEN_RPC , WR_HTTP , ___ ,
                       ___ , ___ , ___ , WR_REDIR_2AND1 , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
@@ -1097,9 +1099,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-  case WR_WORD_MULTIGETH:
+  case WR_WORD_OPENETHEREUM:
     if (record->event.pressed) {
-      SEND_STRING("multigeth");
+      SEND_STRING("openethereum");
     }
     return false;
     break;
@@ -1135,6 +1137,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_WORD_SYSTEM:
     if (record->event.pressed) {
       SEND_STRING("system");
+    }
+    return false;
+    break;
+
+  case WR_WORD_ETCSYSTEMDSYSTEM:
+    if (record->event.pressed) {
+      SEND_STRING("/etc/systemd/system/");
+    }
+    return false;
+    break;
+
+  case WR_WORD_JOURNALCTL:
+    if (record->event.pressed) {
+      SEND_STRING("journalctl");
     }
     return false;
     break;
