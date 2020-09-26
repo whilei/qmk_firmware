@@ -433,7 +433,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ ,
                       ___ , ___ , ___ ,
                       // right
-                      ___ , ___ , KC_LABK , KC_RABK , KC_PIPE , KC_AMPR ,  ___ , //
+                      ___ , KC_PERC , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_LABK , KC_RABK ,  ___ , //
                       ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_COMMA , ___ ,
                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_0 ,  KC_EQUAL,
                       KC_SLASH , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_DOT , KC_ENTER ,
@@ -608,7 +608,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [GOLANDLAYER] = LAYOUT_ergodox(
       // Left
                                  // move up, down
-                                 LALT(KC_SCOLON) , CONALT(KC_ENTER) , ___ , LSFT(KC_F2) , KC_F2 , LALT(KC_R) , LALT(KC_HOME) , // un-select last occurrence, start new line above, prev error, next error, move line up, navigator focus
+                                 LALT(KC_SCOLON) , CONALT(KC_ENTER) , LALT(KC_3) , LSFT(KC_F2) , KC_F2 , LALT(KC_R) , LALT(KC_HOME) , // un-select last occurrence, start new line above, toggle Find window, prev error, next error, move line up, navigator focus
                                  LALT(KC_L) , LSFT(KC_ENTER) , LCTL(KC_4) , LSFT(KC_F6) , LSALT(KC_7) , LALT(KC_I) , LALT(KC_1)  ,   // select next highlighted occurrence, start new line,  close tab, rename, find, move line down, project foucs
                                  LCTL(KC_Y) , LCTL(KC_BSLASH) , LCS(KC_9) , LCS(KC_0) , LCS(KC_N) , LCS(KC_A) , // delete line, expand selection, back, forward, open file, actions
                                  CONALT(KC_B) , LCTL(KC_SLASH) , ___ , LSFT(KC_F7) , KC_F7 , LCS(KC_COMMA) , LCS(KC_F10) , // _go to implementations, comment line, (resolve conflicts)prev,next conflict, clone caret below, run test
@@ -620,9 +620,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                 // right
                                  LALT(KC_7) , LALT(KC_1) , LALT(KC_2) , LALT(KC_3) , LALT(KC_4) , LALT(KC_5) , LALT(KC_9) , // ... , focus git view
-                                 MEH(KC_F) ,  ___ , ___ , LSFT(KC_F3) , KC_F3 , LCTL(KC_5) , LALT(KC_F12) , // gofmt, prev / next occurrence (word at caret), rerun last, focus console view
+                                 MEH(KC_G) ,  ___ , ___ , LSFT(KC_F3) , KC_F3 , LCTL(KC_5) , LALT(KC_F12) , // Toggle minimap, prev / next occurrence (word at caret), rerun last, focus console view
                                  ___ , ___ , ___ , MEH(KC_RBRACKET) , MEH(KC_LBRACKET) ,  LCTL(KC_1) , // cursor to pane left / right, show error description
-                                 LCS(KC_G)  ,  MEH(KC_PGUP) , ___ , LCA(KC_LBRACKET) , LCA(KC_RBRACKET) , MEH(KC_PGDN) , MEH(KC_Z) , // Toggle minimap, shift pane left, streth pane l/r, shift pan right, toggle distraction free
+                                 LCS(KC_F)  ,  MEH(KC_PGUP) , ___ , LCA(KC_LBRACKET) , LCA(KC_RBRACKET) , MEH(KC_PGDN) , MEH(KC_Z) , // gofm,  shift pane left, streth pane l/r, shift pan right, toggle distraction free
 
                                  // LCA(KC_LBRACKET), LCA(KC_RBRACKET) // Stretch panes left / right
                                 ___ , ___ , ___ , ___ , ___ ,
