@@ -620,9 +620,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                 // right
                                  LALT(KC_7) , LALT(KC_1) , LALT(KC_2) , LALT(KC_3) , LALT(KC_4) , LALT(KC_5) , LALT(KC_9) , // ... , focus git view
-                                 MEH(KC_G) ,  ___ , ___ , LSFT(KC_F3) , KC_F3 , LCTL(KC_5) , LALT(KC_F12) , // Toggle minimap, prev / next occurrence (word at caret), rerun last, focus console view
+                                 LCS(KC_G) ,  ___ , ___ , LSFT(KC_F3) , KC_F3 , LCTL(KC_5) , LALT(KC_F12) , // Toggle minimap, prev / next occurrence (word at caret), rerun last, focus console view
                                  ___ , ___ , ___ , MEH(KC_RBRACKET) , MEH(KC_LBRACKET) ,  LCTL(KC_1) , // cursor to pane left / right, show error description
-                                 LCS(KC_F)  ,  MEH(KC_PGUP) , ___ , LCA(KC_LBRACKET) , LCA(KC_RBRACKET) , MEH(KC_PGDN) , MEH(KC_Z) , // gofm,  shift pane left, streth pane l/r, shift pan right, toggle distraction free
+                                 MEH(KC_F)  ,  MEH(KC_PGUP) , ___ , LCA(KC_LBRACKET) , LCA(KC_RBRACKET) , MEH(KC_PGDN) , MEH(KC_Z) , // gofmt,  shift pane left, streth pane l/r, shift pan right, toggle distraction free
 
                                  // LCA(KC_LBRACKET), LCA(KC_RBRACKET) // Stretch panes left / right
                                 ___ , ___ , ___ , ___ , ___ ,
