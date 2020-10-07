@@ -253,6 +253,10 @@ enum custom_keycodes {
   WR_WORD_SYSTEM,
   WR_WORD_ETCSYSTEMDSYSTEM,
   WR_WORD_JOURNALCTL,
+  WR_WORD_MASTER,
+  WR_WORD_MAKE,
+  WR_WORD_GETH,
+  WR_WORD_LINT,
 
   WR_GOSRC_ETHEREUM_GOETHEREUM,
 
@@ -644,8 +648,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , WR_WORD_JOURNALCTL , ___ , ___ , ___ , WR_HTTPS , ___ , // WR_PROTO_COLON_SLASHSLASH
-                      ___ , ___ , ___ , WR_WORD_OPEN_RPC , WR_HTTP , ___ ,
-                      ___ , ___ , ___ , WR_REDIR_2AND1 , ___ , ___ , ___ ,
+                      ___ , WR_WORD_MAKE , WR_WORD_GETH , WR_WORD_LINT , WR_HTTP , ___ ,
+                      ___ , ___ , WR_WORD_MASTER , WR_REDIR_2AND1 , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -1152,6 +1156,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case WR_WORD_JOURNALCTL:
     if (record->event.pressed) {
       SEND_STRING("journalctl");
+    }
+    return false;
+    break;
+
+  case WR_WORD_MASTER:
+    if (record->event.pressed) {
+      SEND_STRING("master");
+    }
+    return false;
+    break;
+
+  case WR_WORD_MAKE:
+    if (record->event.pressed) {
+      SEND_STRING("make ");
+    }
+    return false;
+    break;
+
+  case WR_WORD_GETH:
+    if (record->event.pressed) {
+      SEND_STRING("geth");
+    }
+    return false;
+    break;
+
+  case WR_WORD_LINT:
+    if (record->event.pressed) {
+      SEND_STRING("lint");
     }
     return false;
     break;
