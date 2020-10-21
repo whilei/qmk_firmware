@@ -301,7 +301,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , TG(CAPSLAYER) , KC_DOWN , ___ , // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , ___ , KC_DOWN , KC_INSERT , // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
                           CTLGUI(KC_K) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , MT(MOD_MEH, KC_ENTER ),
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
@@ -311,8 +311,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                        /*  */
                           LT(GOLANDLAYER, KC_DELETE) , TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
-                       KC_INSERT , // LCTL(KC_TAB) ,
-                       SFT_T(KC_SPACE) , KC_BSPACE , KC_DELETE , //  LCS(KC_TAB) , // browser tab left
+                          ___ , // KC_INSERT , // LCTL(KC_TAB) ,
+                          SFT_T(KC_SPACE) , KC_BSPACE , TG(CAPSLAYER) , //  LCS(KC_TAB) , // browser tab left
 
 
                        // Right
@@ -648,7 +648,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , WR_WORD_JOURNALCTL , ___ , ___ , ___ , WR_HTTPS , ___ , // WR_PROTO_COLON_SLASHSLASH
-                      ___ , WR_WORD_MAKE , WR_WORD_GETH , WR_WORD_LINT , WR_HTTP , ___ ,
+                      ___ , WR_WORD_MAKE , ___ , ___ , WR_HTTP , ___ ,
                       ___ , ___ , WR_WORD_MASTER , WR_REDIR_2AND1 , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
