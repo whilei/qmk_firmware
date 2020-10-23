@@ -305,7 +305,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                           CTLGUI(KC_K) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , MT(MOD_MEH, KC_ENTER ),
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
-                          TD(SHIFT_CAP) ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  KC_C  , KC_V , LCTL_T( KC_B ) , KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
+                          TD(SHIFT_CAP) ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  ALT_T( KC_C )  , KC_V , LCTL_T( KC_B ) , KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
                           OSL(UNICODEL) , KC_MS_WH_DOWN, KC_MS_WH_UP ,  MT(MOD_LALT, KC_KP_ASTERISK) , MT(MOD_LGUI, KC_TAB), // TD(ALT_UNI)
 
@@ -437,10 +437,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ ,
                       ___ , ___ , ___ ,
                       // right
-                      ___ , KC_PERC , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_LABK , KC_RABK ,  ___ , //
-                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_COMMA , ___ ,
-                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_0 ,  KC_EQUAL,
-                      KC_SLASH , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_DOT , KC_ENTER ,
+                      ___ , KC_PERC , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_LABK , KC_RABK ,  KC_EQUAL , //
+                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
+                      KC_MINUS , KC_4 , KC_5 , KC_6 , KC_0 ,  KC_HASH ,
+                      ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_DOT , KC_COMMA ,
                       ___ , ___ , ___ , ___ ,  ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -576,7 +576,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
   [QWIMAMU] = LAYOUT_ergodox(
                        // Left
-                       DYN_REC_STOP   , ___ ,  ___ , ___ , ___ , ___ , WR_SHEBANGS_BASH ,
+                       DYN_REC_STOP   , RESET ,  ___ , ___ , ___ , ___ , WR_SHEBANGS_BASH ,
                        DYN_REC_START1 , DYN_MACRO_PLAY1 ,  LCTL(KC_W) , LCS(KC_C) , LCS(KC_V) , ___ , ___ ,
                        DYN_REC_START2 , DYN_MACRO_PLAY2 ,  LCTL(KC_X) , LCTL(KC_C) , LCTL(KC_V) , LCTL(KC_Z) ,
                        TMUX_PSPLITH , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , TMUX_PSPLITV ,
@@ -640,7 +640,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , WR_GOSRC_ETHEREUM_GOETHEREUM , WR_BUILD_BIN_GETH , ___ , WR_WORD_MULTIGETH_DASHED , WR_WORD_OPENETHEREUM , ___ ,
                       ___ , ___ , WR_WORD_ETCSYSTEMDSYSTEM , WR_WORD_GOETHEREUM , WR_WORD_COREGETH_DASHED , ___ , ___ ,
                       ___ , ___ , WR_WORD_SYSTEM , WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM ,
-                      ___ , KC_SLASH , ___ , WR_WORD_ETCLABSCORE, WR_WORD_MEOWSBITS , ___ , ___ ,
+                      ___ , KC_SLASH , ___ , WR_WORD_ETCLABSCORE, WR_WORD_MEOWSBITS , KC_DOT , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -648,7 +648,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       // right
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , WR_WORD_JOURNALCTL , ___ , ___ , ___ , WR_HTTPS , ___ , // WR_PROTO_COLON_SLASHSLASH
-                      ___ , WR_WORD_MAKE , ___ , ___ , WR_HTTP , ___ ,
+                      ___ , ___ , ___ , ___ , WR_HTTP , ___ ,
                       ___ , ___ , WR_WORD_MASTER , WR_REDIR_2AND1 , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
