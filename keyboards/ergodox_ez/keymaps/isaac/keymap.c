@@ -176,6 +176,7 @@ enum custom_keycodes {
   TMUX_COPYMODE,
   TMUX_PASTE,
   TMUX_LEADER,
+  TMUX_LEADER2,
 
   TMUX_WN, // window next
   TMUX_WP, // window previous
@@ -316,7 +317,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
                        // Right
-                          /*CTLGUI(KC_J)*/  TO(BASE) , ___ , LSFT(KC_QUOTE) , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , LGUI(KC_ENTER) , //LCS(KC_TAB) , LCTL(KC_TAB)
+                          /*CTLGUI(KC_J)*/  TO(BASE) , TMUX_LEADER , LSFT(KC_QUOTE) , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , LGUI(KC_ENTER) , //LCS(KC_TAB) , LCTL(KC_TAB)
                           /* TD(TD_QUESTION_TOPROWNUM) */
                           KC_BSPACE , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , TD(AWESOME_TAG_FORWARD_BACK) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
                           KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H ,  TD( ONEORMO_SYMBOLS ) , // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
@@ -806,6 +807,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case TMUX_LEADER:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTRL("b"));
+    }
+    return false;
+    break;
+
+  case TMUX_LEADER2:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("b")SS_LCTRL("b"));
     }
     return false;
     break;
