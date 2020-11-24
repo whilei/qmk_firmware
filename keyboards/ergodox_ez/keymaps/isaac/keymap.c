@@ -323,7 +323,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H ,  TD( ONEORMO_SYMBOLS ) , // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                           TD( SHIFT_QUESTION ) , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP) , // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-                          MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_EQUAL) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone
+                          MT(MOD_LCTL, KC_QUOTE) , TG(SYMBOLS) , TG(NUMPAD) , TG(MOTIONLAYER), ___ , // mute/unmute microphone
                           /* MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_SCOLON) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone */
 
                           /* LGUI(KC_H) , LGUI(KC_L) , */ // Change screens (AwesomeWM)
@@ -442,7 +442,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ ,
                       // right
                       ___ , KC_PERC , KC_LEFT_PAREN , KC_RIGHT_PAREN , KC_LABK , KC_RABK ,  KC_EQUAL , //
-                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , ___ ,
+                      ___ , KC_KP_PLUS , KC_7 , KC_8 , KC_9 , KC_SLASH , KC_COLN ,
                       KC_MINUS , KC_4 , KC_5 , KC_6 , KC_0 ,  KC_HASH ,
                       ___ , KC_KP_ASTERISK , KC_1 , KC_2 , KC_3 , KC_DOT , KC_COMMA ,
                       ___ , ___ , ___ , ___ ,  ___ ,
@@ -598,7 +598,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        VIM_BUFFER_PREV , VIM_BUFFER_NEXT , KC_PIPE , ___ , KC_0 , KC_DLR ,
                        ___ , TMUX_WP , TMUX_WN , TMUX_WCREATE , ___ , TD(TD_HELPFLAG) ,  ___ , //TD( TD_HELPFLAG ) , // WR_FLAGHELP,
 
-                       ___ , ___ , ___ , ___ , ___ ,
+                       ___ , ___ , ___ , ___ , CONALT(KC_0) , // mute/unmute system microphone
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___
