@@ -61,7 +61,8 @@ enum {
       SHIFT_CAP,
       ONEORMO_SYMBOLS,
       SHIFT_QUESTION,
-      AWESOME_TAG_FORWARD_BACK
+      AWESOME_TAG_FORWARD_BACK,
+      AWESOME_TAG_NEXT_SCREEN_OR_APP
       /* SOME_OTHER_DANCE */
 
 };
@@ -277,7 +278,7 @@ enum custom_keycodes {
   WORD_COULD,
   WORD_SHOULD,
   WORD_ABOUT,
-  WORD_P2P,
+  WR_WORD_P2P,
 
   SPACEMACS_WINDOW_LEFT,
   SPACEMACS_WINDOW_RIGHT,
@@ -319,7 +320,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        // Right
                           /*CTLGUI(KC_J)*/  TO(BASE) , ___ , LSFT(KC_QUOTE) , LT(MACROLAYER, KC_MINUS ), KC_UNDS , KC_GRAVE , LGUI(KC_ENTER) , //LCS(KC_TAB) , LCTL(KC_TAB)
                           /* TD(TD_QUESTION_TOPROWNUM) */
-                          KC_BSPACE , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , CTLGUI(KC_K) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
+                          KC_BSPACE , KC_J , KC_U , KC_R , KC_L , LT(FLAYER, KC_SCOLON) , TD(AWESOME_TAG_NEXT_SCREEN_OR_APP) , // CTLGUI(KC_K) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
                           KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H ,  TD( ONEORMO_SYMBOLS ) , // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                           TD( SHIFT_QUESTION ) , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP) , // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
@@ -654,7 +655,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , WR_WORD_JOURNALCTL , ___ , ___ , ___ , WR_HTTPS , ___ , // WR_PROTO_COLON_SLASHSLASH
                       ___ , ___ , ___ , ___ , WR_HTTP , ___ ,
-                      ___ , ___ , WR_WORD_MASTER , WR_REDIR_2AND1 , ___ , ___ , ___ ,
+                      ___ , WR_WORD_P2P , WR_WORD_MASTER , WR_REDIR_2AND1 , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -1340,7 +1341,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-  case WORD_P2P:
+  case WR_WORD_P2P:
     if (record->event.pressed) {
       SEND_STRING("p2p");
     }
@@ -1778,7 +1779,23 @@ void awesome_fb_tag_reset  (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 };
 
+void awesome_next_tag_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  // CTLGUI(KC_K) : next/previous screen
+  // LGUI(KC_ENTER) : next/previous app
+  switch (xtap_state.state) {
+  case SINGLE_TAP: register_code(KC_LGUI); register_code(KC_LCTL); register_code(KC_K); break;
+  case DOUBLE_TAP: register_code(KC_LGUI); register_code(KC_TAB); break;
+  }
+};
 
+void awesome_next_tag_reset  (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+  case SINGLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_LCTL); unregister_code(KC_K); break;
+  case DOUBLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_TAB); break;
+  }
+  xtap_state.state = 0;
+};
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CURLYBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
@@ -1800,5 +1817,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [SHIFT_CAP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_cap_finished, shift_cap_reset),
   [ONEORMO_SYMBOLS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, oneormore_symbols_finished, oneormore_symbols_reset),
   [SHIFT_QUESTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_question_finished, shift_question_reset),
-  [AWESOME_TAG_FORWARD_BACK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_fb_tag_finished, awesome_fb_tag_reset)
+  [AWESOME_TAG_FORWARD_BACK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_fb_tag_finished, awesome_fb_tag_reset),
+  [AWESOME_TAG_NEXT_SCREEN_OR_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_next_tag_finished, awesome_next_tag_reset)
 };
