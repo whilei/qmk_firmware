@@ -303,13 +303,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Norman and friends
   [BASE] = LAYOUT_ergodox(
                        // Left
-                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , ___ , KC_DOWN , KC_INSERT , // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+                          TD(TD_TAB_TMUXQ) , KC_UP , LT(MACROLAYER, KC_0) , KC_DLR , KC_KP_ASTERISK , KC_DOWN , KC_INSERT , // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
                           TD(AWESOME_TAG_FORWARD_BACK) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , MT(MOD_MEH, KC_ENTER ),
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
                           TD(SHIFT_CAP) ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  ALT_T( KC_C )  , KC_V , LCTL_T( KC_B ) , TMUX_LEADER2 , // KC_LEAD, // CTLGUI(KC_K), // KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
 
-                          OSL(UNICODEL) , KC_MS_WH_DOWN, KC_MS_WH_UP ,  MT(MOD_LALT, KC_KP_ASTERISK) , MT(MOD_LGUI, KC_TAB), // TD(ALT_UNI)
+                          OSL(UNICODEL) , KC_MS_WH_DOWN, KC_MS_WH_UP ,  MT(MOD_LALT, KC_LBRACKET) , MT(MOD_LGUI, KC_TAB), // TD(ALT_UNI)
 
                        /*  */
                           LT(GOLANDLAYER, KC_DELETE) , ___ , //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
@@ -433,7 +433,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Numpad
   [NUMPAD] = LAYOUT_ergodox(
                       // Left
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
@@ -534,7 +534,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       /* ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN , */
                       ___ , LCTL(KC_W) , KC_MS_WH_UP , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT ,  KC_PGUP ,
                       ___ , ___ , KC_MS_WH_DOWN , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT ,
-                      ___ , ___ , ___ , ___ , LGUI(KC_M) , ___ , KC_PGDOWN ,
+                      ___ , ___ , ___ , CTLGUI(KC_SPACE) , LGUI(KC_M) , KC_LSHIFT , KC_PGDOWN , // floating, maximized, ...
                       ___ , ___ , ___ , ___, ___,
                       /* LGUI(KC_H) , LGUI(KC_L) , */
                       ___ , ___ ,
@@ -542,7 +542,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_MS_BTN1 , KC_MS_BTN2 , LGUI(KC_LEFT) , //KC_ENTER
 
                       // right
-                      ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
+                      /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
+                      ___ , LGUI(KC_1) , LGUI(KC_2) , LGUI(KC_3) , LGUI(KC_4) , LGUI(KC_5) , ___ ,
                       ___ , ___ , KC_HOME , ___ , KC_END , ___ , ___ ,
                       ___ , LCTL(KC_LEFT) , KC_UP , LCTL(KC_RIGHT) , ___ , ___ ,
                       ___ , ___ , KC_LEFT , KC_DOWN , KC_RIGHT , ___ , ___ ,
