@@ -341,7 +341,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    ___,
   KC_CAPS,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,
   KC_LSHIFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,    KC_LCTL ,
-  KC_LCTL, ___ , ___ , ___ , ___ , ___ ,
+  KC_LCTL, ___ , ___ , ___ , ___ ,
 
   KC_LBRACKET , KC_RBRACKET ,
   ___ ,
