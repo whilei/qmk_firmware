@@ -325,7 +325,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_Y , LT(GOLANDLAYER, KC_N ) , KC_I , KC_O ,  KC_H ,  TD( ONEORMO_SYMBOLS ) , // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
                           TD( SHIFT_QUESTION ) , LGUI_T( KC_P ) , KC_M , ALT_T( KC_COMMA ) , KC_DOT , LT(MOTIONLAYER, KC_SLASH ) , TD(SHIFT_CAP) , // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-                          MT(MOD_LCTL, KC_QUOTE) , TG(SYMBOLS) , TG(NUMPAD) , TG(MOTIONLAYER), ___ , // mute/unmute microphone
+                          MT(MOD_LCTL, KC_QUOTE) , TG(SYMBOLS) , TG(NUMPAD) , TG(MOTIONLAYER), TG(DEADQWERTY) , // mute/unmute microphone
                           /* MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_SCOLON) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone */
 
                           /* LGUI(KC_H) , LGUI(KC_L) , */ // Change screens (AwesomeWM)
@@ -337,23 +337,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           ),
 
   [DEADQWERTY] = LAYOUT_ergodox(
-  KC_EQL,          KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_LEFT,
-  KC_DEL,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    TG(SYMB),
-  KC_BSPC,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,
-  KC_LSFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,    ALL_T(KC_NO),
-  LT(SYMB,KC_GRV), KC_QUOT,     LALT(KC_LSFT), KC_LEFT, KC_RGHT,
-                                                           ALT_T(KC_APP), KC_LGUI,
-                                                                          KC_HOME,
-                                                         KC_SPC, KC_BSPC, KC_END,
+  KC_F1,          KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    ___,
+  KC_TAB,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    ___,
+  KC_CAPS,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,
+  KC_LSHIFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,    KC_LCTL ,
+  KC_LCTL, ___ , ___ , ___ , ___ , ___ ,
+
+  KC_LBRACKET , KC_RBRACKET ,
+  ___ ,
+  KC_SPACE , ___ , ___ ,
+
   // right hand
-  KC_RGHT,      KC_6,    KC_7,    KC_8,    KC_9,              KC_0,           KC_MINS,
-  TG(SYMB),     KC_Y,    KC_U,    KC_I,    KC_O,              KC_P,           KC_BSLS,
-  KC_H,         KC_J,    KC_K,    KC_L,    LT(MDIA, KC_SCLN), GUI_T(KC_QUOT),
-  MEH_T(KC_NO), KC_N,    KC_M,    KC_COMM, KC_DOT,            CTL_T(KC_SLSH), KC_RSFT,
-  KC_UP,        KC_DOWN, KC_LBRC, KC_RBRC, TT(SYMB),
-  KC_LALT, CTL_T(KC_ESC),
-  KC_PGUP,
-  KC_PGDN, KC_TAB, KC_ENT
+  ___,      KC_6,    KC_7,    KC_8,    KC_9,              KC_0,           ___,
+  ___,     KC_Y,    KC_U,    KC_I,    KC_O,              KC_P,           ___,
+  KC_H,         KC_J,    KC_K,    KC_L,    KC_SCLN, ___,
+  ___, KC_N,    KC_M,    KC_COMM, KC_DOT,            ___, ___,
+  ___,        ___, ___, ___, ___,
+
+  ___ , ___ ,
+  ___ ,
+  ___ , ___ , ___
                                 ),
 
   [CAPSLAYER] = LAYOUT_ergodox(
@@ -378,6 +381,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        ___ , ___ ,
                        ___ ,
                        ___ , ___ , ___
+
                        ),
 
  /* [DELAYER] = LAYOUT_ergodox( */
