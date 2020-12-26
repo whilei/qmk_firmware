@@ -337,20 +337,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           ),
 
   [DEADQWERTY] = LAYOUT_ergodox(
-  KC_F1,          KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_ESC,
+  KC_M,          KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_ESC,
 
   //orig: KC_TAB,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    ___,
-  ___, KC_TAB,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_ENTER ,
+  KC_H , KC_B ,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_ENTER ,
   //orig: KC_CAPS,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,
-  KC_G, KC_CAPS,         KC_A,        KC_S,          KC_D,    KC_F,
+  KC_G, KC_LSHIFT ,         KC_A,        KC_S,          KC_D,    KC_F,
   //orig: KC_LSHIFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,    KC_LCTL ,
-  ___,  KC_LSHIFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_E,    KC_R,
+  KC_LCTL ,  KC_LSHIFT,         KC_Z , KC_X,          KC_C,    KC_E,    KC_R,
 
-  ___, KC_LCTL, ___ , ___ , KC_TAB ,
+  KC_BSPACE , KC_LCTL , ___ , ___ , KC_CAPS ,
 
-  KC_F , ___ ,
-  KC_LCTL ,
-  KC_SPACE , ___ , KC_M ,
+  KC_F , KC_RBRACKET ,
+  KC_LBRACKET ,
+  KC_TAB , KC_SPACE , ___ ,
 
   // right hand
   ___,      KC_6,    KC_7,    KC_8,    KC_9,              KC_0,           ___ ,
