@@ -337,7 +337,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           ),
 
   [DEADQWERTY] = LAYOUT_ergodox(
-  KC_ESC,          KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_M,
+  KC_ESC,          KC_V,        KC_2,          KC_3,    KC_4,    KC_UP,    KC_M,
 
   //orig: KC_TAB,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    ___,
   KC_H , KC_B ,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_ENTER ,
