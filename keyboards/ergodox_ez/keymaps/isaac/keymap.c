@@ -56,6 +56,7 @@ enum {
       TD_TODO_DONE,
       TD_LABK_COMMA,
       TD_RABK_DOT ,
+      TD_BASH_INTERVAR ,
 
       //Tap dance enums
       ALT_UNI,
@@ -262,6 +263,10 @@ enum custom_keycodes {
   WR_WORD_LINT,
 
   WR_GOSRC_ETHEREUM_GOETHEREUM,
+
+  // Bash syntax stuff
+  /* BASH_INTERVAR, */
+  WR_BASH_INTERVAR,
 
 
   // Emoji.. how am I just getting these
@@ -615,7 +620,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
   [QWIMAMU] = LAYOUT_ergodox(
                        // Left
-                       DYN_REC_STOP   , RESET ,  ___ , ___ , ___ , ___ , WR_SHEBANGS_BASH ,
+                             DYN_REC_STOP   , RESET ,  ___ , TD(TD_BASH_INTERVAR) , ___ , ___ , WR_SHEBANGS_BASH ,
                        DYN_REC_START1 , DYN_MACRO_PLAY1 ,  LCTL(KC_W) , LCS(KC_C) , LCS(KC_V) , ___ , ___ ,
                        DYN_REC_START2 , DYN_MACRO_PLAY2 ,  LCTL(KC_X) , LCTL(KC_C) , LCTL(KC_V) , LCTL(KC_Z) ,
                        TMUX_PSPLITH , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , TMUX_PSPLITV ,
@@ -1451,6 +1456,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
+  /* case WR_BASH_INTERVAR: */
+  /*   if (record->event.pressed) { */
+  /*     SEND_STRING("${}"SS_TAP(X_LEFT)); */
+  /*   } */
+  /*   return false; */
+  /*   break; */
+
   /* case LOCK_SHIFT: */
   /*   if (record->event.pressed) { */
   /*     tap_code(X_LOCK); */
@@ -1830,6 +1842,28 @@ void awesome_next_tag_reset  (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = 0;
 };
 
+void bash_intervar_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  switch (xtap_state.state) {
+  case SINGLE_TAP:  register_code(KC_LSHIFT); register_code(KC_4); register_code(KC_LBRACKET); register_code(KC_RBRACKET); unregister_code(KC_LSHIFT); register_code(KC_LEFT); break;
+  /* case SINGLE_TAP: SEND_STRING("${}") ; SS_TAP(KC_LEFT); break; */
+  /* case SINGLE_TAP: WR_BASH_INTERVAR; break; */
+  /* case DOUBLE_TAP: register_code(KC_LGUI); register_code(KC_TAB); break; */
+  }
+};
+
+void bash_intervar_reset  (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+  case SINGLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_4); unregister_code(KC_LBRACKET); unregister_code(KC_RBRACKET);unregister_code(KC_LSHIFT); unregister_code(KC_LEFT); break;
+  /* case SINGLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_LCTL); unregister_code(KC_K); break; */
+  /* case DOUBLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_TAB); break; */
+  }
+  xtap_state.state = 0;
+};
+
+
+
+
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_CURLYBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
   [TD_PAREN] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
@@ -1851,5 +1885,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [ONEORMO_SYMBOLS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, oneormore_symbols_finished, oneormore_symbols_reset),
   [SHIFT_QUESTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_question_finished, shift_question_reset),
   [AWESOME_TAG_FORWARD_BACK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_fb_tag_finished, awesome_fb_tag_reset),
-  [AWESOME_TAG_NEXT_SCREEN_OR_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_next_tag_finished, awesome_next_tag_reset)
+  [AWESOME_TAG_NEXT_SCREEN_OR_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_next_tag_finished, awesome_next_tag_reset),
+  [TD_BASH_INTERVAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bash_intervar_finished, bash_intervar_reset)
 };
