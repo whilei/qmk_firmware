@@ -1845,7 +1845,10 @@ void awesome_next_tag_reset  (qk_tap_dance_state_t *state, void *user_data) {
 void bash_intervar_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
+    // ${}
   case SINGLE_TAP:  register_code(KC_LSHIFT); register_code(KC_4); register_code(KC_LBRACKET); register_code(KC_RBRACKET); unregister_code(KC_LSHIFT); register_code(KC_LEFT); break;
+    // $()
+  case DOUBLE_TAP:  register_code(KC_LSHIFT); register_code(KC_4); register_code(KC_9); register_code(KC_0); unregister_code(KC_LSHIFT); register_code(KC_LEFT); break;
   /* case SINGLE_TAP: SEND_STRING("${}") ; SS_TAP(KC_LEFT); break; */
   /* case SINGLE_TAP: WR_BASH_INTERVAR; break; */
   /* case DOUBLE_TAP: register_code(KC_LGUI); register_code(KC_TAB); break; */
@@ -1855,6 +1858,7 @@ void bash_intervar_finished (qk_tap_dance_state_t *state, void *user_data) {
 void bash_intervar_reset  (qk_tap_dance_state_t *state, void *user_data) {
   switch (xtap_state.state) {
   case SINGLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_4); unregister_code(KC_LBRACKET); unregister_code(KC_RBRACKET);unregister_code(KC_LSHIFT); unregister_code(KC_LEFT); break;
+  case DOUBLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_4); unregister_code(KC_9); unregister_code(KC_0);unregister_code(KC_LSHIFT); unregister_code(KC_LEFT); break;
   /* case SINGLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_LCTL); unregister_code(KC_K); break; */
   /* case DOUBLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_TAB); break; */
   }
