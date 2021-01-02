@@ -58,6 +58,8 @@ enum {
       TD_RABK_DOT ,
       TD_BASH_INTERVAR ,
 
+      TD_SHIFT_MOTION, // shift + motion, good for selecting batches of text
+
       //Tap dance enums
       ALT_UNI,
       SHIFT_CAP,
@@ -314,7 +316,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                           TD(AWESOME_TAG_FORWARD_BACK) , LT(FLAYER, KC_Q) , KC_W , KC_D , KC_F , KC_K , MT(MOD_MEH, KC_ENTER ),
                        LT(SYMBOLS , KC_ESCAPE) , LT(MOTIONLAYER, KC_A) , KC_S , KC_E , KC_T , KC_G ,
-                          TD(SHIFT_CAP) ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  ALT_T( KC_C )  , KC_V , LCTL_T( KC_B ) , TMUX_LEADER2 , // KC_LEAD, // CTLGUI(KC_K), // KC_LEAD , // OSM(MOD_LSFT) , // MO(GOLANDLAYER)
+                          TD(SHIFT_CAP) ,  LT( QWIMAMU, KC_Z ) , LT(NUMPAD, KC_X) ,  ALT_T( KC_C )  , KC_V , LCTL_T( KC_B ) , TD(TD_SHIFT_MOTION) , // TD_SHIFT_MOTION includes TMUX_LEADER2 as the single_tap
 
                           OSL(UNICODEL) , KC_MS_WH_DOWN, KC_MS_WH_UP ,  MT(MOD_LALT, KC_LBRACKET) , MT(MOD_LGUI, KC_TAB), // TD(ALT_UNI)
 
@@ -621,7 +623,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
   [QWIMAMU] = LAYOUT_ergodox(
                        // Left
-                             DYN_REC_STOP   , RESET ,  ___ , TD(TD_BASH_INTERVAR) , ___ , ___ , WR_SHEBANGS_BASH ,
+                             DYN_REC_STOP   , RESET ,  ___ , ___ , ___ , ___ , WR_SHEBANGS_BASH ,
                        DYN_REC_START1 , DYN_MACRO_PLAY1 ,  LCTL(KC_W) , LCS(KC_C) , LCS(KC_V) , ___ , ___ ,
                        DYN_REC_START2 , DYN_MACRO_PLAY2 ,  LCTL(KC_X) , LCTL(KC_C) , LCTL(KC_V) , LCTL(KC_Z) ,
                        TMUX_PSPLITH , ___ , TMUX_PFS , TMUX_COPYMODE , TMUX_PASTE , TMUX_PLAST , TMUX_PSPLITV ,
@@ -694,7 +696,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ___ , ___ , ___ , ___ , ___ , ___ , ___ ,
                       ___ , WR_WORD_JOURNALCTL , ___ , ___ , ___ , WR_HTTPS , ___ , // WR_PROTO_COLON_SLASHSLASH
                       ___ , ___ , ___ , ___ , WR_HTTP , ___ ,
-                      ___ , WR_WORD_P2P , WR_WORD_MASTER , WR_REDIR_2AND1 , ___ , ___ , ___ ,
+                      ___ , WR_WORD_P2P , WR_WORD_MASTER , ___ , WR_REDIR_2AND1 , ___ , ___ ,
                       ___ , ___ , ___ , ___ , ___ ,
                       ___ , ___ ,
                       ___ ,
@@ -1877,6 +1879,23 @@ void bash_intervar_reset  (qk_tap_dance_state_t *state, void *user_data) {
 };
 
 
+void shift_motion_finished (qk_tap_dance_state_t *state, void *user_data) {
+  xtap_state.state = cur_dance(state);
+  // CTLGUI(KC_K) : next/previous screen
+  // LGUI(KC_ENTER) : next/previous app
+  switch (xtap_state.state) {
+  case SINGLE_TAP: process_record_user(TMUX_LEADER2, NULL); break;
+  case SINGLE_HOLD: register_code(KC_LSHIFT); layer_on(MOTIONLAYER) ; break;
+  }
+};
+
+void shift_motion_reset  (qk_tap_dance_state_t *state, void *user_data) {
+  switch (xtap_state.state) {
+  case SINGLE_TAP: break;
+  case SINGLE_HOLD: unregister_code(KC_LSHIFT); layer_off(MOTIONLAYER) ; break;
+  }
+  xtap_state.state = 0;
+};
 
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -1901,5 +1920,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [SHIFT_QUESTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_question_finished, shift_question_reset),
   [AWESOME_TAG_FORWARD_BACK] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_fb_tag_finished, awesome_fb_tag_reset),
   [AWESOME_TAG_NEXT_SCREEN_OR_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_next_tag_finished, awesome_next_tag_reset),
-  [TD_BASH_INTERVAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bash_intervar_finished, bash_intervar_reset)
+  [TD_BASH_INTERVAR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bash_intervar_finished, bash_intervar_reset),
+  [TD_SHIFT_MOTION] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_motion_finished, shift_motion_reset)
 };
