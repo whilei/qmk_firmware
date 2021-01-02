@@ -267,6 +267,7 @@ enum custom_keycodes {
   // Bash syntax stuff
   /* BASH_INTERVAR, */
   WR_BASH_INTERVAR,
+  WR_BASH_INTERFN,
 
 
   // Emoji.. how am I just getting these
@@ -1456,12 +1457,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-  /* case WR_BASH_INTERVAR: */
-  /*   if (record->event.pressed) { */
-  /*     SEND_STRING("${}"SS_TAP(X_LEFT)); */
-  /*   } */
-  /*   return false; */
-  /*   break; */
+  case WR_BASH_INTERVAR:
+    if (record->event.pressed) {
+      SEND_STRING("${}"SS_TAP(X_LEFT));
+    }
+    return false;
+    break;
+
+  case WR_BASH_INTERFN:
+    if (record->event.pressed) {
+      SEND_STRING("$()"SS_TAP(X_LEFT));
+    }
+    return false;
+    break;
 
   /* case LOCK_SHIFT: */
   /*   if (record->event.pressed) { */
@@ -1845,10 +1853,13 @@ void awesome_next_tag_reset  (qk_tap_dance_state_t *state, void *user_data) {
 void bash_intervar_finished (qk_tap_dance_state_t *state, void *user_data) {
   xtap_state.state = cur_dance(state);
   switch (xtap_state.state) {
+  case SINGLE_TAP: process_record_user(WR_BASH_INTERVAR, NULL); break;
     // ${}
-  case SINGLE_TAP:  register_code(KC_LSHIFT); register_code(KC_4); register_code(KC_LBRACKET); register_code(KC_RBRACKET); unregister_code(KC_LSHIFT); register_code(KC_LEFT); break;
+  /* case SINGLE_TAP:  register_code(KC_LSHIFT); register_code(KC_4); register_code(KC_LBRACKET); register_code(KC_RBRACKET); unregister_code(KC_LSHIFT); register_code(KC_LEFT); break; */
+
     // $()
-  case DOUBLE_TAP:  register_code(KC_LSHIFT); register_code(KC_4); register_code(KC_9); register_code(KC_0); unregister_code(KC_LSHIFT); register_code(KC_LEFT); break;
+  case DOUBLE_TAP: process_record_user(WR_BASH_INTERFN, NULL); break;
+  /* case DOUBLE_TAP:  register_code(KC_LSHIFT); register_code(KC_4); register_code(KC_9); register_code(KC_0); unregister_code(KC_LSHIFT); register_code(KC_LEFT); break; */
   /* case SINGLE_TAP: SEND_STRING("${}") ; SS_TAP(KC_LEFT); break; */
   /* case SINGLE_TAP: WR_BASH_INTERVAR; break; */
   /* case DOUBLE_TAP: register_code(KC_LGUI); register_code(KC_TAB); break; */
@@ -1857,8 +1868,8 @@ void bash_intervar_finished (qk_tap_dance_state_t *state, void *user_data) {
 
 void bash_intervar_reset  (qk_tap_dance_state_t *state, void *user_data) {
   switch (xtap_state.state) {
-  case SINGLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_4); unregister_code(KC_LBRACKET); unregister_code(KC_RBRACKET);unregister_code(KC_LSHIFT); unregister_code(KC_LEFT); break;
-  case DOUBLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_4); unregister_code(KC_9); unregister_code(KC_0);unregister_code(KC_LSHIFT); unregister_code(KC_LEFT); break;
+  /* case SINGLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_4); unregister_code(KC_LBRACKET); unregister_code(KC_RBRACKET);unregister_code(KC_LSHIFT); unregister_code(KC_LEFT); break; */
+  /* case DOUBLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_4); unregister_code(KC_9); unregister_code(KC_0);unregister_code(KC_LSHIFT); unregister_code(KC_LEFT); break; */
   /* case SINGLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_LCTL); unregister_code(KC_K); break; */
   /* case DOUBLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_TAB); break; */
   }
