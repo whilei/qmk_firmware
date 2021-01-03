@@ -1534,8 +1534,12 @@ void shift_cap_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             /* layer_on(CAPSLAYER); */
-            set_oneshot_layer(CAPSLAYER, ONESHOT_START);
-            clear_oneshot_layer_state(ONESHOT_PRESSED);
+            if (layer_state_is(CAPSLAYER)) {
+                layer_off(CAPSLAYER);
+            } else {
+                set_oneshot_layer(CAPSLAYER, ONESHOT_START);
+                clear_oneshot_layer_state(ONESHOT_PRESSED);
+            }
             break;
         case SINGLE_HOLD:
             register_code(KC_LSHIFT);
