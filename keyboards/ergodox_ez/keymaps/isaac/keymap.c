@@ -206,6 +206,7 @@ enum custom_keycodes {
     VIM_NOH,
     VIM_BUFFER_PREV,
     VIM_BUFFER_NEXT,
+    VIM_EXECUTE_FILE,
 
     // WR: Write
     WR_REDIR_2AND1,
@@ -309,7 +310,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // Left
         TD(TD_TAB_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, KC_INSERT,  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
-        TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER), LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G, TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), TD(TD_SHIFT_MOTION),  // TD_SHIFT_MOTION includes TMUX_LEADER2 as the single_tap
+        TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER),
+        LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,
+        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), TD(TD_SHIFT_MOTION),  // TD_SHIFT_MOTION includes TMUX_LEADER2 as the single_tap
 
         OSL(UNICODEL), KC_MS_WH_DOWN, KC_MS_WH_UP, MT(MOD_LALT, KC_LBRACKET), MT(MOD_LGUI, KC_TAB),  // TD(ALT_UNI)
 
@@ -319,7 +322,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         SFT_T(KC_SPACE), KC_BSPACE, TG(CAPSLAYER),  //  LCS(KC_TAB) , // browser tab left
 
         // Right
-        /*CTLGUI(KC_J)*/ TO(BASE), ___, LSFT(KC_QUOTE), LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, LGUI(KC_ENTER),  // LCS(KC_TAB) , LCTL(KC_TAB)
+        /*CTLGUI(KC_J)*/ TO(BASE), KC_LEFT , KC_RIGHT , LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, LGUI(KC_ENTER),  // LCS(KC_TAB) , LCTL(KC_TAB)
         /* TD(TD_QUESTION_TOPROWNUM) */
         KC_BSPACE, KC_J, KC_U, KC_R, KC_L, LT(FLAYER, KC_SCOLON), TD(AWESOME_TAG_NEXT_SCREEN_OR_APP),               // CTLGUI(KC_K) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, TD(ONEORMO_SYMBOLS),                                         // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
@@ -329,7 +332,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_SCOLON) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone */
 
         /* LGUI(KC_H) , LGUI(KC_L) , */  // Change screens (AwesomeWM)
-        ___, ___,
+        ___, LSFT(KC_QUOTE) ,
         /* LGUI(KC_RIGHT) , */  // Change AwesomeWM number/window thing (1-5) left, below: right.
                                 /* LGUI(KC_LEFT) , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER) */
         ___, ___, LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),
@@ -358,12 +361,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [CAPSLAYER] = LAYOUT_ergodox(
         // Left
-        ___, ___, ___, ___, ___, ___, ___, ___, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_D), LSFT(KC_F), LSFT(KC_K), ___, ___, LSFT(KC_A), LSFT(KC_S), LSFT(KC_E), LSFT(KC_T), LSFT(KC_G), ___, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), ___, ___, ___, ___, ___, ___,
+        ___, ___, ___, ___, ___, ___, ___,
+        ___, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_D), LSFT(KC_F), LSFT(KC_K), ___,
+        ___, LSFT(KC_A), LSFT(KC_S), LSFT(KC_E), LSFT(KC_T), LSFT(KC_G),
+        ___, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), ___,
+        ___, ___, ___, ___, ___,
 
         ___, ___, ___, ___, ___, ___,
 
         // Right
-        ___, ___, ___, ___, ___, ___, ___, ___, LSFT(KC_J), LSFT(KC_U), LSFT(KC_R), LSFT(KC_L), ___, ___, LSFT(KC_Y), LSFT(KC_N), LSFT(KC_I), LSFT(KC_O), LSFT(KC_H), ___, ___, LSFT(KC_P), LSFT(KC_M), ___, ___, ___, ___, ___, ___, ___, ___, ___,
+        ___, ___, ___, ___, ___, ___, ___,
+        ___, LSFT(KC_J), LSFT(KC_U), LSFT(KC_R), LSFT(KC_L), ___, ___,
+        LSFT(KC_Y), LSFT(KC_N), LSFT(KC_I), LSFT(KC_O), LSFT(KC_H), ___,
+        ___, LSFT(KC_P), LSFT(KC_M), ___, ___, ___, ___,
+        ___, ___, ___, ___, ___,
 
         ___, ___, ___, ___, ___, ___
 
@@ -1200,6 +1211,14 @@ bool            process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+
+        case VIM_EXECUTE_FILE:
+          if (record->event.pressed) {
+            // :!%:p
+            SEND_STRING(SS_TAP(X_ESCAPE) ":!\"%:p\"" SS_TAP(X_ENTER));
+          }
+          return false;
+          break;
 
         case WR_WORD_P2P:
             if (record->event.pressed) {
