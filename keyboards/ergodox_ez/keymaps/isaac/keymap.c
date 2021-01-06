@@ -519,17 +519,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___, ___,     // /
 
         // right
-        ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___, // /
+        ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___,  // /
         /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
-        KC_DOT, LSFT(KC_SLASH), KC_EXLM, KC_MINUS, LSFT(KC_QUOTE), KC_SCOLON, ___, // /
-        KC_COLN, KC_EQUAL, KC_PIPE, KC_AMPR, KC_BSLASH, ___,  // < WR_ESCAPEDRETURN ,
+        KC_DOT, LSFT(KC_SLASH), KC_EXLM, KC_MINUS, LSFT(KC_QUOTE), KC_SCOLON, ___,  // /
+        KC_COLN, KC_EQUAL, KC_PIPE, KC_AMPR, KC_BSLASH, ___,                        // < WR_ESCAPEDRETURN ,
         /* ___ , KC_KP_ASTERISK , KC_UNDS , TD( TD_LABK_COMMA ) , TD( TD_RABK_DOT ) , ___ , ___ , // */
         ___, KC_KP_ASTERISK, KC_UNDS, KC_LABK, KC_RABK, ___, ___,  //
-        ___, ___, ___, ___, ___, // /
+        ___, ___, ___, ___, ___,                                   // /
 
-        KC_COMMA, KC_DOT, // /
-        ___, // /
-        ___, ___, ___ // /
+        KC_COMMA, KC_DOT,  // /
+        ___,               // /
+        ___, ___, ___      // /
         ),
 
     // Mouse and motion
@@ -557,39 +557,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___, LCS(KC_PGUP), LCS(KC_TAB), LCTL(KC_TAB), LCS(KC_PGDOWN), ___,
         /* ___ , LCTL(KC_W) , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP , */
         /* ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN , */
-        ___, LCTL(KC_W), KC_MS_WH_UP, KC_MS_WH_LEFT, KC_MS_UP, KC_MS_WH_RIGHT, KC_PGUP, // /
-        ___, ___, KC_MS_WH_DOWN, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, // /
-        ___, ___, ___, CTLGUI(KC_SPACE), LGUI(KC_M), KC_LSHIFT, KC_PGDOWN,  // floating, maximized, ...
-        ___, ___, ___, ___, ___, // /
+        ___, LCTL(KC_W), KC_MS_WH_UP, KC_MS_WH_LEFT, KC_MS_UP, KC_MS_WH_RIGHT, KC_PGUP,  // /
+        ___, ___, KC_MS_WH_DOWN, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT,                    // /
+        ___, ___, ___, CTLGUI(KC_SPACE), LGUI(KC_M), KC_LSHIFT, KC_PGDOWN,               // floating, maximized, ...
+        ___, ___, ___, ___, ___,                                                         // /
         /* LGUI(KC_H) , LGUI(KC_L) , */
-        ___, ___, // /
-        LGUI(KC_RIGHT), // /
-        KC_MS_BTN1, KC_MS_BTN2, LGUI(KC_LEFT), // /  // KC_ENTER
+        ___, ___,                               // /
+        LGUI(KC_RIGHT),                         // /
+        KC_MS_BTN1, KC_MS_BTN2, LGUI(KC_LEFT),  // /  // KC_ENTER
 
         // right
         /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-        ___, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), ___, // /
-        ___, ___, KC_HOME, ___, KC_END, ___, ___, // /
-        ___, LCTL(KC_LEFT), KC_UP, LCTL(KC_RIGHT), ___, ___, // /
-        ___, ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___, // /
-        ___, ___, ___, ___, ___, // /
-        ___, ___, // /
-        ___, // /
-        ___, ___, ___ // /
+        ___, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), ___,  // /
+        ___, ___, KC_HOME, ___, KC_END, ___, ___,                              // /
+        ___, LCTL(KC_LEFT), KC_UP, LCTL(KC_RIGHT), ___, ___,                   // /
+        ___, ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,                        // /
+        ___, ___, ___, ___, ___,                                               // /
+        ___, ___,                                                              // /
+        ___,                                                                   // /
+        ___, ___, ___                                                          // /
         ),
 
     // DISUSED
     [MOUSELAYER] = LAYOUT_ergodox(
 
         // Left
-        ___, ___, ___, ___, ___, ___, ___, // /
-        ___, ___, ___, KC_MS_UP, ___, ___, ___, // /
-        ___, ___, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, ___, // /
-        ___, ___, ___, ___, ___, ___, ___, // /
-        ___, ___, ___, ___, ___, // /
-        ___, ___, // /
-        KC_MS_BTN4, // /
-        KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN5, // /
+        ___, ___, ___, ___, ___, ___, ___,                   // /
+        ___, ___, ___, KC_MS_UP, ___, ___, ___,              // /
+        ___, ___, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, ___,  // /
+        ___, ___, ___, ___, ___, ___, ___,                   // /
+        ___, ___, ___, ___, ___,                             // /
+        ___, ___,                                            // /
+        KC_MS_BTN4,                                          // /
+        KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN5,                  // /
 
         // right
         ___, ___, ___, ___, ___, ___, ___,  // /
@@ -606,18 +606,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
     [QWIMAMU] = LAYOUT_ergodox(
         // Left
-        DYN_REC_STOP, RESET, ___, ___, ___, ___, WR_SHEBANGS_BASH, DYN_REC_START1, DYN_MACRO_PLAY1, LCTL(KC_W), LCS(KC_C), LCS(KC_V), ___, ___, DYN_REC_START2, DYN_MACRO_PLAY2, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z), TMUX_PSPLITH, ___, TMUX_PFS, TMUX_COPYMODE, TMUX_PASTE, TMUX_PLAST, TMUX_PSPLITV,
-
-        ___, ___, ___, ___, ___,
-
-        TMUX_PANE_LEFT, TMUX_PANE_RIGHT, TMUX_PANE_UP, ___, ___, TMUX_PANE_DOWN,
+        DYN_REC_STOP, RESET, ___, ___, ___, ___, WR_SHEBANGS_BASH,                         // /
+        DYN_REC_START1, DYN_MACRO_PLAY1, LCTL(KC_W), LCS(KC_C), LCS(KC_V), ___, ___,       // /
+        DYN_REC_START2, DYN_MACRO_PLAY2, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z),   // /
+        TMUX_PSPLITH, ___, TMUX_PFS, TMUX_COPYMODE, TMUX_PASTE, TMUX_PLAST, TMUX_PSPLITV,  // /
+        ___, ___, ___, ___, ___,                                                           // /
+        TMUX_PANE_LEFT, TMUX_PANE_RIGHT,                                                   // /
+        TMUX_PANE_UP,                                                                      // /
+        ___, ___, TMUX_PANE_DOWN,                                                          // /
 
         // Right
-        ___, ___, ___, TD(TD_TODO_DONE), ___, WR_CODEFENCE, DOEXIT,                                                                                                                            // TG(XPLANE)
-        ___, ___, ___, WR_GREP, WR_LESS, ___, VIM_NOH, VIM_BUFFER_PREV, VIM_BUFFER_NEXT, KC_PIPE, ___, ___, VIM_EXECUTE_FILE, ___, TMUX_WP, TMUX_WN, TMUX_WCREATE, ___, TD(TD_HELPFLAG), ___,  // TD( TD_HELPFLAG ) , // WR_FLAGHELP,
-
-        ___, ___, ___, ___, CONALT(KC_0),  // mute/unmute system microphone
-        ___, ___, ___, ___, ___, ___),
+        ___, ___, ___, TD(TD_TODO_DONE), ___, WR_CODEFENCE, DOEXIT,             // /                                                                                                                          // TG(XPLANE)
+        ___, ___, ___, WR_GREP, WR_LESS, ___, VIM_NOH,                          // /
+        VIM_BUFFER_PREV, VIM_BUFFER_NEXT, KC_PIPE, ___, ___, VIM_EXECUTE_FILE,  // /
+        ___, TMUX_WP, TMUX_WN, TMUX_WCREATE, ___, TD(TD_HELPFLAG), ___,         // TD( TD_HELPFLAG ) , // WR_FLAGHELP,
+        ___, ___, ___, ___, CONALT(KC_0),                                       // mute/unmute system microphone
+        ___, ___,                                                               // /
+        ___,                                                                    // /
+        ___, ___, ___                                                           // /
+        ),
 
     //
     // Find word at caret : ctrl+3
@@ -649,14 +656,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MEH(KC_F), MEH(KC_PGUP), ___, LCA(KC_LBRACKET), LCA(KC_RBRACKET), MEH(KC_PGDN), MEH(KC_Z),  // gofmt,  shift pane left, streth pane l/r, shift pan right, toggle distraction free
 
         // LCA(KC_LBRACKET), LCA(KC_RBRACKET) // Stretch panes left / right
-        ___, ___, ___, ___, ___, ___, ___, ___, ___, LCTL(KC_3), ___),
+        ___, ___, ___, ___, ___,  //
+        ___, ___,                 // /
+        ___,                      // /
+        ___, LCTL(KC_3), ___      // /
+        ),
 
     [MACROLAYER] = LAYOUT_ergodox(
         // Left
-        ___, WR_GOSRC_ETHEREUM_GOETHEREUM, WR_BUILD_BIN_GETH, ___, WR_WORD_MULTIGETH_DASHED, WR_WORD_OPENETHEREUM, ___, ___, ___, WR_WORD_ETCSYSTEMDSYSTEM, WR_WORD_GOETHEREUM, WR_WORD_COREGETH_DASHED, ___, ___, ___, ___, WR_WORD_SYSTEM, WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM, ___, KC_SLASH, ___, WR_WORD_ETCLABSCORE, WR_WORD_MEOWSBITS, KC_DOT, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
+        ___, WR_GOSRC_ETHEREUM_GOETHEREUM, WR_BUILD_BIN_GETH, ___, WR_WORD_MULTIGETH_DASHED, WR_WORD_OPENETHEREUM, ___,  // /
+        ___, ___, WR_WORD_ETCSYSTEMDSYSTEM, WR_WORD_GOETHEREUM, WR_WORD_COREGETH_DASHED, ___, ___,                       // /
+        ___, ___, WR_WORD_SYSTEM, WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM,                                         // /
+        ___, KC_SLASH, ___, WR_WORD_ETCLABSCORE, WR_WORD_MEOWSBITS, KC_DOT, ___,                                         // /
+        ___, ___, ___, ___, ___,                                                                                         // /
+        ___, ___,                                                                                                        // /
+        ___,                                                                                                             // /
+        ___, ___, ___,                                                                                                   // /
+
         // right
-        ___, ___, ___, ___, ___, ___, ___, ___, WR_WORD_JOURNALCTL, ___, ___, ___, WR_HTTPS, ___,  // WR_PROTO_COLON_SLASHSLASH
-        ___, ___, ___, ___, WR_HTTP, ___, ___, WR_WORD_P2P, WR_WORD_MASTER, ___, WR_REDIR_2AND1, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___),
+        ___, ___, ___, ___, ___, ___, ___,                                // /
+        ___, WR_WORD_JOURNALCTL, ___, ___, ___, WR_HTTPS, ___,            // WR_PROTO_COLON_SLASHSLASH
+        ___, ___, ___, ___, WR_HTTP, ___,                                 // /
+        ___, WR_WORD_P2P, WR_WORD_MASTER, ___, WR_REDIR_2AND1, ___, ___,  // /
+        ___, ___, ___, ___, ___,                                          // /
+        ___, ___,                                                         // /
+        ___,                                                              // /
+        ___, ___, ___                                                     // /
+        ),
 
     [XPLANE] = LAYOUT_ergodox(
         // Left
@@ -668,14 +694,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_8, KC_0,                                                // roll trim left, right
         KC_LBRACKET,                                               // pitch trim down
         KC_F1, KC_F2, KC_RBRACKET,                                 // throttle down, up ; pitch trim up
+
         // right
-        ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___),
+        ___, ___, ___, ___, ___, ___, ___,  // /
+        ___, ___, ___, ___, ___, ___, ___,  // /
+        ___, ___, ___, ___, ___, ___,       // /
+        ___, ___, ___, ___, ___, ___, ___,  // /
+        ___, ___, ___, ___, ___,            // /
+        ___, ___,                           // /
+        ___,                                // /
+        ___, ___, ___                       // /
+        ),
 
     [UNICODEL] = LAYOUT_ergodox(
         // Left
-        X(SNEK), ___, ___, ___, ___, X(UNIC_SUPERSET_OF), X(UNIC_CHECKMARK), ___, ___, ___, ___, ___, X(UNIC_SUBSET_OF), X(UNIC_THUMPSUP), ___, ___, X(UNIC_STACK), ___, ___, ___, ___, X(UNIC_ZAP), ___, X(UNIC_COPYRIGHT), ___, X(UNIC_BLOCK), ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___,
+        X(SNEK), ___, ___, ___, ___, X(UNIC_SUPERSET_OF), X(UNIC_CHECKMARK),  // /
+        ___, ___, ___, ___, ___, X(UNIC_SUBSET_OF), X(UNIC_THUMPSUP),         // /
+        ___, ___, X(UNIC_STACK), ___, ___, ___,                               // /
+        ___, X(UNIC_ZAP), ___, X(UNIC_COPYRIGHT), ___, X(UNIC_BLOCK), ___,    // /
+        ___, ___, ___, ___, ___,                                              // /
+        ___, ___,                                                             // /
+        ___,                                                                  // /
+        ___, ___, ___,                                                        // /
         // right
-        ___, ___, ___, X(UNIC_MDASH), ___, ___, X(UNIC_SQUIRREL), ___, ___, ___, X(UNIC_REGISTERED), ___, ___, X(UNIC_CAT), ___, ___, ___, X(UNIC_OMICRON), ___, ___, ___, X(UNIC_PILCROW), ___, ___, ___, X(UNIC_THINKING), X(UNIC_TIMERCLOCK), ___, X(UNIC_OPTION), ___, ___, X(UNIC_KEYBOARD), ___, ___, ___, ___, ___, ___)
+        ___, ___, ___, X(UNIC_MDASH), ___, ___, X(UNIC_SQUIRREL),                   // /
+        ___, ___, ___, X(UNIC_REGISTERED), ___, ___, X(UNIC_CAT),                   // /
+        ___, ___, ___, X(UNIC_OMICRON), ___, ___,                                   // /
+        ___, X(UNIC_PILCROW), ___, ___, ___, X(UNIC_THINKING), X(UNIC_TIMERCLOCK),  // /
+        ___, X(UNIC_OPTION), ___, ___, X(UNIC_KEYBOARD),                            // /
+        ___, ___,                                                                   // /
+        ___,                                                                        // /
+        ___, ___, ___                                                               // /
+        )
 
 };
 
