@@ -510,14 +510,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
     [QWIMAMU] = LAYOUT_ergodox(
         // Left
-        DYN_REC_STOP, RESET, ___, ___, ___, ___, WR_SHEBANGS_BASH, DYN_REC_START1, DYN_MACRO_PLAY1, LCTL(KC_W), LCS(KC_C), LCS(KC_V), ___, ___, DYN_REC_START2, DYN_MACRO_PLAY2, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z), TMUX_PSPLITH, ___, TMUX_PFS, TMUX_COPYMODE, TMUX_PASTE, TMUX_PLAST, TMUX_PSPLITV,
+        DYN_REC_STOP, RESET, ___, ___, ___, ___, WR_SHEBANGS_BASH,
+        DYN_REC_START1, DYN_MACRO_PLAY1, LCTL(KC_W), LCS(KC_C), LCS(KC_V), ___, ___, DYN_REC_START2, DYN_MACRO_PLAY2, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z), TMUX_PSPLITH, ___, TMUX_PFS, TMUX_COPYMODE, TMUX_PASTE, TMUX_PLAST, TMUX_PSPLITV,
 
         ___, ___, ___, ___, ___,
 
         TMUX_PANE_LEFT, TMUX_PANE_RIGHT, TMUX_PANE_UP, ___, ___, TMUX_PANE_DOWN,
 
         // Right
-        TG(XPLANE), ___, ___, TD(TD_TODO_DONE), ___, WR_CODEFENCE, DOEXIT, ___, ___, ___, WR_GREP, WR_LESS, ___, VIM_NOH, VIM_BUFFER_PREV, VIM_BUFFER_NEXT, KC_PIPE, ___, KC_0, KC_DLR, ___, TMUX_WP, TMUX_WN, TMUX_WCREATE, ___, TD(TD_HELPFLAG), ___,  // TD( TD_HELPFLAG ) , // WR_FLAGHELP,
+        ___ , ___, ___, TD(TD_TODO_DONE), ___, WR_CODEFENCE, DOEXIT, // TG(XPLANE)
+        ___, ___, ___, WR_GREP, WR_LESS, ___, VIM_NOH,
+        VIM_BUFFER_PREV, VIM_BUFFER_NEXT, KC_PIPE, ___, ___ , VIM_EXECUTE_FILE ,
+        ___, TMUX_WP, TMUX_WN, TMUX_WCREATE, ___, TD(TD_HELPFLAG), ___ ,  // TD( TD_HELPFLAG ) , // WR_FLAGHELP,
 
         ___, ___, ___, ___, CONALT(KC_0),  // mute/unmute system microphone
         ___, ___, ___, ___, ___, ___),
