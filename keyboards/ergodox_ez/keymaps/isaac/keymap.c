@@ -343,31 +343,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_SCOLON) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone */
 
         /* LGUI(KC_H) , LGUI(KC_L) , */  // Change screens (AwesomeWM)
-        ___, LSFT(KC_QUOTE),
+        ___, LSFT(KC_QUOTE), 
         /* LGUI(KC_RIGHT) , */  // Change AwesomeWM number/window thing (1-5) left, below: right.
                                 /* LGUI(KC_LEFT) , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER) */
         ___, ___, LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),
 
     [DEADQWERTY] = LAYOUT_ergodox(KC_ESC, KC_V, KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT, KC_M,
 
-                                  // orig: KC_TAB,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    ___,
-                                  KC_H, KC_B, KC_Q, KC_W, KC_E, KC_R, KC_ENTER,
-                                  // orig: KC_CAPS,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,
-                                  KC_G, KC_SPACE, KC_A, KC_S, KC_D, KC_F,
-                                  // orig: KC_LSHIFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,    KC_LCTL ,
-                                  ___, KC_LSHIFT, KC_Z, KC_X, KC_C, KC_E, KC_R,
+          // orig: KC_TAB,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    ___,
+          KC_H, KC_B, KC_Q, KC_W, KC_E, KC_R, KC_ENTER,
+          // orig: KC_CAPS,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,
+          KC_G, KC_SPACE, KC_A, KC_S, KC_D, KC_F,
+          // orig: KC_LSHIFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,    KC_LCTL ,
+          ___, KC_LSHIFT, KC_Z, KC_X, KC_C, KC_E, KC_R,
 
-                                  KC_BSPACE, ___, ___, ___, KC_CAPS,                     //
-                                  KC_F, KC_RBRACKET, KC_LBRACKET, KC_TAB, KC_LCTL, ___,  //
+          KC_BSPACE, ___, ___, ___, KC_CAPS,                     // /
+          KC_F, KC_RBRACKET, KC_LBRACKET, KC_TAB, KC_LCTL, ___,  // /
 
-                                  // right hand
-                                  ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___,      //
-                                  ___, KC_Y, KC_U, KC_I, KC_O, KC_P, ___,      //
-                                  KC_H, KC_J, KC_K, KC_L, KC_SCLN, ___,        //
-                                  ___, KC_N, KC_M, KC_COMM, KC_DOT, ___, ___,  //
+          // right hand
+          ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___,      // /
+          ___, KC_Y, KC_U, KC_I, KC_O, KC_P, ___,      // /
+          KC_H, KC_J, KC_K, KC_L, KC_SCLN, ___,        // /
+          ___, KC_N, KC_M, KC_COMM, KC_DOT, ___, ___,  // /
 
-                                  ___, ___, ___, ___, ___,             //
-                                  ___, ___, ___, ___, ___, KC_ENTER),  //
+          ___, ___, ___, ___, ___,             //
+          ___, ___, ___, ___, ___, KC_ENTER // /
+          ),  //
 
     [CAPSLAYER] = LAYOUT_ergodox(
         // Left
@@ -1882,12 +1883,12 @@ void awesome_next_tag_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             register_code(KC_LGUI);
-            register_code(KC_LCTL);
-            register_code(KC_K);
+            register_code(KC_TAB);
             break;
         case DOUBLE_TAP:
             register_code(KC_LGUI);
-            register_code(KC_TAB);
+            register_code(KC_LCTL);
+            register_code(KC_K);
             break;
     }
 };
@@ -1896,12 +1897,12 @@ void awesome_next_tag_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             unregister_code(KC_LGUI);
-            unregister_code(KC_LCTL);
-            unregister_code(KC_K);
+            unregister_code(KC_TAB);
             break;
         case DOUBLE_TAP:
             unregister_code(KC_LGUI);
-            unregister_code(KC_TAB);
+            unregister_code(KC_LCTL);
+            unregister_code(KC_K);
             break;
     }
     xtap_state.state = 0;
