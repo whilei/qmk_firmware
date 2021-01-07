@@ -519,7 +519,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
         ___, KC_PERC, KC_QUOTE, KC_LCBR, KC_RCBR, KC_CIRC, KC_COMMA,     // WR_ESCAPEDDOUBLEQUOTE
         ___, KC_AT, KC_DLR, KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_KP_PLUS,   // /
-        ___, KC_TILD, KC_GRAVE, KC_LBRACKET, KC_RBRACKET, KC_HASH, ___,  // /
+        ___, KC_TILD, KC_GRAVE, KC_LBRACKET, KC_RBRACKET, KC_HASH, TO(CAPSLAYER),  // /
         ___, ___, ___, ___, ___,                                         // /
 
         KC_COMMA, KC_DOT,  // /
