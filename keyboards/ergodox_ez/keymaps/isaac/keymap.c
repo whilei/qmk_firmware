@@ -57,13 +57,13 @@ enum {
     TD_RABK_DOT,
     TD_BASH_INTERVAR,
 
-    TD_SHIFT_MOTION,  // shift + motion, good for selecting batches of text
+    TD_TMUX2_SHIFTMOTION,  // shift + motion, good for selecting batches of text
 
     // Tap dance enums
     ALT_UNI,
     SHIFT_CAP,
     ONEORMO_SYMBOLS,
-    SHIFT_QUESTION,
+    TD_FANCYAWESOMEQUOTE,
     AWESOME_TAG_FORWARD_BACK,
     AWESOME_TAG_NEXT_SCREEN_OR_APP
     /* SOME_OTHER_DANCE */
@@ -323,7 +323,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER), // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,  // /
-        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), TD(TD_SHIFT_MOTION),  // TD_SHIFT_MOTION includes TMUX_LEADER2 as the single_tap
+        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), TD(TD_TMUX2_SHIFTMOTION),  // TD_TMUX2_SHIFTMOTION// includes TMUX_LEADER2 as the single_tap
 
         OSL(UNICODEL), KC_MS_WH_DOWN, KC_MS_WH_UP, MT(MOD_LALT, KC_LBRACKET), MT(MOD_LGUI, KC_TAB),  // TD(ALT_UNI)
 
@@ -337,13 +337,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* TD(TD_QUESTION_TOPROWNUM) */
         KC_BSPACE, KC_J, KC_U, KC_R, KC_L, LT(FLAYER, KC_SCOLON), TD(AWESOME_TAG_NEXT_SCREEN_OR_APP),               // CTLGUI(KC_K) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, TD(ONEORMO_SYMBOLS),                                         // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
-        TD(SHIFT_QUESTION), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(SHIFT_CAP),  // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
+        TD(TD_FANCYAWESOMEQUOTE), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(SHIFT_CAP),  // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
         MT(MOD_LCTL, KC_QUOTE), TG(SYMBOLS), TG(NUMPAD), TG(MOTIONLAYER), TG(DEADQWERTY),  // mute/unmute microphone
         /* MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_SCOLON) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone */
 
         /* LGUI(KC_H) , LGUI(KC_L) , */  // Change screens (AwesomeWM)
-        ___, LSFT(KC_QUOTE), 
+        ___, LSFT(KC_SLASH),
         /* LGUI(KC_RIGHT) , */  // Change AwesomeWM number/window thing (1-5) left, below: right.
                                 /* LGUI(KC_LEFT) , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER) */
         ___, ___, LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),
@@ -1816,14 +1816,24 @@ void x_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
-void shift_question_finished(qk_tap_dance_state_t *state, void *user_data) {
+void fancyfancy_awesome_quote_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP:
             register_code(KC_LSHIFT);
-            register_code(KC_SLASH);
+            register_code(KC_QUOTE);
             break;
         case SINGLE_HOLD:
+            if (!layer_state_is(NUMPAD)) {
+                layer_on(NUMPAD);
+            }
+            register_code(KC_LGUI);
+            break;
+        case DOUBLE_HOLD:
+            if (!layer_state_is(NUMPAD)) {
+                layer_on(NUMPAD);
+            }
+            register_code(KC_LGUI);
             register_code(KC_LSHIFT);
             break;
             /* case DOUBLE_TAP: register_code(KC_ESC); break; */
@@ -1832,13 +1842,23 @@ void shift_question_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 };
 
-void shift_question_reset(qk_tap_dance_state_t *state, void *user_data) {
+void fancyfancy_awesome_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             unregister_code(KC_LSHIFT);
-            unregister_code(KC_SLASH);
+            unregister_code(KC_QUOTE);
             break;
         case SINGLE_HOLD:
+            if (layer_state_is(NUMPAD)) {
+                layer_off(NUMPAD);
+            }
+            unregister_code(KC_LGUI);
+            break;
+        case DOUBLE_HOLD:
+            if (layer_state_is(NUMPAD)) {
+                layer_off(NUMPAD);
+            }
+            unregister_code(KC_LGUI);
             unregister_code(KC_LSHIFT);
             break;
             /* case DOUBLE_TAP: unregister_code(KC_ESC); break; */
@@ -1938,7 +1958,7 @@ void bash_intervar_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
-void shift_motion_finished(qk_tap_dance_state_t *state, void *user_data) {
+void tmux2_shiftmotion_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     // CTLGUI(KC_K) : next/previous screen
     // LGUI(KC_ENTER) : next/previous app
@@ -1953,7 +1973,7 @@ void shift_motion_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 };
 
-void shift_motion_reset(qk_tap_dance_state_t *state, void *user_data) {
+void tmux2_shiftmotion_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             break;
@@ -1983,8 +2003,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTIO
                                              [ALT_UNI]                        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_uni_finished, alt_uni_reset),
                                              [SHIFT_CAP]                      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_cap_finished, shift_cap_reset),
                                              [ONEORMO_SYMBOLS]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, oneormore_symbols_finished, oneormore_symbols_reset),
-                                             [SHIFT_QUESTION]                 = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_question_finished, shift_question_reset),
+                                             [TD_FANCYAWESOMEQUOTE]                 = ACTION_TAP_DANCE_FN_ADVANCED(NULL, fancyfancy_awesome_quote_finished, fancyfancy_awesome_reset),
                                              [AWESOME_TAG_FORWARD_BACK]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_fb_tag_finished, awesome_fb_tag_reset),
                                              [AWESOME_TAG_NEXT_SCREEN_OR_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_next_tag_finished, awesome_next_tag_reset),
                                              [TD_BASH_INTERVAR]               = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bash_intervar_finished, bash_intervar_reset),
-                                             [TD_SHIFT_MOTION]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_motion_finished, shift_motion_reset)};
+                                             [TD_TMUX2_SHIFTMOTION]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux2_shiftmotion_finished, tmux2_shiftmotion_reset)};
