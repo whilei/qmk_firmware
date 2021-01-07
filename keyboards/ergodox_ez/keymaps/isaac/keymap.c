@@ -323,7 +323,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Norman and friends
     [BASE] = LAYOUT_ergodox(
         // Left
-        TD(TD_LGUIZ_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, TD(TD_TMUX2_SHIFTMOTION) ,  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+        TD(TD_LGUIZ_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, LCTL(KC_Z) ,  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER), // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,  // /
@@ -334,7 +334,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /*  */
         LT(GOLANDLAYER, KC_DELETE), ___,            //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
         KC_INSERT,                                        // KC_INSERT , // LCTL(KC_TAB) ,
-        SFT_T(KC_SPACE), KC_BSPACE, TG(CAPSLAYER),  //  LCS(KC_TAB) , // browser tab left
+        SFT_T(KC_SPACE), KC_BSPACE, TD(TD_TMUX2_SHIFTMOTION),  // //  LCS(KC_TAB) , // browser tab left
 
         // Right
         /*CTLGUI(KC_J)*/ TO(BASE), KC_LEFT, KC_RIGHT, LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, LGUI(KC_ENTER),  // LCS(KC_TAB) , LCTL(KC_TAB)
@@ -343,7 +343,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, TD(ONEORMO_SYMBOLS),                                         // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
         ___ , LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(SHIFT_CAP),  // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-        MT(MOD_LCTL, KC_QUOTE), LSFT(KC_QUOTE), TG(NUMPAD), TG(MOTIONLAYER), TG(DEADQWERTY),  // mute/unmute microphone
+        MT(MOD_LCTL, KC_QUOTE), LSFT(KC_QUOTE), TG(NUMPAD), TG(MOTIONLAYER), ___,  // mute/unmute microphone
         /* MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_SCOLON) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone */
 
         /* LGUI(KC_H) , LGUI(KC_L) , */  // Change screens (AwesomeWM)
@@ -624,7 +624,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___, TMUX_PANE_DOWN,                                                          // /
 
         // Right
-        ___, ___, ___, TD(TD_TODO_DONE), ___, WR_CODEFENCE, DOEXIT,             // /                                                                                                                          // TG(XPLANE)
+        TG(DEADQWERTY), ___, ___, TD(TD_TODO_DONE), ___, WR_CODEFENCE, DOEXIT,             // /                                                                                                                          // TG(XPLANE)
         ___, ___, ___, WR_GREP, WR_LESS, ___, VIM_NOH,                          // /
         VIM_BUFFER_PREV, VIM_BUFFER_NEXT, KC_PIPE, ___, ___, VIM_EXECUTE_FILE,  // /
         ___, TMUX_WP, TMUX_WN, TMUX_WCREATE, ___, TD(TD_HELPFLAG), ___,         // TD( TD_HELPFLAG ) , // WR_FLAGHELP,
