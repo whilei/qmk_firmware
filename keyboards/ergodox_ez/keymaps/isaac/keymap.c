@@ -11,6 +11,7 @@
 #define LSALT(code) LALT(LSFT(code))
 #define CONALT(code) LCTL(LALT(code))
 #define CTLGUI(code) LCTL(LGUI(code))
+#define LGSFT(code) LGUI(LSFT(code))
 
 // https://www.reddit.com/r/olkb/comments/72u8ou/qmk_mouse_keys_rock/
 
@@ -323,7 +324,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Norman and friends
     [BASE] = LAYOUT_ergodox(
         // Left
-        TD(TD_LGUIZ_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, LCTL(KC_Z) ,  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+        TD(TD_LGUIZ_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, ___ ,  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER), // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,  // /
@@ -2025,8 +2026,9 @@ void macroLGUIZOrTmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_data
         case SINGLE_TAP:
             register_code(KC_LGUI);
             register_code(KC_Z);
+            break;
         case DOUBLE_TAP:
-            process_record_user(TMUX_LEADER2, NULL);
+            process_record_user(TMUX_PANE_SELECT, NULL);
             break;
 //        case SINGLE_HOLD:
 //            register_code(KC_LSHIFT);
@@ -2040,6 +2042,7 @@ void macroLGUIZOrTmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             unregister_code(KC_LGUI);
             unregister_code(KC_Z);
+            break;
         case DOUBLE_TAP:
             break;
 //        case SINGLE_HOLD:
@@ -2118,31 +2121,32 @@ void copy_paste_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 
 
-qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
-                                             [TD_PAREN]                  = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
-                                             [TD_BRACKET]                = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
-                                             [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE),
-                                             [TD_HYPHEN_EQUALS]          = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL),
-                                             /* [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS), */
-                                             [TD_HELPFLAG]           = ACTION_TAP_DANCE_FN(macroFlagHelpLess),
-                                             [TD_TAB_TMUXQ]          = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_CURLYBRACKET]           = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
+     [TD_PAREN]                  = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
+     [TD_BRACKET]                = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
+     [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE),
+     [TD_HYPHEN_EQUALS]          = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL),
+     /* [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS), */
+     [TD_HELPFLAG]           = ACTION_TAP_DANCE_FN(macroFlagHelpLess),
+     [TD_TAB_TMUXQ]          = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
 //                                             [TD_LGUIZ_TMUXQ]          = ACTION_TAP_DANCE_FN(macroLGUIZOrTmuxLeadQ),
-                                             [TD_LGUIZ_TMUXQ]          = ACTION_TAP_DANCE_FN_ADVANCED(NULL, macroLGUIZOrTmuxLeadQ_finished, macroLGUIZOrTmuxLeadQ_reset), // ACTION_TAP_DANCE_FN(macroLGUIZOrTmuxLeadQ),
-                                             [TD_QUESTION_TOPROWNUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, TOPROWNUM),
-                                             [TD_DQUOTE_MOTION]      = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER),
-                                             [TD_TODO_DONE]          = ACTION_TAP_DANCE_FN(macroTodoDone),
-                                             [TD_LABK_COMMA]         = ACTION_TAP_DANCE_DOUBLE(KC_LABK, KC_COMMA),
-                                             [TD_RABK_DOT]           = ACTION_TAP_DANCE_DOUBLE(KC_RABK, KC_DOT),
+     [TD_LGUIZ_TMUXQ]          = ACTION_TAP_DANCE_FN_ADVANCED(NULL, macroLGUIZOrTmuxLeadQ_finished, macroLGUIZOrTmuxLeadQ_reset), // ACTION_TAP_DANCE_FN(macroLGUIZOrTmuxLeadQ),
+     [TD_QUESTION_TOPROWNUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, TOPROWNUM),
+     [TD_DQUOTE_MOTION]      = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER),
+     [TD_TODO_DONE]          = ACTION_TAP_DANCE_FN(macroTodoDone),
+     [TD_LABK_COMMA]         = ACTION_TAP_DANCE_DOUBLE(KC_LABK, KC_COMMA),
+     [TD_RABK_DOT]           = ACTION_TAP_DANCE_DOUBLE(KC_RABK, KC_DOT),
 
-                                             [X_CTL]                          = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
-                                             [ALT_UNI]                        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_uni_finished, alt_uni_reset),
-                                             [SHIFT_CAP]                      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_cap_finished, shift_cap_reset),
-                                             [ONEORMO_SYMBOLS]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, oneormore_symbols_finished, oneormore_symbols_reset),
-                                             [TD_FANCYAWESOMEQUOTE]                 = ACTION_TAP_DANCE_FN_ADVANCED(NULL, fancyfancy_awesome_quote_finished, fancyfancy_awesome_reset),
-                                             [AWESOME_TAG_FORWARD_BACK]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_fb_tag_finished, awesome_fb_tag_reset),
-                                             [AWESOME_TAG_NEXT_SCREEN_OR_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_next_tag_finished, awesome_next_tag_reset),
-                                             [TD_BASH_INTERVAR]               = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bash_intervar_finished, bash_intervar_reset),
-                                             [TD_TMUX2_SHIFTMOTION]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux2_shiftmotion_finished, tmux2_shiftmotion_reset),
-                                             [TD_ALT_QUESTION]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_question_finished, alt_question_reset),
-                                             [TD_COPY_PASTE]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, copy_paste_finished, copy_paste_reset),
+     [X_CTL]                          = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
+     [ALT_UNI]                        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_uni_finished, alt_uni_reset),
+     [SHIFT_CAP]                      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_cap_finished, shift_cap_reset),
+     [ONEORMO_SYMBOLS]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, oneormore_symbols_finished, oneormore_symbols_reset),
+     [TD_FANCYAWESOMEQUOTE]                 = ACTION_TAP_DANCE_FN_ADVANCED(NULL, fancyfancy_awesome_quote_finished, fancyfancy_awesome_reset),
+     [AWESOME_TAG_FORWARD_BACK]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_fb_tag_finished, awesome_fb_tag_reset),
+     [AWESOME_TAG_NEXT_SCREEN_OR_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_next_tag_finished, awesome_next_tag_reset),
+     [TD_BASH_INTERVAR]               = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bash_intervar_finished, bash_intervar_reset),
+     [TD_TMUX2_SHIFTMOTION]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux2_shiftmotion_finished, tmux2_shiftmotion_reset),
+     [TD_ALT_QUESTION]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_question_finished, alt_question_reset),
+     [TD_COPY_PASTE]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, copy_paste_finished, copy_paste_reset),
 };
