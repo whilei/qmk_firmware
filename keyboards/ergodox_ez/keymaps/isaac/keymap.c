@@ -70,8 +70,10 @@ enum {
     ONEORMO_SYMBOLS,
     TD_FANCYAWESOMEQUOTE,
     AWESOME_TAG_FORWARD_BACK,
-    AWESOME_TAG_NEXT_SCREEN_OR_APP
+    AWESOME_TAG_NEXT_SCREEN_OR_APP,
     /* SOME_OTHER_DANCE */
+
+    TD_TOBASE_CLEAN
 
 };
 
@@ -328,7 +330,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER), // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,  // /
-        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), TD(TD_COPY_PASTE) ,  // TD_TMUX2_SHIFTMOTION// includes TMUX_LEADER2 as the single_tap
+        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), ___ , // TD(TD_COPY_PASTE)  // TD_TMUX2_SHIFTMOTION// includes TMUX_LEADER2 as the single_tap
 
         OSL(UNICODEL), KC_MS_WH_DOWN, KC_MS_WH_UP, TD(TD_ALT_QUESTION), MT(MOD_LGUI, KC_TAB),  // TD(ALT_UNI)
 
@@ -659,7 +661,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LCS(KC_SPACE), ___, ___,  // autocomplete types
 
         // right
-        LALT(KC_7), LALT(KC_1), LALT(KC_2), LALT(KC_3), LALT(KC_4), LALT(KC_5), LALT(KC_9),         // ... , focus git view
+        LALT(KC_2), LALT(KC_1), LALT(KC_7), LALT(KC_3), LALT(KC_4), LALT(KC_5), LALT(KC_9),         // ... , focus git view
         LCS(KC_G), ___, ___, LSFT(KC_F3), KC_F3, LCTL(KC_5), LALT(KC_F12),                          // Toggle minimap, prev / next occurrence (word at caret), rerun last, focus console view
         ___, ___, ___, MEH(KC_RBRACKET), MEH(KC_LBRACKET), LCTL(KC_1),                              // cursor to pane left / right, show error description
         MEH(KC_F), MEH(KC_PGUP), ___, LCA(KC_LBRACKET), LCA(KC_RBRACKET), MEH(KC_PGDN), MEH(KC_Z),  // gofmt,  shift pane left, streth pane l/r, shift pan right, toggle distraction free
@@ -2119,6 +2121,25 @@ void copy_paste_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
+void tobase_and_clean_finished(qk_tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    // CTLGUI(KC_K) : next/previous screen
+    // LGUI(KC_ENTER) : next/previous app
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            layer_move(BASE);
+            unregister_code(KC_LALT);
+            break;
+    }
+};
+
+void tobase_and_clean_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            break;
+    }
+    xtap_state.state = 0;
+};
 
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -2149,4 +2170,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
      [TD_TMUX2_SHIFTMOTION]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux2_shiftmotion_finished, tmux2_shiftmotion_reset),
      [TD_ALT_QUESTION]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_question_finished, alt_question_reset),
      [TD_COPY_PASTE]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, copy_paste_finished, copy_paste_reset),
+     [TD_TOBASE_CLEAN]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tobase_and_clean_finished, tobase_and_clean_reset),
+
 };
