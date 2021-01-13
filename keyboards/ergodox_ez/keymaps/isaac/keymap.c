@@ -60,7 +60,6 @@ enum {
     TD_BASH_INTERVAR,
 
     TD_TMUX2_SHIFTMOTION,  // shift + motion, good for selecting batches of text
-
     TD_ALT_QUESTION,
     TD_COPY_PASTE,
 
@@ -73,7 +72,8 @@ enum {
     AWESOME_TAG_NEXT_SCREEN_OR_APP,
     /* SOME_OTHER_DANCE */
 
-    TD_TOBASE_CLEAN
+    TD_TOBASE_CLEAN,
+    TD_AWESOME_SELECT_TAG
 
 };
 
@@ -92,7 +92,7 @@ enum {
     DOUBLE_HOLD       = 4,
     DOUBLE_SINGLE_TAP = 5,  // send two single taps
     TRIPLE_TAP        = 6,
-    TRIPLE_HOLD       = 7
+    TRIPLE_HOLD       = 7,
 };
 
 int cur_dance(qk_tap_dance_state_t *state);
@@ -326,7 +326,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Norman and friends
     [BASE] = LAYOUT_ergodox(
         // Left
-        TD(TD_LGUIZ_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, ___ ,  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+        TD(TD_LGUIZ_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, LGUI(KC_Y) ,  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER), // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,  // /
@@ -335,12 +335,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         OSL(UNICODEL), KC_MS_WH_DOWN, KC_MS_WH_UP, TD(TD_ALT_QUESTION), MT(MOD_LGUI, KC_TAB),  // TD(ALT_UNI)
 
         /*  */
-        LT(GOLANDLAYER, KC_DELETE), ___,            //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
+        LT(GOLANDLAYER, KC_DELETE), TD(TD_AWESOME_SELECT_TAG) ,            //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
         KC_INSERT,                                        // KC_INSERT , // LCTL(KC_TAB) ,
         SFT_T(KC_SPACE), KC_BSPACE, TD(TD_TMUX2_SHIFTMOTION),  // //  LCS(KC_TAB) , // browser tab left
 
         // Right
-        /*CTLGUI(KC_J)*/ TO(BASE), KC_LEFT, KC_RIGHT, LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, LGUI(KC_ENTER),  // LCS(KC_TAB) , LCTL(KC_TAB)
+        /*CTLGUI(KC_J)*/ TD(TD_TOBASE_CLEAN), KC_LEFT, KC_RIGHT, LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, LGUI(KC_ENTER),  // LCS(KC_TAB) , LCTL(KC_TAB)
         /* TD(TD_QUESTION_TOPROWNUM) */
         KC_BSPACE, KC_J, KC_U, KC_R, KC_L, LT(FLAYER, KC_SCOLON), TD(AWESOME_TAG_NEXT_SCREEN_OR_APP),               // CTLGUI(KC_K) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, TD(ONEORMO_SYMBOLS),                                         // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
@@ -617,7 +617,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
     [QWIMAMU] = LAYOUT_ergodox(
         // Left
-        DYN_REC_STOP, RESET, ___, ___, ___, ___, WR_SHEBANGS_BASH,                         // /
+        DYN_REC_STOP, ___ , ___, ___, ___, ___, WR_SHEBANGS_BASH,                         // /
         DYN_REC_START1, DYN_MACRO_PLAY1, LCTL(KC_W), LCS(KC_C), LCS(KC_V), ___, ___,       // /
         DYN_REC_START2, DYN_MACRO_PLAY2, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z),   // /
         TMUX_PSPLITH, ___, TMUX_PFS, TMUX_COPYMODE, TMUX_PASTE, TMUX_PLAST, TMUX_PSPLITV,  // /
@@ -2037,7 +2037,7 @@ void macroLGUIZOrTmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_data
 //            layer_on(MOTIONLAYER);
 //            break;
     }
-};
+}
 
 void macroLGUIZOrTmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
@@ -2123,24 +2123,61 @@ void copy_paste_reset(qk_tap_dance_state_t *state, void *user_data) {
 
 void tobase_and_clean_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
-    // CTLGUI(KC_K) : next/previous screen
-    // LGUI(KC_ENTER) : next/previous app
     switch (xtap_state.state) {
-        case SINGLE_TAP:
+        case TRIPLE_TAP:
             layer_move(BASE);
             unregister_code(KC_LALT);
+            unregister_code(KC_RALT);
+
+            ergodox_right_led_1_on();
+            ergodox_right_led_2_on();
+            ergodox_right_led_3_on();
+            wait_ms(50);
+            ergodox_right_led_1_off();
+            ergodox_right_led_2_off();
+            ergodox_right_led_3_off();
+            wait_ms(50);
             break;
+        case TRIPLE_HOLD:
+            reset_keyboard();
     }
 };
 
 void tobase_and_clean_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
-        case SINGLE_TAP:
+        case TRIPLE_TAP:
+            break;
+        case TRIPLE_HOLD:
             break;
     }
     xtap_state.state = 0;
 };
 
+void awesomewm_selecttag_finished(qk_tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            break;
+        case SINGLE_HOLD:
+            register_code(KC_LGUI);
+            layer_on(NUMPAD);
+            break;
+    }
+};
+
+void awesomewm_selecttag_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            break;
+        case SINGLE_HOLD:
+            unregister_code(KC_LGUI);
+            if (layer_state_is(NUMPAD)) {
+                layer_off(NUMPAD);
+            }
+            break;
+    }
+    xtap_state.state = 0;
+};
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_CURLYBRACKET]           = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
@@ -2171,5 +2208,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
      [TD_ALT_QUESTION]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_question_finished, alt_question_reset),
      [TD_COPY_PASTE]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, copy_paste_finished, copy_paste_reset),
      [TD_TOBASE_CLEAN]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tobase_and_clean_finished, tobase_and_clean_reset),
-
+     [TD_AWESOME_SELECT_TAG] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesomewm_selecttag_finished, awesomewm_selecttag_reset)
 };
