@@ -335,7 +335,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         OSL(UNICODEL), KC_MS_WH_DOWN, KC_MS_WH_UP, TD(TD_ALT_QUESTION), MT(MOD_LGUI, KC_TAB),  // TD(ALT_UNI)
 
         /*  */
-        LT(GOLANDLAYER, KC_DELETE), TD(TD_AWESOME_SELECT_TAG) ,            //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
+        LT(GOLANDLAYER, KC_DELETE), TD(TD_AWESOME_SELECT_TAG) ,           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
         KC_INSERT,                                        // KC_INSERT , // LCTL(KC_TAB) ,
         SFT_T(KC_SPACE), KC_BSPACE, TD(TD_TMUX2_SHIFTMOTION),  // //  LCS(KC_TAB) , // browser tab left
 
@@ -1784,6 +1784,7 @@ void oneormore_symbols_finished(qk_tap_dance_state_t *state, void *user_data) {
             break;
     }
 };
+
 
 void oneormore_symbols_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
