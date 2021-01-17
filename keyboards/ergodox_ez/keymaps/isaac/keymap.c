@@ -477,9 +477,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [NUMPAD] = LAYOUT_ergodox(
         // Left
         ___, KC_0, KC_1, KC_2, KC_3, KC_4, ___,  // /
-        ___, ___, ___, ___, ___, ___, ___,       // /
-        ___, ___, ___, ___, ___, ___,            // /
-        ___, ___, ___, ___, ___, ___, ___,       // /
+        ___, ___, LSFT(KC_QUOTE), KC_LCBR, KC_RCBR, ___, ___,       // /
+        ___, ___, KC_DLR, KC_LEFT_PAREN, KC_RIGHT_PAREN, ___,            // /
+        ___, ___, ___, KC_LBRACKET, KC_RBRACKET, KC_HASH, ___,       // /
         ___, ___, ___, ___, ___,                 // /
         ___, ___,                                // /
         ___,                                     // /
@@ -489,9 +489,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
          */
         // right
-        ___, KC_PERC, KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_LABK, KC_RABK, KC_EQUAL,  // /
-        ___, KC_KP_PLUS, KC_7, KC_8, KC_9, KC_SLASH, KC_COLN,                     // /
-        KC_MINUS, KC_4, KC_5, KC_6, KC_0, KC_HASH,                                // /
+        ___, KC_PERC, KC_EQUAL, KC_MINUS, KC_UNDS, KC_COLN, ___,  // /
+        ___, ___, KC_7, KC_8, KC_9, KC_SLASH, ___,                     // /
+        KC_KP_PLUS, KC_4, KC_5, KC_6, KC_0, KC_ENTER,                                // /
         ___, KC_KP_ASTERISK, KC_1, KC_2, KC_3, KC_DOT, KC_COMMA,                  // /
         ___, ___, ___, ___, ___,                                                  // /
         ___, ___,                                                                 // /
@@ -526,7 +526,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // Left
         ___, KC_1, KC_2, KC_3, KC_4, KC_5, ___,  // /
         /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
-        ___, KC_PERC, KC_QUOTE, KC_LCBR, KC_RCBR, KC_CIRC, KC_COMMA,     // WR_ESCAPEDDOUBLEQUOTE
+        ___, KC_PERC, KC_QUOTE, KC_LCBR, KC_RCBR, KC_CIRC, ___,     // WR_ESCAPEDDOUBLEQUOTE
         ___, KC_AT, KC_DLR, KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_KP_PLUS,   // /
         ___, KC_TILD, KC_GRAVE, KC_LBRACKET, KC_RBRACKET, KC_HASH, TO(CAPSLAYER),  // /
         ___, ___, ___, ___, ___,                                         // /
@@ -2015,20 +2015,12 @@ void tmux2_shiftmotion_finished(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             process_record_user(TMUX_LEADER2, NULL);
             break;
-        case SINGLE_HOLD:
-            register_code(KC_LSHIFT);
-            layer_on(MOTIONLAYER);
-            break;
     }
 };
 
 void tmux2_shiftmotion_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            break;
-        case SINGLE_HOLD:
-            unregister_code(KC_LSHIFT);
-            layer_off(MOTIONLAYER);
             break;
     }
     xtap_state.state = 0;
