@@ -1916,6 +1916,10 @@ void awesome_fb_tag_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code(KC_LGUI);
             register_code(KC_RIGHT);
             break;
+        case SINGLE_HOLD:
+            register_code(KC_LSHIFT);
+            layer_on(MOTIONLAYER);
+            break;
         case DOUBLE_TAP:
             register_code(KC_LGUI);
             register_code(KC_LEFT);
@@ -1928,6 +1932,10 @@ void awesome_fb_tag_reset(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             unregister_code(KC_LGUI);
             unregister_code(KC_RIGHT);
+            break;
+        case SINGLE_HOLD:
+            unregister_code(KC_LSHIFT);
+            layer_off(MOTIONLAYER);
             break;
         case DOUBLE_TAP:
             unregister_code(KC_LGUI);
