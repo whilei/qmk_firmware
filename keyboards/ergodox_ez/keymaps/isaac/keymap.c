@@ -354,7 +354,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* MT(MOD_LCTL, KC_QUOTE) , MT(MOD_LALT, KC_SCOLON) , TG(NUMPAD) , TG(MOTIONLAYER), CONALT(KC_0) , // mute/unmute microphone */
 
         /* LGUI(KC_H) , LGUI(KC_L) , */  // Change screens (AwesomeWM)
-        ___, ___,
+        ___, ___, // /
         /* LGUI(KC_RIGHT) , */  // Change AwesomeWM number/window thing (1-5) left, below: right.
                                 /* LGUI(KC_LEFT) , LT(QWIMAMU , KC_TAB) , LT(NUMPAD, KC_ENTER) */
         ___, // /
@@ -577,19 +577,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN , */
         ___, LCTL(KC_W), KC_MS_WH_UP, KC_MS_WH_LEFT, KC_MS_UP, KC_MS_WH_RIGHT, KC_PGUP,  // /
         ___, ___, KC_MS_WH_DOWN, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT,                    // /
-        ___, ___, ___, CTLGUI(KC_SPACE), LGUI(KC_M), KC_LSHIFT, KC_PGDOWN,               // floating, maximized, ...
+//        ___, ___, ___, CTLGUI(KC_SPACE), LGUI(KC_M), KC_LSHIFT, KC_PGDOWN,               // floating, maximized, ...
+        ___, ___, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_LSHIFT, KC_PGDOWN,               // floating, maximized, ...
         ___, ___, ___, ___, ___,                                                         // /
         /* LGUI(KC_H) , LGUI(KC_L) , */
-        ___, ___,                               // /
+        KC_SLASH, ___,                               // /
         LGUI(KC_RIGHT),                         // /
         KC_MS_BTN1, KC_MS_BTN2, LGUI(KC_LEFT),  // /  // KC_ENTER
 
         // right
         /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
         ___, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), ___,  // /
-        ___, ___, KC_HOME, ___, KC_END, ___, ___,                              // /
-        ___, LCTL(KC_LEFT), KC_UP, LCTL(KC_RIGHT), ___, ___,                   // /
-        ___, ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,                        // /
+        LCTL(KC_X), ___, KC_HOME, ___, KC_END, ___, ___,                              // /
+        ___, LCTL(KC_LEFT), KC_UP, LCTL(KC_RIGHT), ___, LCTL(KC_V),                   // /
+        LCTL(KC_C), ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,                        // /
         ___, ___, ___, ___, ___,                                               // /
         ___, ___,                                                              // /
         ___,                                                                   // /
@@ -625,7 +626,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [QWIMAMU] = LAYOUT_ergodox(
         // Left
         DYN_REC_STOP, ___ , ___, ___, ___, ___, WR_SHEBANGS_BASH,                         // /
-        DYN_REC_START1, DYN_MACRO_PLAY1, LCTL(KC_W), LCS(KC_C), LCS(KC_V), ___, ___,       // /
+        DYN_REC_START1, DYN_MACRO_PLAY1, LCTL(KC_W), LCS(KC_C), LCS(KC_V), ___, VIM_EXECUTE_FILE,       // /
         DYN_REC_START2, DYN_MACRO_PLAY2, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z),   // /
         TMUX_PSPLITH, ___, TMUX_PFS, TMUX_COPYMODE, TMUX_PASTE, TMUX_PLAST, TMUX_PSPLITV,  // /
         ___, ___, ___, ___, ___,                                                           // /
@@ -636,7 +637,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // Right
         TG(DEADQWERTY), ___, ___, TD(TD_TODO_DONE), ___, WR_CODEFENCE, DOEXIT,             // /                                                                                                                          // TG(XPLANE)
         ___, ___, ___, WR_GREP, WR_LESS, ___, VIM_NOH,                          // /
-        VIM_BUFFER_PREV, VIM_BUFFER_NEXT, KC_PIPE, ___, ___, VIM_EXECUTE_FILE,  // /
+        VIM_BUFFER_PREV, VIM_BUFFER_NEXT, KC_PIPE, ___, KC_0, KC_DLR,  // /
         ___, TMUX_WP, TMUX_WN, TMUX_WCREATE, ___, TD(TD_HELPFLAG), ___,         // TD( TD_HELPFLAG ) , // WR_FLAGHELP,
         ___, ___, ___, ___, CONALT(KC_0),                                       // mute/unmute system microphone
         ___, ___,                                                               // /
