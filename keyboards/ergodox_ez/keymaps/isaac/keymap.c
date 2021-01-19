@@ -257,6 +257,7 @@ enum custom_keycodes {
     WR_WORD_OPENRPC,
     WR_WORD_OPEN_RPC,
     WR_CD_DEV_ETCLABSCORE,
+    WR_WORD_ROTBLAUER,
     WR_WORD_MEOWSBITS,
     WR_WORD_RETURN,
     WR_BUILD_BIN_GETH,
@@ -333,7 +334,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER), // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,  // /
-        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), ___ , // TD(TD_COPY_PASTE)  // TD_TMUX2_SHIFTMOTION// includes TMUX_LEADER2 as the single_tap
+        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), LSFT(KC_QUOTE) , // TD(TD_COPY_PASTE)  // TD_TMUX2_SHIFTMOTION// includes TMUX_LEADER2 as the single_tap
 
         OSL(UNICODEL), KC_MS_WH_DOWN, KC_MS_WH_UP, TD(TD_ALT_QUESTION), MT(MOD_LGUI, KC_TAB),  // TD(ALT_UNI)
 
@@ -692,7 +693,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right
         ___, ___, ___, ___, ___, ___, ___,                                // /
-        ___, WR_WORD_JOURNALCTL, ___, ___, ___, WR_HTTPS, ___,            // WR_PROTO_COLON_SLASHSLASH
+        ___, WR_WORD_JOURNALCTL, ___, WR_WORD_ROTBLAUER, ___, WR_HTTPS, ___,            // WR_PROTO_COLON_SLASHSLASH
         ___, ___, ___, ___, WR_HTTP, ___,                                 // /
         ___, WR_WORD_P2P, WR_WORD_MASTER, ___, WR_REDIR_2AND1, ___, ___,  // /
         ___, ___, ___, ___, ___,                                          // /
@@ -1253,6 +1254,13 @@ bool            process_record_user(uint16_t keycode, keyrecord_t *record) {
         case WR_WORD_ETCLABSCORE:
             if (record->event.pressed) {
                 SEND_STRING("etclabscore");
+            }
+            return false;
+            break;
+
+        case WR_WORD_ROTBLAUER:
+            if (record->event.pressed) {
+                SEND_STRING("rotblauer");
             }
             return false;
             break;
