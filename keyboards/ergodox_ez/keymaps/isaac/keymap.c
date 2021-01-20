@@ -330,9 +330,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER),        // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,                                // /
-        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), KC_TAB,            // TD(TD_COPY_PASTE)  // TD_TMUX2_SHIFTMOTION// includes TMUX_LEADER2 as the single_tap
+        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), LSFT(KC_QUOTE),            // TD(TD_COPY_PASTE)  // TD_TMUX2_SHIFTMOTION// includes TMUX_LEADER2 as the single_tap
 
-        KC_SLASH, KC_MS_WH_DOWN, KC_MS_WH_UP, TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(ALT_UNI)
+        ___, KC_MS_WH_DOWN, KC_MS_WH_UP, MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB), // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(ALT_UNI)
 
         /*  */
         LT(GOLANDLAYER, KC_DELETE), ___,  //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
@@ -340,7 +340,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         SFT_T(KC_SPACE), KC_BSPACE, TD(TD_TMUX2_SHIFTMOTION),   // //  LCS(KC_TAB) , // browser tab left
 
         // Right
-        TD(TD_TOBASE_CLEAN), KC_LEFT, KC_RIGHT, LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, LGUI(KC_ENTER),    // LCS(KC_TAB) , LCTL(KC_TAB)
+        TD(TD_TOBASE_CLEAN), KC_HOME, KC_END, LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, LGUI(KC_ENTER),    // LCS(KC_TAB) , LCTL(KC_TAB)
         KC_BSPACE, KC_J, KC_U, KC_R, KC_L, LT(FLAYER, KC_SCOLON), TD(AWESOME_TAG_NEXT_SCREEN_OR_APP),           // CTLGUI(KC_K) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, TD(ONEORMO_SYMBOLS),                                     // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
         LSFT(KC_SLASH), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(SHIFT_CAP),  // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
@@ -545,28 +545,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Mouse and motion
     [MOTIONLAYER] = LAYOUT_ergodox(
         /* // Left */
-        /* ___ , ___ , ___ , ___ , KC_MS_WH_UP , ___ , ___ , */
-        /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-        /* ___ , ___ , ___ , ___ , ___ , ___ , */
-        /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-        /* ___ , ___ , ___ , ___ , ___ , */
-        /* ___ , ___ , */
-        /* ___ , */
-        /* ___ , ___ , ___ , */
-
-        /* ___ , LGUI(KC_LEFT) , LGUI(KC_H) , LGUI(KC_L) , LGUI(KC_RIGHT) , ___ , KC_PGDOWN , */
-
-        // left
-        /* LGUI(KC_M) , ___ , LCS(KC_PGUP) , LCS(KC_PGDOWN) , LCS(KC_TAB) , LCTL(KC_TAB) , ___ , */
-        /* LCTL(KC_T) , ___ , KC_MS_WH_LEFT , ___ , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP , */
-
-        /* LGUI(KC_M) , ___ , ___ , LCS(KC_PGUP) , LCS(KC_PGDOWN) , KC_MS_WH_LEFT , KC_MS_WH_RIGHT , */
-        /* LCTL(KC_T) , ___ , ___ , LCS(KC_TAB) , LCTL(KC_TAB) , KC_MS_WH_UP , KC_PGUP , */
-        /* LCTL(KC_W) , ___ , ___ , ___ , ___ , KC_MS_WH_DOWN , */
-
         ___, ___, LCS(KC_PGUP), LCS(KC_TAB), LCTL(KC_TAB), LCS(KC_PGDOWN), ___,
-        /* ___ , LCTL(KC_W) , KC_MS_WH_LEFT , KC_MS_UP , KC_MS_WH_RIGHT , KC_MS_WH_UP , KC_PGUP , */
-        /* ___ , ___ , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , KC_MS_WH_DOWN , */
         ___, LCTL(KC_W), KC_MS_WH_UP, KC_MS_WH_LEFT, KC_MS_UP, KC_MS_WH_RIGHT, KC_PGUP,  // /
         ___, ___, KC_MS_WH_DOWN, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT,                    // /
                                                                                          //        ___, ___, ___, CTLGUI(KC_SPACE), LGUI(KC_M), KC_LSHIFT, KC_PGDOWN,               // floating, maximized, ...
@@ -578,7 +557,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MS_BTN1, KC_MS_BTN2, LGUI(KC_LEFT),  // /  // KC_ENTER
 
         // right
-        /* ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
         ___, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), ___,  // /
         LCTL(KC_X), ___, KC_HOME, ___, KC_END, ___, ___,                       // /
         ___, LCTL(KC_LEFT), KC_UP, LCTL(KC_RIGHT), ___, LCTL(KC_V),            // /
@@ -2142,15 +2120,15 @@ void tobase_and_clean_finished(qk_tap_dance_state_t *state, void *user_data) {
             layer_move(BASE);
             unregister_code(KC_LALT);
             unregister_code(KC_RALT);
+            unregister_code(KC_CAPS);
 
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
-            wait_ms(50);
+            wait_ms(300);
             ergodox_right_led_1_off();
             ergodox_right_led_2_off();
             ergodox_right_led_3_off();
-            wait_ms(50);
             break;
         case TRIPLE_HOLD:
             reset_keyboard();

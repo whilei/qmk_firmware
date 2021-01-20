@@ -16,7 +16,7 @@ main() {
   select yn in "${myopts[@]}"; do
     case $yn in
       Build ) build ;;
-      Teensy ) sudo make ergodox_ez:isaac:teensy; main 1;;
+      Teensy ) sudo make ergodox_ez:isaac:teensy; xset r rate 192 50; main 1;;
       Quit ) xset r rate 192 50; exit;;
     esac
   done
