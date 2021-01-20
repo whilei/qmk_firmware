@@ -636,7 +636,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // Right
         TG(DEADQWERTY), ___, ___, TD(TD_TODO_DONE), ___, WR_CODEFENCE, DOEXIT,             // /                                                                                                                          // TG(XPLANE)
-        ___, ___, ___, WR_GREP, WR_LESS, ___, VIM_NOH,                          // /
+        LGSFT(KC_C), ___, ___, WR_GREP, WR_LESS, ___, VIM_NOH,                          // /
         VIM_BUFFER_PREV, VIM_BUFFER_NEXT, KC_PIPE, ___, KC_0, KC_DLR,  // /
         ___, TMUX_WP, TMUX_WN, TMUX_WCREATE, ___, TD(TD_HELPFLAG), ___,         // TD( TD_HELPFLAG ) , // WR_FLAGHELP,
         ___, ___, ___, ___, CONALT(KC_0),                                       // mute/unmute system microphone
