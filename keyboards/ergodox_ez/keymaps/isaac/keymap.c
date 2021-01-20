@@ -49,7 +49,7 @@ enum {
 
     TD_QUESTION_TOPROWNUM,
     TD_TAB_TMUXQ,
-    TD_KC_TAB_TMUXQ,
+    TD_GO_INERR_TMUXQ,
     TD_DQUOTE_MOTION,
     TD_TODO_DONE,
     TD_LABK_COMMA,
@@ -266,6 +266,8 @@ enum custom_keycodes {
     WR_WORD_GETH,
     WR_WORD_LINT,
 
+    WR_WORD_GO_IFERRNN,
+
     WR_GOSRC_ETHEREUM_GOETHEREUM,
 
     // Bash syntax stuff
@@ -324,7 +326,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_ergodox(
         // Left
         // still not happy about top left. slash gets hit twice too many times. tab too.
-        TD(TD_KC_TAB_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, LGUI(KC_Y),  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+        TD(TD_GO_INERR_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, LGUI(KC_Y),  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER),        // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,                                // /
@@ -673,7 +675,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [MACROLAYER] = LAYOUT_ergodox(
         // Left
-        ___, WR_GOSRC_ETHEREUM_GOETHEREUM, WR_BUILD_BIN_GETH, ___, WR_WORD_MULTIGETH_DASHED, WR_WORD_OPENETHEREUM, ___,  // /
+        ___, WR_GOSRC_ETHEREUM_GOETHEREUM, WR_BUILD_BIN_GETH, ___, ___, ___, ___,  // /
         ___, ___, WR_WORD_ETCSYSTEMDSYSTEM, WR_WORD_GOETHEREUM, WR_WORD_COREGETH_DASHED, ___, ___,                       // /
         ___, ___, WR_WORD_SYSTEM, WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM,                                         // /
         ___, KC_SLASH, ___, WR_WORD_ETCLABSCORE, WR_WORD_MEOWSBITS, KC_DOT, ___,                                         // /
@@ -681,6 +683,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___,                                                                                                        // /
         ___,                                                                                                             // /
         ___, ___, ___,                                                                                                   // /
+
+        /*
+
+         */
 
         // right
         ___, ___, ___, ___, ___, ___, ___,                                    // /
@@ -1566,8 +1572,8 @@ void macroTabOrTmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// macroKC_TABOrTmuxLeadQ
-// void macroKC_TABOrTmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
+// macro_goifnoterr_or_TmuxLeadQ
+// void macro_goifnoterr_or_TmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
 //    keyrecord_t kr;
 //    if (state->count == 1) {
 //        kr.event.pressed = true;
@@ -2024,8 +2030,8 @@ void tmux2_shiftmotion_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
-// macroKC_TABOrTmuxLeadQ
-void macroKC_TABOrTmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_data) {
+// macro_goifnoterr_or_TmuxLeadQ
+void macro_goifnoterr_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     // CTLGUI(KC_K) : next/previous screen
     // LGUI(KC_ENTER) : next/previous app
@@ -2033,7 +2039,8 @@ void macroKC_TABOrTmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_dat
         case SINGLE_TAP:
 //            register_code(KC_LGUI);
 //            register_code(KC_Z);
-            register_code(KC_TAB);
+//            register_code(KC_TAB);
+//            SEND_STRING("if err != nil {")
             break;
         case DOUBLE_TAP:
             process_record_user(TMUX_PANE_SELECT, NULL);
@@ -2045,7 +2052,7 @@ void macroKC_TABOrTmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_dat
     }
 }
 
-void macroKC_TABOrTmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_data) {
+void macro_goifnoterr_or_TmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
 //            unregister_code(KC_LGUI);
@@ -2231,8 +2238,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTIO
                                              /* [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS), */
                                              [TD_HELPFLAG]  = ACTION_TAP_DANCE_FN(macroFlagHelpLess),
                                              [TD_TAB_TMUXQ] = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
-                                             //                                             [TD_KC_TAB_TMUXQ]          = ACTION_TAP_DANCE_FN(macroKC_TABOrTmuxLeadQ),
-                                             [TD_KC_TAB_TMUXQ]        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, macroKC_TABOrTmuxLeadQ_finished, macroKC_TABOrTmuxLeadQ_reset),  // ACTION_TAP_DANCE_FN(macroKC_TABOrTmuxLeadQ),
+                                             //                                             [TD_GO_INERR_TMUXQ]          = ACTION_TAP_DANCE_FN(macro_goifnoterr_or_TmuxLeadQ),
+                                             [TD_GO_INERR_TMUXQ]        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, macro_goifnoterr_or_TmuxLeadQ_finished, macro_goifnoterr_or_TmuxLeadQ_reset),  // ACTION_TAP_DANCE_FN(macro_goifnoterr_or_TmuxLeadQ),
                                              [TD_QUESTION_TOPROWNUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, TOPROWNUM),
                                              [TD_DQUOTE_MOTION]      = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER),
                                              [TD_TODO_DONE]          = ACTION_TAP_DANCE_FN(macroTodoDone),

@@ -2,15 +2,28 @@
 
 set -e
 
-make ergodox_ez:isaac
-# wormhole send .build/ergodox_ez_isaac.hex
+build() {
+  make ergodox_ez:isaac
+}
 
-echo "What next?"
-select yn in "Teensy" "Quit"; do
-	case $yn in
-		Teensy ) sudo ./bin/teensy ;;
-		Quit ) xset r rate 192 50; exit;;
-	esac
-done
+main() {
+  echo "What next?"
+
+  # Give option for rebuilding if this is not being run the first time.
+  local myopts=("Build" "Teensy" "Quit")
+  test "${1}" == 0 && myopts=("${myopts[@]:1}")
+
+  select yn in "${myopts[@]}"; do
+    case $yn in
+      Build ) build ;;
+      Teensy ) sudo make ergodox_ez:isaac:teensy; main 1;;
+      Quit ) xset r rate 192 50; exit;;
+    esac
+  done
+}
+
+build
+main 0
+
 
 
