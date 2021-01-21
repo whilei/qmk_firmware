@@ -49,7 +49,7 @@ enum {
 
     TD_QUESTION_TOPROWNUM,
     TD_TAB_TMUXQ,
-    TD_GO_INERR_TMUXQ,
+    TD_LEADER_TMUXQ,
     TD_DQUOTE_MOTION,
     TD_TODO_DONE,
     TD_LABK_COMMA,
@@ -328,7 +328,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_ergodox(
         // Left
         // still not happy about top left. slash gets hit twice too many times. tab too.
-        TD(TD_GO_INERR_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, ___,  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+        TD(TD_LEADER_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, LGUI(KC_Y),  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER),        // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,                                // /
@@ -347,12 +347,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, TD(ONEORMO_SYMBOLS),                                     // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
         LSFT(KC_SLASH), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(SHIFT_CAP),  // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-        MT(MOD_LCTL, KC_QUOTE), ___, TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */
+        MT(MOD_LCTL, KC_QUOTE), KC_LEAD, TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */
 
         /* */
-        ___, ___,                                         // /
+        ___, LGUI(KC_Z),                                         // /
         ___,                                              // /
-        TD(TD_AWESOME_SELECT_TAG), LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),  //
+        ___, LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),  //
 
     [DEADQWERTY] = LAYOUT_ergodox(KC_ESC, KC_V, KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT, KC_M,
 
@@ -731,17 +731,40 @@ void matrix_scan_user(void) {
         leading = false;
         leader_end();
 
-        SEQ_TWO_KEYS(KC_G, KC_T) {
-            /* SEND_STRING(SS_LSFT( SS_LCTL(KC_F10) )) */
-
-            register_code(KC_LSHIFT);
-            register_code(KC_LCTL);
-            register_code(KC_F10);
-
-            unregister_code(KC_LSHIFT);
-            unregister_code(KC_LCTL);
-            unregister_code(KC_F10);
+        // G: git
+        SEQ_TWO_KEYS(KC_G, KC_P) {
+            SEND_STRING("git push ");
         }
+        SEQ_THREE_KEYS(KC_G, KC_P, KC_T) {
+            SEND_STRING("git push --tags ");
+        }
+        SEQ_TWO_KEYS(KC_G, KC_L) {
+            SEND_STRING("git pull ");
+        }
+        SEQ_THREE_KEYS(KC_G, KC_C, KC_A) {
+            SEND_STRING("git commit -S --amend ");
+        }
+        SEQ_THREE_KEYS(KC_G, KC_R, KC_I) {
+            SEND_STRING("git rebase -S -i ");
+        }
+        SEQ_THREE_KEYS(KC_G, KC_S, KC_S) {
+            SEND_STRING("git stash save ");
+        }
+        SEQ_THREE_KEYS(KC_G, KC_S, KC_P) {
+            SEND_STRING("git stash pop ");
+        }
+
+//        SEQ_TWO_KEYS(KC_G, KC_T) {
+//            /* SEND_STRING(SS_LSFT( SS_LCTL(KC_F10) )) */
+//
+//            register_code(KC_LSHIFT);
+//            register_code(KC_LCTL);
+//            register_code(KC_F10);
+//
+//            unregister_code(KC_LSHIFT);
+//            unregister_code(KC_LCTL);
+//            unregister_code(KC_F10);
+//        }
 
         /* SEQ_ONE_KEY(KC_W, KC_L) { */
         /*   // Anything you can do in a macro. */
@@ -1552,8 +1575,8 @@ void macroTabOrTmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// macro_something_or_TmuxLeadQ
-// void macro_something_or_TmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
+// macro_LEADER_or_TmuxLeadQ
+// void macro_LEADER_or_TmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
 //    keyrecord_t kr;
 //    if (state->count == 1) {
 //        kr.event.pressed = true;
@@ -2008,13 +2031,14 @@ void tmux2_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
-// macro_something_or_TmuxLeadQ
-void macro_something_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_data) {
+// macro_LEADER_or_TmuxLeadQ
+void macro_LEADER_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     // CTLGUI(KC_K) : next/previous screen
     // LGUI(KC_ENTER) : next/previous app
     switch (xtap_state.state) {
         case SINGLE_TAP:
+//             register_code(KC_LEAD);
 //            register_code(KC_LGUI);
 //            register_code(KC_Z);
 //            register_code(KC_TAB);
@@ -2030,12 +2054,12 @@ void macro_something_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *us
     }
 }
 
-void macro_something_or_TmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_data) {
+void macro_LEADER_or_TmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
 //            unregister_code(KC_LGUI);
 //            unregister_code(KC_Z);
-            unregister_code(KC_TAB);
+//            register_code(KC_LEAD);
             break;
         case DOUBLE_TAP:
             break;
@@ -2240,8 +2264,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTIO
                                              /* [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS), */
                                              [TD_HELPFLAG]  = ACTION_TAP_DANCE_FN(macroFlagHelpLess),
                                              [TD_TAB_TMUXQ] = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
-                                             //                                             [TD_GO_INERR_TMUXQ]          = ACTION_TAP_DANCE_FN(macro_something_or_TmuxLeadQ),
-                                             [TD_GO_INERR_TMUXQ]        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, macro_something_or_TmuxLeadQ_finished, macro_something_or_TmuxLeadQ_reset),  // ACTION_TAP_DANCE_FN(macro_something_or_TmuxLeadQ),
+                                             //                                             [TD_LEADER_TMUXQ]          = ACTION_TAP_DANCE_FN(macro_LEADER_or_TmuxLeadQ),
+                                             [TD_LEADER_TMUXQ]        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, macro_LEADER_or_TmuxLeadQ_finished, macro_LEADER_or_TmuxLeadQ_reset),  // ACTION_TAP_DANCE_FN(macro_LEADER_or_TmuxLeadQ),
                                              [TD_QUESTION_TOPROWNUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, TOPROWNUM),
                                              [TD_DQUOTE_MOTION]      = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER),
                                              [TD_TODO_DONE]          = ACTION_TAP_DANCE_FN(macroTodoDone),
