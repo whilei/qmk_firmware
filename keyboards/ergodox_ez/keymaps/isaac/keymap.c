@@ -56,7 +56,7 @@ enum {
     TD_RABK_DOT,
     TD_BASH_INTERVAR,
 
-    TD_TMUX2_SHIFTMOTION,  // shift + motion, good for selecting batches of text
+    TD_TMUX2,  // shift + motion, good for selecting batches of text
     TD_ALT_QUESTION,
     TD_COPY_PASTE,
 
@@ -70,7 +70,9 @@ enum {
     /* SOME_OTHER_DANCE */
 
     TD_TOBASE_CLEAN,
-    TD_AWESOME_SELECT_TAG
+    TD_AWESOME_SELECT_TAG,
+
+    TD_MOUSE_BACKFORWARD
 };
 
 /* ------------------------------------------------------------------ */
@@ -326,18 +328,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_ergodox(
         // Left
         // still not happy about top left. slash gets hit twice too many times. tab too.
-        TD(TD_GO_INERR_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, LGUI(KC_Y),  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+        TD(TD_GO_INERR_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, TD(TD_MOUSE_BACKFORWARD),  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER),        // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,                                // /
-        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), LSFT(KC_QUOTE),            // TD(TD_COPY_PASTE)  // TD_TMUX2_SHIFTMOTION// includes TMUX_LEADER2 as the single_tap
+        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), LSFT(KC_QUOTE),            // TD(TD_COPY_PASTE)  // TD_TMUX2// includes TMUX_LEADER2 as the single_tap
 
         ___, KC_MS_WH_DOWN, KC_MS_WH_UP, MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB), // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(ALT_UNI)
 
         /*  */
         LT(GOLANDLAYER, KC_DELETE), ___,  //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
         KC_INSERT,                                              // KC_INSERT , // LCTL(KC_TAB) ,
-        SFT_T(KC_SPACE), KC_BSPACE, TD(TD_TMUX2_SHIFTMOTION),   // //  LCS(KC_TAB) , // browser tab left
+        SFT_T(KC_SPACE), KC_BSPACE, TD(TD_TMUX2),   // //  LCS(KC_TAB) , // browser tab left
 
         // Right
         TD(TD_TOBASE_CLEAN), KC_HOME, KC_END, LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, LGUI(KC_ENTER),    // LCS(KC_TAB) , LCTL(KC_TAB)
@@ -1550,8 +1552,8 @@ void macroTabOrTmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-// macro_goifnoterr_or_TmuxLeadQ
-// void macro_goifnoterr_or_TmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
+// macro_something_or_TmuxLeadQ
+// void macro_something_or_TmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
 //    keyrecord_t kr;
 //    if (state->count == 1) {
 //        kr.event.pressed = true;
@@ -1989,10 +1991,8 @@ void bash_intervar_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
-void tmux2_shiftmotion_finished(qk_tap_dance_state_t *state, void *user_data) {
+void tmux2_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
-    // CTLGUI(KC_K) : next/previous screen
-    // LGUI(KC_ENTER) : next/previous app
     switch (xtap_state.state) {
         case SINGLE_TAP:
             process_record_user(TMUX_LEADER2, NULL);
@@ -2000,7 +2000,7 @@ void tmux2_shiftmotion_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 };
 
-void tmux2_shiftmotion_reset(qk_tap_dance_state_t *state, void *user_data) {
+void tmux2_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             break;
@@ -2008,8 +2008,8 @@ void tmux2_shiftmotion_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
-// macro_goifnoterr_or_TmuxLeadQ
-void macro_goifnoterr_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_data) {
+// macro_something_or_TmuxLeadQ
+void macro_something_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     // CTLGUI(KC_K) : next/previous screen
     // LGUI(KC_ENTER) : next/previous app
@@ -2030,7 +2030,7 @@ void macro_goifnoterr_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *u
     }
 }
 
-void macro_goifnoterr_or_TmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_data) {
+void macro_something_or_TmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
 //            unregister_code(KC_LGUI);
@@ -2205,6 +2205,30 @@ void td_lgui_doublequote_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
+void td_mouse_backforward_finished(qk_tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            register_code(KC_MS_BTN4);
+            break;
+        case DOUBLE_TAP:
+            register_code(KC_MS_BTN5);
+            break;
+    }
+};
+
+void td_mouse_backforward_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            unregister_code(KC_MS_BTN4);
+            break;
+        case DOUBLE_TAP:
+            unregister_code(KC_MS_BTN5);
+            break;
+    }
+    xtap_state.state = 0;
+};
+
 qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
                                              [TD_PAREN]                  = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
                                              [TD_BRACKET]                = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
@@ -2216,8 +2240,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTIO
                                              /* [TD_HELPFLAG] = ACTION_TAP_DANCE_DOUBLE(WR_FLAGHELP, WR_FLAGHELPLESS), */
                                              [TD_HELPFLAG]  = ACTION_TAP_DANCE_FN(macroFlagHelpLess),
                                              [TD_TAB_TMUXQ] = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
-                                             //                                             [TD_GO_INERR_TMUXQ]          = ACTION_TAP_DANCE_FN(macro_goifnoterr_or_TmuxLeadQ),
-                                             [TD_GO_INERR_TMUXQ]        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, macro_goifnoterr_or_TmuxLeadQ_finished, macro_goifnoterr_or_TmuxLeadQ_reset),  // ACTION_TAP_DANCE_FN(macro_goifnoterr_or_TmuxLeadQ),
+                                             //                                             [TD_GO_INERR_TMUXQ]          = ACTION_TAP_DANCE_FN(macro_something_or_TmuxLeadQ),
+                                             [TD_GO_INERR_TMUXQ]        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, macro_something_or_TmuxLeadQ_finished, macro_something_or_TmuxLeadQ_reset),  // ACTION_TAP_DANCE_FN(macro_something_or_TmuxLeadQ),
                                              [TD_QUESTION_TOPROWNUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, TOPROWNUM),
                                              [TD_DQUOTE_MOTION]      = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER),
                                              [TD_TODO_DONE]          = ACTION_TAP_DANCE_FN(macroTodoDone),
@@ -2230,10 +2254,11 @@ qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTIO
                                              [AWESOME_TAG_FORWARD_BACK]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_fb_tag_finished, awesome_fb_tag_reset),
                                              [AWESOME_TAG_NEXT_SCREEN_OR_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_next_tag_finished, awesome_next_tag_reset),
                                              [TD_BASH_INTERVAR]               = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bash_intervar_finished, bash_intervar_reset),
-                                             [TD_TMUX2_SHIFTMOTION]           = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux2_shiftmotion_finished, tmux2_shiftmotion_reset),
+                                             [TD_TMUX2]           = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tmux2_finished, tmux2_reset),
                                              [TD_ALT_QUESTION]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_question_finished, alt_question_reset),
                                              [TD_COPY_PASTE]                  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, copy_paste_finished, copy_paste_reset),
                                              [TD_TOBASE_CLEAN]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tobase_and_clean_finished, tobase_and_clean_reset),
                                              [TD_AWESOME_SELECT_TAG]          = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesomewm_selecttag_finished, awesomewm_selecttag_reset),
-                                             [TD_LGUI_DOUBLEQUOTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lgui_doublequote_finished, td_lgui_doublequote_reset)
+                                             [TD_LGUI_DOUBLEQUOTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lgui_doublequote_finished, td_lgui_doublequote_reset),
+                                             [TD_MOUSE_BACKFORWARD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_mouse_backforward_finished, td_mouse_backforward_reset)
 };
