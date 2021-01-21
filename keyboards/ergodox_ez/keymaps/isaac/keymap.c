@@ -559,8 +559,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MS_BTN1, KC_MS_BTN2, LGUI(KC_LEFT),  // /  // KC_ENTER
 
         // right
-        ___, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), ___,  // /
-        LCTL(KC_X), ___, KC_HOME, ___, KC_END, ___, ___,                       // /
+        ___, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), LCS(KC_1),  // /
+        LCTL(KC_X), ___, KC_HOME, ___, KC_END, ___, LCS(KC_2),                       // /
         ___, LCTL(KC_LEFT), KC_UP, LCTL(KC_RIGHT), ___, LCTL(KC_V),            // /
         LCTL(KC_C), ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,                 // /
         ___, ___, ___, ___, ___,                                               // /
