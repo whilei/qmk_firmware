@@ -72,7 +72,8 @@ enum {
     TD_TOBASE_CLEAN,
     TD_AWESOME_SELECT_TAG,
 
-    TD_MOUSE_BACKFORWARD
+    TD_MOUSE_BACKFORWARD,
+    TD_FANCY_CODEFENCE
 };
 
 /* ------------------------------------------------------------------ */
@@ -594,6 +595,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         ),
 
+
+
+
+
     // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
     [QWIMAMU] = LAYOUT_ergodox(
         // Left
@@ -607,7 +612,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___, TMUX_PANE_DOWN,                                                                  // /
 
         // Right
-        TG(DEADQWERTY), ___, ___, TD(TD_TODO_DONE), ___, WR_CODEFENCE, DOEXIT,  // /                                                                                                                          // TG(XPLANE)
+        TG(DEADQWERTY), ___, ___, TD(TD_TODO_DONE), ___, TD(TD_FANCY_CODEFENCE), DOEXIT,  // /                                                                                                                          // TG(XPLANE)
         LGSFT(KC_C), ___, ___, WR_GREP, WR_LESS, ___, VIM_NOH,                  // /
         VIM_BUFFER_PREV, VIM_BUFFER_NEXT, KC_PIPE, ___, KC_0, KC_DLR,           // /
         ___, TMUX_WP, TMUX_WN, TMUX_WCREATE, ___, TD(TD_HELPFLAG), ___,         // TD( TD_HELPFLAG ) , // WR_FLAGHELP,
@@ -2253,6 +2258,42 @@ void td_mouse_backforward_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
+
+void td_fancy_codefence_finished(qk_tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            process_record_user(WR_CODEFENCE, NULL);
+            break;
+        case DOUBLE_TAP:
+            register_code(KC_ENTER);
+            unregister_code(KC_ENTER);
+            process_record_user(WR_CODEFENCE, NULL);
+            register_code(KC_ENTER);
+            unregister_code(KC_ENTER);
+            register_code(KC_ENTER);
+            unregister_code(KC_ENTER);
+            process_record_user(WR_CODEFENCE, NULL);
+            register_code(KC_ENTER);
+            unregister_code(KC_ENTER);
+            register_code(KC_UP);
+            unregister_code(KC_UP);
+            register_code(KC_UP);
+            unregister_code(KC_UP);
+            break;
+    }
+};
+
+void td_fancy_codefence_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            break;
+        case DOUBLE_TAP:
+            break;
+    }
+    xtap_state.state = 0;
+};
+
 qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
                                              [TD_PAREN]                  = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
                                              [TD_BRACKET]                = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
@@ -2284,5 +2325,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTIO
                                              [TD_TOBASE_CLEAN]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tobase_and_clean_finished, tobase_and_clean_reset),
                                              [TD_AWESOME_SELECT_TAG]          = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesomewm_selecttag_finished, awesomewm_selecttag_reset),
                                              [TD_LGUI_DOUBLEQUOTE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lgui_doublequote_finished, td_lgui_doublequote_reset),
-                                             [TD_MOUSE_BACKFORWARD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_mouse_backforward_finished, td_mouse_backforward_reset)
+                                             [TD_MOUSE_BACKFORWARD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_mouse_backforward_finished, td_mouse_backforward_reset),
+                                             [TD_FANCY_CODEFENCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_fancy_codefence_finished, td_fancy_codefence_reset)
 };
