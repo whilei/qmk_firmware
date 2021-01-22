@@ -731,6 +731,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 LEADER_EXTERNS();
 
+void leader_start(void) {
+    // sequence started
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_on();
+}
+
+void leader_end(void) {
+    // sequence ended (no success/failuer detection)
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+}
+
 void matrix_scan_user(void) {
     LEADER_DICTIONARY() {
         leading = false;
