@@ -17,21 +17,21 @@
 
 enum {
     BASE = 0,  // Norman layout
-    DEADQWERTY,
     CAPSLAYER,
-    /* DELAYER, // German chars */
-    TOPROWALT,
-    TOPROWNUM,
     NUMPAD,
-    FLAYER,
     SYMBOLS,
     MOTIONLAYER,
-    MOUSELAYER,
     QWIMAMU,  // qwerty/+vim: hjkl and navigation friends on right hand, with F- keys in top row
     GOLANDLAYER,
     MACROLAYER,  // words, and stuff
-    XPLANE,
+    FLAYER,
     UNICODEL,
+    DEADQWERTY,
+//    MOUSELAYER,
+//    XPLANE,
+    //    TOPROWALT,
+    /* DELAYER, // German chars */
+//    TOPROWNUM,
 };
 
 // TAP DANCES
@@ -355,28 +355,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___,                                              // /
         ___, LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),  //
 
-    [DEADQWERTY] = LAYOUT_ergodox(KC_ESC, KC_V, KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT, KC_M,
-
-                                  // orig: KC_TAB,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    ___,
-                                  KC_H, KC_B, KC_Q, KC_W, KC_E, KC_R, KC_ENTER,
-                                  // orig: KC_CAPS,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,
-                                  KC_G, KC_SPACE, KC_A, KC_S, KC_D, KC_F,
-                                  // orig: KC_LSHIFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,    KC_LCTL ,
-                                  ___, KC_LSHIFT, KC_Z, KC_X, KC_C, KC_E, KC_R,
-
-                                  KC_BSPACE, ___, ___, ___, KC_CAPS,                     // /
-                                  KC_F, KC_RBRACKET, KC_LBRACKET, KC_TAB, KC_LCTL, ___,  // /
-
-                                  // right hand
-                                  ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___,      // /
-                                  ___, KC_Y, KC_U, KC_I, KC_O, KC_P, ___,      // /
-                                  KC_H, KC_J, KC_K, KC_L, KC_SCLN, ___,        // /
-                                  ___, KC_N, KC_M, KC_COMM, KC_DOT, ___, ___,  // /
-
-                                  ___, ___, ___, ___, ___,           //
-                                  ___, ___, ___, ___, ___, KC_ENTER  // /
-                                  ),                                 //
-
     [CAPSLAYER] = LAYOUT_ergodox(
         // Left
         ___, ___, ___, ___, ___, ___, ___,                                     //
@@ -422,53 +400,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*                       ), */
 
-    [TOPROWALT] = LAYOUT_ergodox(
-        // Left
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___, ___,       // /
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___,            // /
-        ___, ___,                           // /
-        ___,                                // /
-        ___, ___, ___,                      // /
-
-        // right
-
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___, ___,       // /
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___,            // /
-        ___, ___,                           // /
-        ___,                                // /
-        ___, ___, ___                       // /
-
-        ),
-
-    [TOPROWNUM] = LAYOUT_ergodox(
-        // Left
-        /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
-        ___, KC_1, KC_2, KC_3, KC_4, KC_5, ___,  // /
-        ___, ___, ___, ___, ___, ___, ___,       // /
-        ___, ___, ___, ___, ___, ___,            // /
-        ___, ___, ___, ___, ___, ___, ___,       // /
-        ___, ___, ___, ___, ___,                 // /
-        ___, ___,                                // /
-        ___,                                     // /
-        ___, ___, ___,                           // /
-
-        // right
-        /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
-        ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___, ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___, ___,                                               // /
-        ___, ___, ___, ___, ___, ___, ___,                                          // /
-        ___, ___, ___, ___, ___,                                                    // /
-        ___, ___,                                                                   // /
-        ___,                                                                        // /
-        ___, ___, ___                                                               // /
-        ),
-
     // Numpad
     [NUMPAD] = LAYOUT_ergodox(
         // Left
@@ -493,28 +424,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___,                                                 // /
         ___,                                                      // /
         ___, ___, ___                                             // /
-        ),
-
-    [FLAYER] = LAYOUT_ergodox(
-        // Left
-        ___, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6,  // /
-        ___, ___, ___, ___, ___, ___, ___,              // /
-        ___, ___, ___, ___, ___, ___,                   // /
-        ___, ___, ___, ___, ___, ___, ___,              // /
-        ___, ___, ___, ___, ___,                        // /
-        ___, ___,                                       // /
-        ___,                                            // /
-        ___, ___, ___,                                  // /
-
-        // right
-        KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, ___,  // /
-        ___, ___, ___, ___, ___, ___, ___,                 // /
-        ___, ___, ___, ___, ___, ___,                      // /
-        ___, ___, ___, ___, ___, ___, ___,                 // /
-        ___, ___, ___, ___, ___,                           // /
-        ___, ___,                                          // /
-        ___,                                               // /
-        ___, ___, ___                                      // /
         ),
 
     // Symbols
@@ -569,35 +478,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___,                                                                   // /
         ___, ___, ___                                                          // /
         ),
-
-    // DISUSED
-    [MOUSELAYER] = LAYOUT_ergodox(
-
-        // Left
-        ___, ___, ___, ___, ___, ___, ___,                   // /
-        ___, ___, ___, KC_MS_UP, ___, ___, ___,              // /
-        ___, ___, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, ___,  // /
-        ___, ___, ___, ___, ___, ___, ___,                   // /
-        ___, ___, ___, ___, ___,                             // /
-        ___, ___,                                            // /
-        KC_MS_BTN4,                                          // /
-        KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN5,                  // /
-
-        // right
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___, ___,       // /
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___,            // /
-        ___, ___,                           // /
-        ___,                                // /
-        ___, ___, ___                       // /
-
-        ),
-
-
-
-
 
     // Qwerty(hjkl)/vim, dynamic macro controls, tmux macros
     [QWIMAMU] = LAYOUT_ergodox(
@@ -684,6 +564,147 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___, ___                                                         // /
         ),
 
+    [FLAYER] = LAYOUT_ergodox(
+        // Left
+        ___, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6,  // /
+        ___, ___, ___, ___, ___, ___, ___,              // /
+        ___, ___, ___, ___, ___, ___,                   // /
+        ___, ___, ___, ___, ___, ___, ___,              // /
+        ___, ___, ___, ___, ___,                        // /
+        ___, ___,                                       // /
+        ___,                                            // /
+        ___, ___, ___,                                  // /
+
+    // right
+    KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, ___,  // /
+        ___, ___, ___, ___, ___, ___, ___,                 // /
+        ___, ___, ___, ___, ___, ___,                      // /
+        ___, ___, ___, ___, ___, ___, ___,                 // /
+        ___, ___, ___, ___, ___,                           // /
+        ___, ___,                                          // /
+        ___,                                               // /
+        ___, ___, ___                                      // /
+    ),
+
+    [UNICODEL] = LAYOUT_ergodox(
+        // Left
+        X(SNEK), ___, ___, ___, ___, X(UNIC_SUPERSET_OF), X(UNIC_CHECKMARK),  // /
+        ___, ___, ___, ___, ___, X(UNIC_SUBSET_OF), X(UNIC_THUMPSUP),         // /
+        ___, ___, X(UNIC_STACK), ___, ___, ___,                               // /
+        ___, X(UNIC_ZAP), ___, X(UNIC_COPYRIGHT), ___, X(UNIC_BLOCK), ___,    // /
+        ___, ___, ___, ___, ___,                                              // /
+        ___, ___,                                                             // /
+        ___,                                                                  // /
+        ___, ___, ___,                                                        // /
+        // right
+        ___, ___, ___, X(UNIC_MDASH), ___, ___, X(UNIC_SQUIRREL),                   // /
+        ___, ___, ___, X(UNIC_REGISTERED), ___, ___, X(UNIC_CAT),                   // /
+        ___, ___, ___, X(UNIC_OMICRON), ___, ___,                                   // /
+        ___, X(UNIC_PILCROW), ___, ___, ___, X(UNIC_THINKING), X(UNIC_TIMERCLOCK),  // /
+        ___, X(UNIC_OPTION), ___, ___, X(UNIC_KEYBOARD),                            // /
+        ___, ___,                                                                   // /
+        ___,                                                                        // /
+        ___, ___, ___                                                               // /
+        ),
+
+    [DEADQWERTY] = LAYOUT_ergodox(KC_ESC, KC_V, KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT, KC_M,
+
+    // orig: KC_TAB,          KC_Q,        KC_W,          KC_E,    KC_R,    KC_T,    ___,
+    KC_H, KC_B, KC_Q, KC_W, KC_E, KC_R, KC_ENTER,
+    // orig: KC_CAPS,         KC_A,        KC_S,          KC_D,    KC_F,    KC_G,
+    KC_G, KC_SPACE, KC_A, KC_S, KC_D, KC_F,
+    // orig: KC_LSHIFT,         CTL_T(KC_Z), KC_X,          KC_C,    KC_V,    KC_B,    KC_LCTL ,
+        ___, KC_LSHIFT, KC_Z, KC_X, KC_C, KC_E, KC_R,
+
+        KC_BSPACE, ___, ___, ___, KC_CAPS,                     // /
+    KC_F, KC_RBRACKET, KC_LBRACKET, KC_TAB, KC_LCTL, ___,  // /
+
+    // right hand
+        ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___,      // /
+        ___, KC_Y, KC_U, KC_I, KC_O, KC_P, ___,      // /
+    KC_H, KC_J, KC_K, KC_L, KC_SCLN, ___,        // /
+        ___, KC_N, KC_M, KC_COMM, KC_DOT, ___, ___,  // /
+
+        ___, ___, ___, ___, ___,           //
+        ___, ___, ___, ___, ___, KC_ENTER  // /
+    )                                 //
+
+//    [TOPROWALT] = LAYOUT_ergodox(
+//        // Left
+//        ___, ___, ___, ___, ___, ___, ___,  // /
+//        ___, ___, ___, ___, ___, ___, ___,  // /
+//        ___, ___, ___, ___, ___, ___,       // /
+//        ___, ___, ___, ___, ___, ___, ___,  // /
+//        ___, ___, ___, ___, ___,            // /
+//        ___, ___,                           // /
+//        ___,                                // /
+//        ___, ___, ___,                      // /
+//
+//    // right
+//
+//        ___, ___, ___, ___, ___, ___, ___,  // /
+//        ___, ___, ___, ___, ___, ___, ___,  // /
+//        ___, ___, ___, ___, ___, ___,       // /
+//        ___, ___, ___, ___, ___, ___, ___,  // /
+//        ___, ___, ___, ___, ___,            // /
+//        ___, ___,                           // /
+//        ___,                                // /
+//        ___, ___, ___                       // /
+//
+//    ),
+//
+//    [TOPROWNUM] = LAYOUT_ergodox(
+//        // Left
+//        /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
+//        ___, KC_1, KC_2, KC_3, KC_4, KC_5, ___,  // /
+//        ___, ___, ___, ___, ___, ___, ___,       // /
+//        ___, ___, ___, ___, ___, ___,            // /
+//        ___, ___, ___, ___, ___, ___, ___,       // /
+//        ___, ___, ___, ___, ___,                 // /
+//        ___, ___,                                // /
+//        ___,                                     // /
+//        ___, ___, ___,                           // /
+//
+//    // right
+//    /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
+//        ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___, ___, ___, ___, ___, ___, ___, ___,  // /
+//        ___, ___, ___, ___, ___, ___,                                               // /
+//        ___, ___, ___, ___, ___, ___, ___,                                          // /
+//        ___, ___, ___, ___, ___,                                                    // /
+//        ___, ___,                                                                   // /
+//        ___,                                                                        // /
+//        ___, ___, ___                                                               // /
+//    )
+
+    /*
+     *     // DISUSED
+    [MOUSELAYER] = LAYOUT_ergodox(
+
+        // Left
+        ___, ___, ___, ___, ___, ___, ___,                   // /
+        ___, ___, ___, KC_MS_UP, ___, ___, ___,              // /
+        ___, ___, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, ___,  // /
+        ___, ___, ___, ___, ___, ___, ___,                   // /
+        ___, ___, ___, ___, ___,                             // /
+        ___, ___,                                            // /
+        KC_MS_BTN4,                                          // /
+        KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN5,                  // /
+
+        // right
+        ___, ___, ___, ___, ___, ___, ___,  // /
+        ___, ___, ___, ___, ___, ___, ___,  // /
+        ___, ___, ___, ___, ___, ___,       // /
+        ___, ___, ___, ___, ___, ___, ___,  // /
+        ___, ___, ___, ___, ___,            // /
+        ___, ___,                           // /
+        ___,                                // /
+        ___, ___, ___                       // /
+
+        ),
+     */
+
+    /*
+     *
     [XPLANE] = LAYOUT_ergodox(
         // Left
         KC_BSLASH, ___, ___, KC_MINUS, KC_R, KC_EQUAL, KC_RETURN,  // toggle instrumentation descriptions on hover ; view: zoom out, tilt up, zoom in; contact ATC
@@ -705,27 +726,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___,                                // /
         ___, ___, ___                       // /
         ),
+     */
 
-    [UNICODEL] = LAYOUT_ergodox(
-        // Left
-        X(SNEK), ___, ___, ___, ___, X(UNIC_SUPERSET_OF), X(UNIC_CHECKMARK),  // /
-        ___, ___, ___, ___, ___, X(UNIC_SUBSET_OF), X(UNIC_THUMPSUP),         // /
-        ___, ___, X(UNIC_STACK), ___, ___, ___,                               // /
-        ___, X(UNIC_ZAP), ___, X(UNIC_COPYRIGHT), ___, X(UNIC_BLOCK), ___,    // /
-        ___, ___, ___, ___, ___,                                              // /
-        ___, ___,                                                             // /
-        ___,                                                                  // /
-        ___, ___, ___,                                                        // /
-        // right
-        ___, ___, ___, X(UNIC_MDASH), ___, ___, X(UNIC_SQUIRREL),                   // /
-        ___, ___, ___, X(UNIC_REGISTERED), ___, ___, X(UNIC_CAT),                   // /
-        ___, ___, ___, X(UNIC_OMICRON), ___, ___,                                   // /
-        ___, X(UNIC_PILCROW), ___, ___, ___, X(UNIC_THINKING), X(UNIC_TIMERCLOCK),  // /
-        ___, X(UNIC_OPTION), ___, ___, X(UNIC_KEYBOARD),                            // /
-        ___, ___,                                                                   // /
-        ___,                                                                        // /
-        ___, ___, ___                                                               // /
-        )
 
 };
 
@@ -1628,32 +1630,40 @@ uint32_t layer_state_set_user(uint32_t state) {
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     switch (layer) {
-        case 1:
+        case CAPSLAYER:
             ergodox_right_led_1_on();
             break;
-        case 2:
+        case NUMPAD:
             ergodox_right_led_2_on();
             break;
-        case 3:
+        case SYMBOLS:
             ergodox_right_led_3_on();
             break;
-        case 4:
+        case MOTIONLAYER:
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
             break;
-        case 5:
+        case QWIMAMU:
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
             break;
-        case 6:
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
-        case 7:
-            ergodox_right_led_1_on();
+        case GOLANDLAYER:
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
             break;
+        case MACROLAYER:
+            ergodox_right_led_1_on();
+            ergodox_right_led_2_on();
+            ergodox_right_led_3_on();
+            break;
+        case FLAYER:
+            ergodox_right_led_1_on();
+            wait_ms(100);
+            ergodox_right_led_1_off();
+            wait_ms(100);
+            ergodox_right_led_1_on();
+            wait_ms(100);
+            ergodox_right_led_1_off();
         default:
             break;
     }
@@ -2321,7 +2331,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTIO
                                              [TD_TAB_TMUXQ] = ACTION_TAP_DANCE_FN(macroTabOrTmuxLeadQ),
                                              //                                             [TD_LEADER_TMUXQ]          = ACTION_TAP_DANCE_FN(macro_LEADER_or_TmuxLeadQ),
                                              [TD_LEADER_TMUXQ]        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, macro_LEADER_or_TmuxLeadQ_finished, macro_LEADER_or_TmuxLeadQ_reset),  // ACTION_TAP_DANCE_FN(macro_LEADER_or_TmuxLeadQ),
-                                             [TD_QUESTION_TOPROWNUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, TOPROWNUM),
+//                                             [TD_QUESTION_TOPROWNUM] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_QUESTION, TOPROWNUM),
                                              [TD_DQUOTE_MOTION]      = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_DOUBLE_QUOTE, MOTIONLAYER),
                                              [TD_TODO_DONE]          = ACTION_TAP_DANCE_FN(macroTodoDone),
 
