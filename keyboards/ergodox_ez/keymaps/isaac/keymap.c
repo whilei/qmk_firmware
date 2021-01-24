@@ -2,8 +2,6 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-/* #include "keymap_german.h" */
-/* #include "keymap_nordic.h" */
 
 #define ___ KC_TRANSPARENT
 
@@ -27,11 +25,6 @@ enum {
     FLAYER,
     UNICODEL,
     DEADQWERTY,
-    //    MOUSELAYER,
-    //    XPLANE,
-    //    TOPROWALT,
-    /* DELAYER, // German chars */
-    //    TOPROWNUM,
 };
 
 // TAP DANCES
@@ -166,11 +159,6 @@ const uint32_t PROGMEM unicode_map[] = {
 
     [UNIC_SUBSET_OF] = 0x2282,  [UNIC_SUPERSET_OF] = 0x2283,
 
-    /* [UNIC_TEA] = 0x1F375 // :tea: */
-    /* [UNIC_BANG]  = 0x203D,  // ‽ */
-    /* [UNIC_IRONY] = 0x2E2E,  // ⸮ */
-    /* [UNIC_OBELISM] = 0x205B // ⁛ */
-    /* [UNIC_THUMPSDN] = 0x1F44E // :-1: */
 };
 
 enum custom_keycodes {
@@ -308,22 +296,7 @@ enum custom_keycodes {
     DYNAMIC_MACRO_RANGE
 };
 
-/* void econfig_init_user(void) { */
-/*   set_unicode_input_mode(UC_LNX); */
-/* } */
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-    /*
-     * 7
-     * 7
-     * 6
-     * 7
-     * 5
-     * 2
-     * 1
-     * 3
-     */
 
     // Norman and friends
     [BASE] = LAYOUT_ergodox(
@@ -375,30 +348,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___, ___, ___, ___, ___  //
 
         ),
-
-    /* [DELAYER] = LAYOUT_ergodox( */
-    /*                           // Left */
-    /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-    /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-    /*                           ___ , DE_AE , DE_SS , DE_EURO , ___ , ___ , */
-    /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-    /*                           ___ , ___ , ___ , ___ , ___ , */
-    /*                           ___ , ___ , */
-    /*                           ___ , */
-    /*                           ___ , ___ , ___ , */
-
-    /*                           // right */
-
-    /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-    /*                           ___ , ___ , DE_UE , ___ , ___ , ___ , ___ , */
-    /*                           ___ , ___ , ___ , DE_OE , ___ , ___ , */
-    /*                           ___ , ___ , ___ , ___ , ___ , ___ , ___ , */
-    /*                           ___ , ___ , ___ , ___ , ___ , */
-    /*                           ___ , ___ , */
-    /*                           ___ , */
-    /*                           ___ , ___ , ___ */
-
-    /*                       ), */
 
     // Numpad
     [NUMPAD] = LAYOUT_ergodox(
@@ -627,106 +576,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   ___, ___, ___, ___, ___,           //
                                   ___, ___, ___, ___, ___, KC_ENTER  // /
                                   )                                  //
-
-    //    [TOPROWALT] = LAYOUT_ergodox(
-    //        // Left
-    //        ___, ___, ___, ___, ___, ___, ___,  // /
-    //        ___, ___, ___, ___, ___, ___, ___,  // /
-    //        ___, ___, ___, ___, ___, ___,       // /
-    //        ___, ___, ___, ___, ___, ___, ___,  // /
-    //        ___, ___, ___, ___, ___,            // /
-    //        ___, ___,                           // /
-    //        ___,                                // /
-    //        ___, ___, ___,                      // /
-    //
-    //    // right
-    //
-    //        ___, ___, ___, ___, ___, ___, ___,  // /
-    //        ___, ___, ___, ___, ___, ___, ___,  // /
-    //        ___, ___, ___, ___, ___, ___,       // /
-    //        ___, ___, ___, ___, ___, ___, ___,  // /
-    //        ___, ___, ___, ___, ___,            // /
-    //        ___, ___,                           // /
-    //        ___,                                // /
-    //        ___, ___, ___                       // /
-    //
-    //    ),
-    //
-    //    [TOPROWNUM] = LAYOUT_ergodox(
-    //        // Left
-    //        /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
-    //        ___, KC_1, KC_2, KC_3, KC_4, KC_5, ___,  // /
-    //        ___, ___, ___, ___, ___, ___, ___,       // /
-    //        ___, ___, ___, ___, ___, ___,            // /
-    //        ___, ___, ___, ___, ___, ___, ___,       // /
-    //        ___, ___, ___, ___, ___,                 // /
-    //        ___, ___,                                // /
-    //        ___,                                     // /
-    //        ___, ___, ___,                           // /
-    //
-    //    // right
-    //    /* ___ , KC_5 , KC_6 , KC_7 , KC_8 , KC_9 , ___ , */
-    //        ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___, ___, ___, ___, ___, ___, ___, ___,  // /
-    //        ___, ___, ___, ___, ___, ___,                                               // /
-    //        ___, ___, ___, ___, ___, ___, ___,                                          // /
-    //        ___, ___, ___, ___, ___,                                                    // /
-    //        ___, ___,                                                                   // /
-    //        ___,                                                                        // /
-    //        ___, ___, ___                                                               // /
-    //    )
-
-    /*
-     *     // DISUSED
-    [MOUSELAYER] = LAYOUT_ergodox(
-
-        // Left
-        ___, ___, ___, ___, ___, ___, ___,                   // /
-        ___, ___, ___, KC_MS_UP, ___, ___, ___,              // /
-        ___, ___, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, ___,  // /
-        ___, ___, ___, ___, ___, ___, ___,                   // /
-        ___, ___, ___, ___, ___,                             // /
-        ___, ___,                                            // /
-        KC_MS_BTN4,                                          // /
-        KC_MS_BTN1, KC_MS_BTN2, KC_MS_BTN5,                  // /
-
-        // right
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___, ___,       // /
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___,            // /
-        ___, ___,                           // /
-        ___,                                // /
-        ___, ___, ___                       // /
-
-        ),
-     */
-
-    /*
-     *
-    [XPLANE] = LAYOUT_ergodox(
-        // Left
-        KC_BSLASH, ___, ___, KC_MINUS, KC_R, KC_EQUAL, KC_RETURN,  // toggle instrumentation descriptions on hover ; view: zoom out, tilt up, zoom in; contact ATC
-        KC_SCOLON, LSFT(KC_9), ___, KC_Q, KC_F, KC_E, KC_1,        // toggle clickable cockpit areas ; view: pan left, tilt down, pan right; flaps up a notch
-        ___, ___, ___, KC_COMMA, KC_UP, KC_DOT,                    // view: backward, up, forward
-        KC_SPACE, ___, ___, KC_LEFT, KC_DOWN, KC_RIGHT, KC_2,      // general action cmd ; view: move left, down, right ; flaps down a notch
-        ___, ___, ___, KC_G, KC_B,                                 // landing gear, brakes
-        KC_8, KC_0,                                                // roll trim left, right
-        KC_LBRACKET,                                               // pitch trim down
-        KC_F1, KC_F2, KC_RBRACKET,                                 // throttle down, up ; pitch trim up
-
-        // right
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___, ___,       // /
-        ___, ___, ___, ___, ___, ___, ___,  // /
-        ___, ___, ___, ___, ___,            // /
-        ___, ___,                           // /
-        ___,                                // /
-        ___, ___, ___                       // /
-        ),
-     */
-
 };
 
 LEADER_EXTERNS();
@@ -933,40 +782,15 @@ bool            process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TMUX_PANE_SELECT:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTRL("b") "q");
-                /* SS_TAP(OSL(TOPROWNUM)); */
-                /* OSL(TOPROWNUM); */
-
-                /* set_oneshot_layer(TOPROWNUM,  ONESHOT_START); */
-                /* clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED); */
-
                 // https://www.reddit.com/r/olkb/comments/4izhrp/qmk_oneshot_question/
                 // https://github.com/algernon/ergodox-layout/commit/6b81e4765d7cc04381558e51b4167d7d7fb344a5
-
-                /* layer_on(TOPROWNUM); */
-                /* set_oneshot_layer(TOPROWNUM, ONESHOT_START); */
-                /* clear_oneshot_layer_state(ONESHOT_PRESSED); */
-
                 layer_on(NUMPAD);
                 set_oneshot_layer(NUMPAD, ONESHOT_START);
                 clear_oneshot_layer_state(ONESHOT_PRESSED);
-
-                /* layer_on(TOPROWNUM); */
-                /* WAIT(1000); // wait ms */
-                /* layer_off(TOPROWNUM); */
-
-                /* layer_on(TOPROWNUM); */
-                /* layer_off(TOPROWNUM); */
             } else {
             }
             return false;
             break;
-
-            /* case WR_COLONEQUALS: */
-            /*   if (record->event.pressed) { */
-            /*     SEND_STRING("2>&1"); */
-            /*   } */
-            /*   return false; */
-            /*   break; */
 
         case WR_REDIR_2AND1:
             if (record->event.pressed) {
@@ -1458,65 +1282,6 @@ bool            process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-
-            /* case LOCK_SHIFT: */
-            /*   if (record->event.pressed) { */
-            /*     tap_code(X_LOCK); */
-            /*     tap_code(X_LSHIFT); */
-            /*   } */
-            /*   return false; */
-            /*   break; */
-
-            /* #ifdef UNICODE_ENABLE */
-            /*   case EMOJI_UHU: */
-            /*     if (record->event.pressed) { */
-            /*       send_unicode_hex_string("2299 FE4F 2299"); */
-            /*     } */
-            /*     return false; */
-            /*     break; */
-
-            /*   case EMOJI_FACE2: */
-            /*     if (record->event.pressed) { */
-            /*       send_unicode_hex_string("0028 2022 005F 2022 0029"); */
-            /*     } */
-            /*     return false; */
-            /*     break; */
-
-            /*   case EMOJI_FACE1: */
-            /*     if (record->event.pressed) { */
-            /*       send_unicode_hex_string("0028 002D 005F 002D 0029"); */
-            /*     } */
-            /*     return false; */
-            /*     break; */
-
-            /*   case EMOJI_EGGY2: */
-            /*     if (record->event.pressed) { */
-            /*       send_unicode_hex_string("30CE 0028 0020 309C 002D 309C 30CE 0029"); */
-            /*     } */
-            /*     return false; */
-            /*     break; */
-
-            /*   case EMOJI_SMILE2: */
-            /*     if (record->event.pressed) { */
-            /*       send_unicode_hex_string("0028 0298 203F 0298 0029"); */
-            /*     } */
-            /*     return false; */
-            /*     break; */
-
-            /*   case EMOJI_SHRUG: // // ¯\_(ツ)_/¯ */
-            /*     if (record->event.pressed) { */
-            /*       send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF"); */
-            /*     } */
-            /*     return false; */
-            /*     break; */
-            /* #endif */
-
-            /* case EMOJI_YAY: */
-            /*   if (record->event.pressed) { */
-            /*     SEND_STRING ("\\o/"); */
-            /*   } */
-            /*   return false; */
-            /*   break; */
     }
 
     return true;
@@ -1550,24 +1315,6 @@ void macroTabOrTmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
         clear_oneshot_layer_state(ONESHOT_PRESSED);
     }
 }
-
-// macro_LEADER_or_TmuxLeadQ
-// void macro_LEADER_or_TmuxLeadQ(qk_tap_dance_state_t *state, void *user_data) {
-//    keyrecord_t kr;
-//    if (state->count == 1) {
-//        kr.event.pressed = true;
-//
-//        SEND_STRING(SS_TAP(X_TAB));
-//    } else if (state->count == 2) {
-//        kr.event.pressed = true;
-//        process_record_user(TMUX_PANE_SELECT, &kr);
-//    } else if (state->count == 3) {
-//        SEND_STRING(SS_LCTRL("b") SS_LCTRL("b") "q");
-//        layer_on(NUMPAD);
-//        set_oneshot_layer(NUMPAD, ONESHOT_START);
-//        clear_oneshot_layer_state(ONESHOT_PRESSED);
-//    }
-//}
 
 void macroTodoDone(qk_tap_dance_state_t *state, void *user_date) {
     if (state->count == 1) {
@@ -1851,22 +1598,6 @@ void fancyfancy_awesome_quote_finished(qk_tap_dance_state_t *state, void *user_d
             register_code(KC_LSHIFT);
             register_code(KC_SLASH);
             break;
-            //        case SINGLE_HOLD:
-            //            if (!layer_state_is(NUMPAD)) {
-            //                layer_on(NUMPAD);
-            //            }
-            //            register_code(KC_LGUI);
-            //            break;
-            //        case DOUBLE_HOLD:
-            //            if (!layer_state_is(NUMPAD)) {
-            //                layer_on(NUMPAD);
-            //            }
-            //            register_code(KC_LGUI);
-            //            register_code(KC_LSHIFT);
-            //            break;
-            /* case DOUBLE_TAP: register_code(KC_ESC); break; */
-            /* case DOUBLE_HOLD: register_code(KC_LALT); break; */
-            /* case DOUBLE_SINGLE_TAP: register_code(KC_X); unregister_code(KC_X); register_code(KC_X); */
     }
 };
 
@@ -1880,22 +1611,6 @@ void fancyfancy_awesome_reset(qk_tap_dance_state_t *state, void *user_data) {
             unregister_code(KC_LSHIFT);
             unregister_code(KC_SLASH);
             break;
-            //        case SINGLE_HOLD:
-            //            if (layer_state_is(NUMPAD)) {
-            //                layer_off(NUMPAD);
-            //            }
-            //            unregister_code(KC_LGUI);
-            //            break;
-            //        case DOUBLE_HOLD:
-            //            if (layer_state_is(NUMPAD)) {
-            //                layer_off(NUMPAD);
-            //            }
-            //            unregister_code(KC_LGUI);
-            //            unregister_code(KC_LSHIFT);
-            //            break;
-            /* case DOUBLE_TAP: unregister_code(KC_ESC); break; */
-            /* case DOUBLE_HOLD: unregister_code(KC_LALT); */
-            /* case DOUBLE_SINGLE_TAP: unregister_code(KC_X); */
     }
     xtap_state.state = 0;
 };
@@ -1974,26 +1689,14 @@ void bash_intervar_finished(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             process_record_user(WR_BASH_INTERVAR, NULL);
             break;
-            // ${}
-            /* case SINGLE_TAP:  register_code(KC_LSHIFT); register_code(KC_4); register_code(KC_LBRACKET); register_code(KC_RBRACKET); unregister_code(KC_LSHIFT); register_code(KC_LEFT); break; */
-
-            // $()
         case DOUBLE_TAP:
             process_record_user(WR_BASH_INTERFN, NULL);
             break;
-            /* case DOUBLE_TAP:  register_code(KC_LSHIFT); register_code(KC_4); register_code(KC_9); register_code(KC_0); unregister_code(KC_LSHIFT); register_code(KC_LEFT); break; */
-            /* case SINGLE_TAP: SEND_STRING("${}") ; SS_TAP(KC_LEFT); break; */
-            /* case SINGLE_TAP: WR_BASH_INTERVAR; break; */
-            /* case DOUBLE_TAP: register_code(KC_LGUI); register_code(KC_TAB); break; */
     }
 };
 
 void bash_intervar_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
-        /* case SINGLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_4); unregister_code(KC_LBRACKET); unregister_code(KC_RBRACKET);unregister_code(KC_LSHIFT); unregister_code(KC_LEFT); break; */
-        /* case DOUBLE_TAP: unregister_code(KC_LSHIFT); unregister_code(KC_4); unregister_code(KC_9); unregister_code(KC_0);unregister_code(KC_LSHIFT); unregister_code(KC_LEFT); break; */
-        /* case SINGLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_LCTL); unregister_code(KC_K); break; */
-        /* case DOUBLE_TAP: unregister_code(KC_LGUI); unregister_code(KC_TAB); break; */
     }
     xtap_state.state = 0;
 };
@@ -2034,37 +1737,19 @@ void macro_LEADER_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_
 //            SEND_STRING(SS_TAP(KC_LEAD));
 
             tap_code16(KC_LEAD);
-
-
-
-            //            register_code(KC_LGUI);
-            //            register_code(KC_Z);
-            //            register_code(KC_TAB);
-            //            SEND_STRING("if err != nil {")
             break;
         case DOUBLE_TAP:
             process_record_user(TMUX_PANE_SELECT, NULL);
             break;
-            //        case SINGLE_HOLD:
-            //            register_code(KC_LSHIFT);
-            //            layer_on(MOTIONLAYER);
-            //            break;
     }
 }
 
 void macro_LEADER_or_TmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            //            unregister_code(KC_LGUI);
-            //            unregister_code(KC_Z);
-            //            register_code(KC_LEAD);
             break;
         case DOUBLE_TAP:
             break;
-            //        case SINGLE_HOLD:
-            //            unregister_code(KC_LSHIFT);
-            //            layer_off(MOTIONLAYER);
-            //            break;
     }
     xtap_state.state = 0;
 };
@@ -2140,9 +1825,6 @@ void tobase_and_clean_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case TRIPLE_TAP:
             layer_move(BASE);
-//            unregister_code(KC_LALT);
-//            unregister_code(KC_RALT);
-//            unregister_code(KC_CAPS);
 
             clear_keyboard();
             clear_mods();
@@ -2154,6 +1836,7 @@ void tobase_and_clean_finished(qk_tap_dance_state_t *state, void *user_data) {
             ergodox_right_led_1_off();
             ergodox_right_led_2_off();
             ergodox_right_led_3_off();
+
             break;
         case TRIPLE_HOLD:
             reset_keyboard();
@@ -2206,10 +1889,6 @@ void td_lgui_doublequote_finished(qk_tap_dance_state_t *state, void *user_data) 
         case SINGLE_HOLD:
             register_code(KC_LGUI);
             break;
-            //        case DOUBLE_TAP:
-            //            register_code(KC_LSHIFT);
-            //            register_code(KC_QUOTE);
-            //            break;
     }
 };
 
@@ -2222,10 +1901,6 @@ void td_lgui_doublequote_reset(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_HOLD:
             unregister_code(KC_LGUI);
             break;
-            //        case DOUBLE_TAP:
-            //            unregister_code(KC_LSHIFT);
-            //            unregister_code(KC_QUOTE);
-            //            break;
     }
     xtap_state.state = 0;
 };
