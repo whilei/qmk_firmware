@@ -54,8 +54,8 @@ enum {
     TD_COPY_PASTE,
 
     // Tap dance enums
-    ALT_UNI,
-    SHIFT_CAP,
+    TD_ALT_UNI,
+    TD_SHIFT_CAP,
     ONEORMO_SYMBOLS,
     TD_FANCYAWESOMEQUOTE,
     AWESOME_TAG_FORWARD_BACK,
@@ -306,9 +306,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER),        // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,                                // /
-        TD(SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), LSFT(KC_QUOTE),  // TD(TD_COPY_PASTE)  // TD_TMUX2// includes TMUX_LEADER2 as the single_tap
+        TD(TD_SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), LSFT(KC_QUOTE),  // TD(TD_COPY_PASTE)  // TD_TMUX2// includes TMUX_LEADER2 as the single_tap
 
-        TD(TD_MOUSE_BACKFORWARD), KC_MS_WH_DOWN, KC_MS_WH_UP, MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(ALT_UNI)
+        TD(TD_MOUSE_BACKFORWARD), KC_MS_WH_DOWN, KC_MS_WH_UP, MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_UNI)
 
         /*  */
         LT(GOLANDLAYER, KC_DELETE), ___,           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
@@ -319,7 +319,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(TD_TOBASE_CLEAN), KC_HOME, KC_END, LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, LGUI(KC_ENTER),      // LCS(KC_TAB) , LCTL(KC_TAB)
         KC_BSPACE, KC_J, KC_U, KC_R, KC_L, LT(FLAYER, KC_SCOLON), TD(AWESOME_TAG_NEXT_SCREEN_OR_APP),           // CTLGUI(KC_K) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, TD(ONEORMO_SYMBOLS),                                     // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
-        LSFT(KC_SLASH), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(SHIFT_CAP),  // , TD(SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
+        LSFT(KC_SLASH), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(TD_SHIFT_CAP),  // , TD(TD_SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
         MT(MOD_LCTL, KC_QUOTE), KC_LEAD, TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */
 
@@ -1901,6 +1901,7 @@ void td_lgui_doublequote_reset(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_HOLD:
             unregister_code(KC_LGUI);
             break;
+
     }
     xtap_state.state = 0;
 };
@@ -1982,8 +1983,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTIO
                                              [TD_TODO_DONE]     = ACTION_TAP_DANCE_FN(macroTodoDone),
 
                                              [X_CTL]                          = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
-                                             [ALT_UNI]                        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_uni_finished, alt_uni_reset),
-                                             [SHIFT_CAP]                      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_cap_finished, shift_cap_reset),
+                                             [TD_ALT_UNI]                        = ACTION_TAP_DANCE_FN_ADVANCED(NULL, alt_uni_finished, alt_uni_reset),
+                                             [TD_SHIFT_CAP]                      = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_cap_finished, shift_cap_reset),
                                              [ONEORMO_SYMBOLS]                = ACTION_TAP_DANCE_FN_ADVANCED(NULL, oneormore_symbols_finished, oneormore_symbols_reset),
                                              [TD_FANCYAWESOMEQUOTE]           = ACTION_TAP_DANCE_FN_ADVANCED(NULL, fancyfancy_awesome_quote_finished, fancyfancy_awesome_reset),
                                              [AWESOME_TAG_FORWARD_BACK]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, awesome_fb_tag_finished, awesome_fb_tag_reset),
