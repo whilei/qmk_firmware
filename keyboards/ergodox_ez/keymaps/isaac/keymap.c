@@ -758,35 +758,6 @@ void matrix_scan_user(void) {
         SEQ_THREE_KEYS(KC_G, KC_R, KC_I) { SEND_STRING("git rebase -S -i "); }
         SEQ_THREE_KEYS(KC_G, KC_S, KC_S) { SEND_STRING("git stash save "); }
         SEQ_THREE_KEYS(KC_G, KC_S, KC_P) { SEND_STRING("git stash pop "); }
-
-        //        SEQ_TWO_KEYS(KC_G, KC_T) {
-        //            /* SEND_STRING(SS_LSFT( SS_LCTL(KC_F10) )) */
-        //
-        //            register_code(KC_LSHIFT);
-        //            register_code(KC_LCTL);
-        //            register_code(KC_F10);
-        //
-        //            unregister_code(KC_LSHIFT);
-        //            unregister_code(KC_LCTL);
-        //            unregister_code(KC_F10);
-        //        }
-
-        /* SEQ_ONE_KEY(KC_W, KC_L) { */
-        /*   // Anything you can do in a macro. */
-        /*   SEND_STRING() */
-        /* } */
-        /* SEQ_TWO_KEYS(KC_D, KC_D) { */
-        /*   SEND_STRING(SS_LCTL("a") SS_LCTL("c")); */
-        /* } */
-        /* SEQ_THREE_KEYS(KC_D, KC_D, KC_S) { */
-        /*   SEND_STRING("https://start.duckduckgo.com\n"); */
-        /* } */
-        /* SEQ_TWO_KEYS(KC_A, KC_S) { */
-        /*   register_code(KC_LGUI); */
-        /*   register_code(KC_S); */
-        /*   unregister_code(KC_S); */
-        /*   unregister_code(KC_LGUI); */
-        /* } */
     }
 }
 
@@ -2051,7 +2022,21 @@ void macro_LEADER_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_
     // LGUI(KC_ENTER) : next/previous app
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            //             register_code(KC_LEAD);
+
+
+//            register_code(KC_LEAD);
+//            unregister_code(KC_LEAD);
+
+//            register_code(X_LEAD);
+//            unregister_code(X_LEAD);
+
+//            SEND_STRING(SS_TAP(X_LEAD));
+//            SEND_STRING(SS_TAP(KC_LEAD));
+
+            tap_code16(KC_LEAD);
+
+
+
             //            register_code(KC_LGUI);
             //            register_code(KC_Z);
             //            register_code(KC_TAB);
@@ -2155,9 +2140,12 @@ void tobase_and_clean_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case TRIPLE_TAP:
             layer_move(BASE);
-            unregister_code(KC_LALT);
-            unregister_code(KC_RALT);
-            unregister_code(KC_CAPS);
+//            unregister_code(KC_LALT);
+//            unregister_code(KC_RALT);
+//            unregister_code(KC_CAPS);
+
+            clear_keyboard();
+            clear_mods();
 
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
