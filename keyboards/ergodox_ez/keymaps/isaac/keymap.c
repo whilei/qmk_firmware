@@ -318,10 +318,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // Right
         TD(TD_TOBASE_CLEAN), KC_HOME, KC_END, LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, LGUI(KC_ENTER),      // LCS(KC_TAB) , LCTL(KC_TAB)
         KC_BSPACE, KC_J, KC_U, KC_R, KC_L, LT(FLAYER, KC_SCOLON), TD(AWESOME_TAG_NEXT_SCREEN_OR_APP),           // CTLGUI(KC_K) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
-        KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, TD(ONEORMO_SYMBOLS),                                     // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
+        KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, MT(MOD_LCTL, KC_QUOTE),                                     // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
         LSFT(KC_SLASH), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(TD_SHIFT_CAP),  // , TD(TD_SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-        MT(MOD_LCTL, KC_QUOTE), KC_LEAD, TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */
+        TD(ONEORMO_SYMBOLS), KC_LEAD, TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */
 
         /* */
         ___, LGUI(KC_Z),                                  // /
