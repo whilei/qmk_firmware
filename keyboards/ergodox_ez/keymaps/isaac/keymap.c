@@ -326,7 +326,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* */
         ___, LGUI(KC_Z),                                  // /
         ___,                                              // /
-        ___, LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),  //
+        LCTL(KC_R), LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),  //
 
     [CAPSLAYER] = LAYOUT_ergodox(
         // Left
@@ -1527,6 +1527,9 @@ void oneormore_symbols_finished(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP:
             layer_invert(SYMBOLS);
             break;
+        case DOUBLE_HOLD:
+            register_code(KC_LCTL);
+            break;
     }
 };
 
@@ -1538,6 +1541,9 @@ void oneormore_symbols_reset(qk_tap_dance_state_t *state, void *user_data) {
             layer_off(SYMBOLS);
             break;
         case DOUBLE_TAP:
+            break;
+        case DOUBLE_HOLD:
+            unregister_code(KC_LCTL);
             break;
     }
     xtap_state.state = 0;
