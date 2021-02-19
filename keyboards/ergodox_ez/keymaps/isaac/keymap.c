@@ -313,7 +313,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(TD_MOUSE_BACKFORWARD), KC_MS_WH_DOWN, KC_MS_WH_UP, MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_UNI)
 
         /*  */
-        LT(GOLANDLAYER, KC_DELETE), KC_R,           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling
+        LT(GOLANDLAYER, KC_DELETE), KC_R,           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling; KC_R is nice for reloading stuff sometimes (ie flutter)
         KC_INSERT,                                 // KC_INSERT , // LCTL(KC_TAB) ,
         SFT_T(KC_SPACE), KC_BSPACE, TD(TD_TMUX2),  // //  LCS(KC_TAB) , // browser tab left
 
@@ -355,7 +355,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [NUMPAD] = LAYOUT_ergodox(
         // Left
         ___, KC_0, KC_1, KC_2, KC_3, KC_4, ___,                 // /
-        ___, ___, ___, KC_LCBR, KC_RCBR, ___, ___,              // /
+        ___, ___, LSFT(KC_QUOTE), KC_LCBR, KC_RCBR, ___, ___,              // /
         ___, ___, KC_DLR, KC_LEFT_PAREN, KC_RIGHT_PAREN, ___,   // /
         ___, ___, ___, KC_LBRACKET, KC_RBRACKET, KC_HASH, ___,  // /
         ___, ___, ___, ___, ___,                                // /
@@ -1668,6 +1668,10 @@ void awesome_next_tag_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code(KC_LGUI);
             register_code(KC_TAB);
             break;
+        case SINGLE_HOLD:
+            register_code(KC_LCTL);
+            register_code(KC_LSFT);
+            break;
         case DOUBLE_TAP:
             register_code(KC_LGUI);
             register_code(KC_LCTL);
@@ -1681,6 +1685,10 @@ void awesome_next_tag_reset(qk_tap_dance_state_t *state, void *user_data) {
         case SINGLE_TAP:
             unregister_code(KC_LGUI);
             unregister_code(KC_TAB);
+            break;
+        case SINGLE_HOLD:
+            unregister_code(KC_LCTL);
+            unregister_code(KC_LSFT);
             break;
         case DOUBLE_TAP:
             unregister_code(KC_LGUI);
@@ -1977,13 +1985,7 @@ void td_left_lower_thumb_finished(qk_tap_dance_state_t *state, void *user_data) 
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            register_code(KC_LSFT);
-            tap_code(KC_QUOTE);
-            unregister_code(KC_LSFT);
-            break;
-        case SINGLE_HOLD:
-            register_code(KC_LSFT);
-        case DOUBLE_TAP:
+            layer_invert(CAPSLAYER);
             break;
     }
 };
@@ -1992,10 +1994,6 @@ void td_left_lower_thumb_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             break;
-        case SINGLE_HOLD:
-            unregister_code(KC_LSFT);
-        case DOUBLE_TAP:
-            break;
     }
     xtap_state.state = 0;
 };
@@ -2003,31 +2001,11 @@ void td_left_lower_thumb_reset(qk_tap_dance_state_t *state, void *user_data) {
 void td_right_lower_thumb_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
-        case SINGLE_TAP:
-            register_code(KC_LSFT);
-            register_code(KC_SLASH);
-            break;
-        case SINGLE_HOLD:
-            register_code(KC_LCTL);
-        case DOUBLE_TAP:
-            register_code(KC_LCTL);
-            register_code(KC_SPACE);
-            break;
     }
 };
 
 void td_right_lower_thumb_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
-        case SINGLE_TAP:
-            unregister_code(KC_LSFT);
-            unregister_code(KC_SLASH);
-            break;
-        case SINGLE_HOLD:
-            unregister_code(KC_LCTL);
-        case DOUBLE_TAP:
-            unregister_code(KC_LCTL);
-            unregister_code(KC_SPACE);
-            break;
     }
     xtap_state.state = 0;
 };
