@@ -182,6 +182,7 @@ enum custom_keycodes {
     TMUX_WKILL,    // kill window
 
     TMUX_PANE_SELECT,
+    TMUX_PANE_SELECT2,
     TMUX_PFS,      // pane fullscreen == leader,z
     TMUX_PLAST,    // pane last active
     TMUX_PSPLITH,  // pane split horizontally
@@ -323,11 +324,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, MT(MOD_LCTL, KC_QUOTE),                                     // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
         TD(TD_RIGHT_BLUE_THUMB), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(TD_SHIFT_CAP), // LSFT(KC_SLASH)   // , TD(TD_SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-        TD(ONEORMO_SYMBOLS), KC_LEAD, TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */
+        TD(ONEORMO_SYMBOLS), LSFT(KC_SLASH), TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */ // KC_LEAD
 
         /* */
-        ___, LGUI(KC_Z),                                  // /
-        ___,                                              // /
+        CTLGUI(KC_N), LGUI(KC_Z),                                  // /
+        LGUI(KC_N),                                              // /
         LCTL(KC_R), LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),  //
 
     [CAPSLAYER] = LAYOUT_ergodox(
@@ -784,6 +785,19 @@ bool            process_record_user(uint16_t keycode, keyrecord_t *record) {
         case TMUX_PANE_SELECT:
             if (record->event.pressed) {
                 SEND_STRING(SS_LCTRL("b") "q");
+                // https://www.reddit.com/r/olkb/comments/4izhrp/qmk_oneshot_question/
+                // https://github.com/algernon/ergodox-layout/commit/6b81e4765d7cc04381558e51b4167d7d7fb344a5
+                layer_on(NUMPAD);
+                set_oneshot_layer(NUMPAD, ONESHOT_START);
+                clear_oneshot_layer_state(ONESHOT_PRESSED);
+            } else {
+            }
+            return false;
+            break;
+
+        case TMUX_PANE_SELECT2:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL("b") SS_LCTRL("b") "q");
                 // https://www.reddit.com/r/olkb/comments/4izhrp/qmk_oneshot_question/
                 // https://github.com/algernon/ergodox-layout/commit/6b81e4765d7cc04381558e51b4167d7d7fb344a5
                 layer_on(NUMPAD);
@@ -1752,10 +1766,11 @@ void macro_LEADER_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_
 //            SEND_STRING(SS_TAP(X_LEAD));
 //            SEND_STRING(SS_TAP(KC_LEAD));
 
-            tap_code16(KC_LEAD);
+//            tap_code16(KC_LEAD);
+            process_record_user(TMUX_PANE_SELECT, NULL);
             break;
         case DOUBLE_TAP:
-            process_record_user(TMUX_PANE_SELECT, NULL);
+            process_record_user(TMUX_PANE_SELECT2, NULL);
             break;
     }
 }
