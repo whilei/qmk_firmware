@@ -1755,18 +1755,6 @@ void macro_LEADER_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_
     // LGUI(KC_ENTER) : next/previous app
     switch (xtap_state.state) {
         case SINGLE_TAP:
-
-
-//            register_code(KC_LEAD);
-//            unregister_code(KC_LEAD);
-
-//            register_code(X_LEAD);
-//            unregister_code(X_LEAD);
-
-//            SEND_STRING(SS_TAP(X_LEAD));
-//            SEND_STRING(SS_TAP(KC_LEAD));
-
-//            tap_code16(KC_LEAD);
             process_record_user(TMUX_PANE_SELECT, NULL);
             break;
         case DOUBLE_TAP:
