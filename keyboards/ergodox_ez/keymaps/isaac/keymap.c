@@ -1760,6 +1760,11 @@ void macro_LEADER_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_
         case DOUBLE_TAP:
             process_record_user(TMUX_PANE_SELECT2, NULL);
             break;
+        case SINGLE_HOLD:
+            register_code(KC_LGUI);
+            register_code(KC_Z);
+            break;
+
     }
 }
 
@@ -1768,6 +1773,10 @@ void macro_LEADER_or_TmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_dat
         case SINGLE_TAP:
             break;
         case DOUBLE_TAP:
+            break;
+        case SINGLE_HOLD:
+            unregister_code(KC_LGUI);
+            unregister_code(KC_Z);
             break;
     }
     xtap_state.state = 0;
