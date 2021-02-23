@@ -1764,6 +1764,10 @@ void macro_LEADER_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_
             register_code(KC_LGUI);
             register_code(KC_Z);
             break;
+        case DOUBLE_HOLD:
+            register_code(KC_LGUI);
+            register_code(KC_Y);
+            break;
 
     }
 }
@@ -1777,6 +1781,10 @@ void macro_LEADER_or_TmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_dat
         case SINGLE_HOLD:
             unregister_code(KC_LGUI);
             unregister_code(KC_Z);
+            break;
+        case DOUBLE_HOLD:
+            unregister_code(KC_LGUI);
+            unregister_code(KC_Y);
             break;
     }
     xtap_state.state = 0;
