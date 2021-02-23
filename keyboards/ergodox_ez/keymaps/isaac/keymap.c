@@ -305,7 +305,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT_ergodox(
         // Left
         // still not happy about top left. slash gets hit twice too many times. tab too.
-        TD(TD_LEADER_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, LGUI(KC_Y),  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
+        TD(TD_LEADER_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, ___ ,  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
         TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER),        // /
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,                                // /
@@ -1763,10 +1763,14 @@ void macro_LEADER_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_
         case SINGLE_HOLD:
             register_code(KC_LGUI);
             register_code(KC_Z);
+            unregister_code(KC_LGUI);
+            unregister_code(KC_Z);
             break;
         case DOUBLE_HOLD:
             register_code(KC_LGUI);
             register_code(KC_Y);
+            unregister_code(KC_LGUI);
+            unregister_code(KC_Y);
             break;
 
     }
@@ -1779,12 +1783,8 @@ void macro_LEADER_or_TmuxLeadQ_reset(qk_tap_dance_state_t *state, void *user_dat
         case DOUBLE_TAP:
             break;
         case SINGLE_HOLD:
-            unregister_code(KC_LGUI);
-            unregister_code(KC_Z);
             break;
         case DOUBLE_HOLD:
-            unregister_code(KC_LGUI);
-            unregister_code(KC_Y);
             break;
     }
     xtap_state.state = 0;
@@ -1981,10 +1981,10 @@ void td_fancy_codefence_finished(qk_tap_dance_state_t *state, void *user_data) {
             register_code(KC_ENTER);
             unregister_code(KC_ENTER);
             process_record_user(WR_CODEFENCE, NULL);
-            register_code(KC_ENTER);
-            unregister_code(KC_ENTER);
-            register_code(KC_UP);
-            unregister_code(KC_UP);
+//            register_code(KC_ENTER);
+//            unregister_code(KC_ENTER);
+//            register_code(KC_UP);
+//            unregister_code(KC_UP);
             register_code(KC_UP);
             unregister_code(KC_UP);
             break;
