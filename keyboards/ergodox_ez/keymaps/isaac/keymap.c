@@ -69,6 +69,7 @@ enum {
     TD_FANCY_CODEFENCE,
     TD_LEFT_BLUE_THUMB,
     TD_RIGHT_BLUE_THUMB,
+    TD_TOP_RIGHT_0,
 };
 
 /* ------------------------------------------------------------------ */
@@ -319,7 +320,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         SFT_T(KC_SPACE), KC_BSPACE, TD(TD_TMUX2),  // //  LCS(KC_TAB) , // browser tab left
 
         // Right
-        TD(TD_TOBASE_CLEAN), KC_HOME, KC_END, LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, LGUI(KC_ENTER),      // LCS(KC_TAB) , LCTL(KC_TAB)
+        TD(TD_TOBASE_CLEAN), KC_HOME, KC_END, LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, TD(TD_TOP_RIGHT_0), // LGUI(KC_ENTER),      // LCS(KC_TAB) , LCTL(KC_TAB)
         KC_BSPACE, KC_J, KC_U, KC_R, KC_L, LT(FLAYER, KC_SCOLON), TD(AWESOME_TAG_NEXT_SCREEN_OR_APP),           // CTLGUI(KC_K) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, MT(MOD_LCTL, KC_QUOTE),                                     // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
         TD(TD_RIGHT_BLUE_THUMB), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(TD_SHIFT_CAP), // LSFT(KC_SLASH)   // , TD(TD_SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
@@ -327,9 +328,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(ONEORMO_SYMBOLS), LSFT(KC_SLASH), TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */ // KC_LEAD
 
         /* */
-        CTLGUI(KC_N), LGUI(KC_Z),                                  // /
-        LGUI(KC_N),                                              // /
-        LCTL(KC_R), LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),  //
+        LGUI(KC_Y) , LGUI(KC_Z),                                  // /
+        ___ ,                                              // /
+        ___ , LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),  //
 
     [CAPSLAYER] = LAYOUT_ergodox(
         // Left
@@ -1614,11 +1615,13 @@ void fancyfancy_awesome_quote_finished(qk_tap_dance_state_t *state, void *user_d
     switch (xtap_state.state) {
         case SINGLE_TAP:
             register_code(KC_LSHIFT);
-            register_code(KC_QUOTE);
+            tap_code(KC_QUOTE);
+            unregister_code(KC_LSHIFT);
             break;
         case DOUBLE_TAP:
             register_code(KC_LSHIFT);
-            register_code(KC_SLASH);
+            tap_code(KC_SLASH);
+            unregister_code(KC_LSHIFT);
             break;
     }
 };
@@ -1626,12 +1629,8 @@ void fancyfancy_awesome_quote_finished(qk_tap_dance_state_t *state, void *user_d
 void fancyfancy_awesome_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            unregister_code(KC_LSHIFT);
-            unregister_code(KC_QUOTE);
             break;
         case DOUBLE_TAP:
-            unregister_code(KC_LSHIFT);
-            unregister_code(KC_SLASH);
             break;
     }
     xtap_state.state = 0;
@@ -1642,7 +1641,8 @@ void awesome_fb_tag_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             register_code(KC_LGUI);
-            register_code(KC_RIGHT);
+            tap_code(KC_RIGHT);
+            unregister_code(KC_LGUI);
             break;
         case SINGLE_HOLD:
             register_code(KC_LSHIFT);
@@ -1650,7 +1650,8 @@ void awesome_fb_tag_finished(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case DOUBLE_TAP:
             register_code(KC_LGUI);
-            register_code(KC_LEFT);
+            tap_code(KC_LEFT);
+            unregister_code(KC_LGUI);
             break;
     }
 };
@@ -1658,16 +1659,12 @@ void awesome_fb_tag_finished(qk_tap_dance_state_t *state, void *user_data) {
 void awesome_fb_tag_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            unregister_code(KC_LGUI);
-            unregister_code(KC_RIGHT);
             break;
         case SINGLE_HOLD:
             unregister_code(KC_LSHIFT);
             layer_off(MOTIONLAYER);
             break;
         case DOUBLE_TAP:
-            unregister_code(KC_LGUI);
-            unregister_code(KC_LEFT);
             break;
     }
     xtap_state.state = 0;
@@ -1680,7 +1677,8 @@ void awesome_next_tag_finished(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
             register_code(KC_LGUI);
-            register_code(KC_TAB);
+            tap_code(KC_TAB);
+            unregister_code(KC_LGUI);
             break;
         case SINGLE_HOLD:
             register_code(KC_LCTL);
@@ -1689,7 +1687,9 @@ void awesome_next_tag_finished(qk_tap_dance_state_t *state, void *user_data) {
         case DOUBLE_TAP:
             register_code(KC_LGUI);
             register_code(KC_LCTL);
-            register_code(KC_K);
+            tap_code(KC_K);
+            unregister_code(KC_LGUI);
+            unregister_code(KC_LCTL);
             break;
     }
 };
@@ -1697,17 +1697,12 @@ void awesome_next_tag_finished(qk_tap_dance_state_t *state, void *user_data) {
 void awesome_next_tag_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            unregister_code(KC_LGUI);
-            unregister_code(KC_TAB);
             break;
         case SINGLE_HOLD:
             unregister_code(KC_LCTL);
             unregister_code(KC_LSFT);
             break;
         case DOUBLE_TAP:
-            unregister_code(KC_LGUI);
-            unregister_code(KC_LCTL);
-            unregister_code(KC_K);
             break;
     }
     xtap_state.state = 0;
@@ -1762,15 +1757,13 @@ void macro_LEADER_or_TmuxLeadQ_finished(qk_tap_dance_state_t *state, void *user_
             break;
         case SINGLE_HOLD:
             register_code(KC_LGUI);
-            register_code(KC_Z);
+            tap_code(KC_Z);
             unregister_code(KC_LGUI);
-            unregister_code(KC_Z);
             break;
         case DOUBLE_HOLD:
             register_code(KC_LGUI);
-            register_code(KC_Y);
+            tap_code(KC_Y);
             unregister_code(KC_LGUI);
-            unregister_code(KC_Y);
             break;
 
     }
@@ -1920,7 +1913,8 @@ void td_lgui_doublequote_finished(qk_tap_dance_state_t *state, void *user_data) 
     switch (xtap_state.state) {
         case SINGLE_TAP:
             register_code(KC_LSHIFT);
-            register_code(KC_QUOTE);
+            tap_code(KC_QUOTE);
+            unregister_code(KC_LSHIFT);
             break;
         case SINGLE_HOLD:
             register_code(KC_LGUI);
@@ -1931,8 +1925,6 @@ void td_lgui_doublequote_finished(qk_tap_dance_state_t *state, void *user_data) 
 void td_lgui_doublequote_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            unregister_code(KC_LSHIFT);
-            unregister_code(KC_QUOTE);
             break;
         case SINGLE_HOLD:
             unregister_code(KC_LGUI);
@@ -1946,10 +1938,10 @@ void td_mouse_backforward_finished(qk_tap_dance_state_t *state, void *user_data)
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            register_code(KC_MS_BTN4);
+            tap_code(KC_MS_BTN4);
             break;
         case DOUBLE_TAP:
-            register_code(KC_MS_BTN5);
+            tap_code(KC_MS_BTN5);
             break;
     }
 };
@@ -1957,10 +1949,8 @@ void td_mouse_backforward_finished(qk_tap_dance_state_t *state, void *user_data)
 void td_mouse_backforward_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            unregister_code(KC_MS_BTN4);
             break;
         case DOUBLE_TAP:
-            unregister_code(KC_MS_BTN5);
             break;
     }
     xtap_state.state = 0;
@@ -1973,20 +1963,12 @@ void td_fancy_codefence_finished(qk_tap_dance_state_t *state, void *user_data) {
             process_record_user(WR_CODEFENCE, NULL);
             break;
         case DOUBLE_TAP:
-            register_code(KC_ENTER);
-            unregister_code(KC_ENTER);
+            tap_code(KC_ENTER);
             process_record_user(WR_CODEFENCE, NULL);
-            register_code(KC_ENTER);
-            unregister_code(KC_ENTER);
-            register_code(KC_ENTER);
-            unregister_code(KC_ENTER);
+            tap_code(KC_ENTER);
+            tap_code(KC_ENTER);
             process_record_user(WR_CODEFENCE, NULL);
-//            register_code(KC_ENTER);
-//            unregister_code(KC_ENTER);
-//            register_code(KC_UP);
-//            unregister_code(KC_UP);
-            register_code(KC_UP);
-            unregister_code(KC_UP);
+            tap_code(KC_UP);
             break;
     }
 };
@@ -2030,6 +2012,47 @@ void td_right_lower_thumb_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
+
+void td_top_right_0_finished(qk_tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            register_code(KC_LGUI);
+            tap_code(KC_ENTER);
+            unregister_code(KC_LGUI);
+            break;
+        case DOUBLE_TAP:
+            break;
+        case SINGLE_HOLD:
+            register_code(KC_LGUI);
+            tap_code(KC_N);
+            unregister_code(KC_LGUI);
+            break;
+        case DOUBLE_HOLD:
+            register_code(KC_LGUI);
+            register_code(KC_LCTL);
+            tap_code(KC_N);
+            unregister_code(KC_LGUI);
+            unregister_code(KC_LCTL);
+            break;
+    }
+};
+
+void td_top_right_0_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            break;
+        case DOUBLE_TAP:
+            break;
+        case SINGLE_HOLD:
+            break;
+        case DOUBLE_HOLD:
+            break;
+    }
+    xtap_state.state = 0;
+};
+
+
 qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
                                              [TD_PAREN]                  = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
                                              [TD_BRACKET]                = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
@@ -2065,4 +2088,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTIO
                                              [TD_FANCY_CODEFENCE]             = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_fancy_codefence_finished, td_fancy_codefence_reset),
                                              [TD_LEFT_BLUE_THUMB]             = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_left_lower_thumb_finished, td_left_lower_thumb_reset),
                                              [TD_RIGHT_BLUE_THUMB]             = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_right_lower_thumb_finished, td_right_lower_thumb_reset),
+                                             [TD_TOP_RIGHT_0]             = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_top_right_0_finished, td_top_right_0_reset),
 };
