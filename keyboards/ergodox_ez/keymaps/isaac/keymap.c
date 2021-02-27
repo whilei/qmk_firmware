@@ -369,8 +369,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
          */
         // right
-        ___, KC_PERC, KC_EQUAL, KC_MINUS, KC_UNDS, KC_COLN, ___,  // /
-        ___, ___, KC_7, KC_8, KC_9, KC_SLASH, ___,                // /
+        ___, KC_PERC, KC_EQUAL, KC_MINUS, KC_UNDS, ___, ___,  // /
+        ___, KC_COLN, KC_7, KC_8, KC_9, KC_SLASH, ___,            // /
         KC_KP_PLUS, KC_4, KC_5, KC_6, KC_0, KC_ENTER,             // /
         ___, KC_KP_ASTERISK, KC_1, KC_2, KC_3, KC_DOT, KC_COMMA,  // /
         ___, ___, ___, ___, ___,                                  // /
