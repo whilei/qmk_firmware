@@ -337,7 +337,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___, ___, ___, ___, ___, ___,                                     //
         ___, LSFT(KC_Q), LSFT(KC_W), LSFT(KC_D), LSFT(KC_F), LSFT(KC_K), ___,  //
         ___, LSFT(KC_A), LSFT(KC_S), LSFT(KC_E), LSFT(KC_T), LSFT(KC_G),       //
-        ___, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), ___,  // 
+        ___, LSFT(KC_Z), LSFT(KC_X), LSFT(KC_C), LSFT(KC_V), LSFT(KC_B), ___,  //
         ___, ___, ___, ___, ___,                                               //
 
         ___, ___, ___, ___, ___, ___,  //
@@ -1383,6 +1383,9 @@ uint32_t layer_state_set_user(uint32_t state) {
             ergodox_right_led_1_on();
             wait_ms(100);
             ergodox_right_led_1_off();
+        case DEADQWERTY:
+            ergodox_right_led_1_on();
+            break;
         default:
             break;
     }
