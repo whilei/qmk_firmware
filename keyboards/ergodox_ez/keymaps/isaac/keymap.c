@@ -470,7 +470,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LALT(KC_SCOLON), CONALT(KC_ENTER), LALT(KC_3), LSFT(KC_F2), KC_F2, LALT(KC_R), LALT(KC_HOME),  // un-select last occurrence, start new line above, toggle Find window, prev error, next error, move line up, navigator focus
         LALT(KC_L), LSFT(KC_ENTER), LCTL(KC_4), LSFT(KC_F6), LSALT(KC_7), LALT(KC_I), LALT(KC_1),      // select next highlighted occurrence, start new line,  close tab, rename, find, move line down, project foucs
         LCTL(KC_Y), LCTL(KC_BSLASH), LCS(KC_9), LCS(KC_0), LCS(KC_N), LCS(KC_A),                       // delete line, expand selection, back, forward, open file, actions
-        CONALT(KC_B), LCTL(KC_SLASH), CONALT(KC_A), LSFT(KC_F7), KC_F7, LCS(KC_COMMA), LCS(KC_F10),             // _go to implementations, comment line, select all occurences, (resolve conflicts)prev,next conflict, clone caret below, run test
+        CONALT(KC_B), LCTL(KC_SLASH), CONALT(KC_L), LSFT(KC_F7), KC_F7, LCS(KC_COMMA), LCS(KC_F10),             // _go to implementations, comment line, select all occurences, (resolve conflicts)prev,next conflict, clone caret below, run test
         ___, ___, ___, ___, ___,
 
         ___, LALT(KC_1),          // toggle Navigate pane
