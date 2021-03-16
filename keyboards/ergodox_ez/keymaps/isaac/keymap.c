@@ -2059,7 +2059,9 @@ void td_top_right_0_reset(qk_tap_dance_state_t *state, void *user_data) {
 };
 
 
-qk_tap_dance_action_t tap_dance_actions[] = {[TD_CURLYBRACKET]           = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
+qk_tap_dance_action_t tap_dance_actions[] = {
+    // 
+    [TD_CURLYBRACKET]           = ACTION_TAP_DANCE_DOUBLE(KC_LCBR, KC_RCBR),
                                              [TD_PAREN]                  = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_PAREN, KC_RIGHT_PAREN),
                                              [TD_BRACKET]                = ACTION_TAP_DANCE_DOUBLE(KC_LBRACKET, KC_RBRACKET),
                                              [TD_QUOTE_COUNTERINTUITIVE] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_QUOTE), KC_QUOTE),
