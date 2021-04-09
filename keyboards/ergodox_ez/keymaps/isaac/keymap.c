@@ -25,6 +25,7 @@ enum {
     FLAYER,
     UNICODEL,
     DEADQWERTY,
+    ERRATA_NOOP,
 };
 
 // TAP DANCES
@@ -308,7 +309,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // still not happy about top left. slash gets hit twice too many times. tab too.
         TD(TD_LEADER_TMUXQ), KC_UP, LT(MACROLAYER, KC_0), KC_DLR, KC_KP_ASTERISK, KC_DOWN, CTLGUI(KC_SPACE) ,  // ___ , // LCTL(KC_SLASH) , // CTLGUI(KC_K) , // LT( TOPROWALT, KC_TAB )
 
-        TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER),        // /
+        TD(AWESOME_TAG_FORWARD_BACK), LT(FLAYER, KC_Q), KC_W, KC_D, KC_F, KC_K, MT(MOD_MEH, KC_ENTER),        // / Meh: Left CTRL, SHIFT, ALT
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,                                // /
         TD(TD_SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), TD(TD_LEFT_BLUE_THUMB), // LSFT(KC_QUOTE),  // TD(TD_COPY_PASTE)  // TD_TMUX2// includes TMUX_LEADER2 as the single_tap
 
@@ -316,7 +317,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         /*  */
         LT(GOLANDLAYER, KC_DELETE), ___,           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling; KC_R is nice for reloading stuff sometimes (ie flutter)
-        KC_INSERT,                                 // KC_INSERT , // LCTL(KC_TAB) ,
+        ___,                                 // KC_INSERT , // LCTL(KC_TAB) ,
         SFT_T(KC_SPACE), KC_BSPACE, TD(TD_TMUX2),  // //  LCS(KC_TAB) , // browser tab left
 
         // Right
@@ -499,7 +500,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___, WR_WORD_ETCSYSTEMDSYSTEM, WR_WORD_GOETHEREUM, WR_WORD_COREGETH_DASHED, ___, ___,  // /
         ___, ___, WR_WORD_SYSTEM, WR_WORD_ETHEREUM, ___, WR_WORD_GITHUB_DOT_COM,                    // /
         ___, KC_SLASH, ___, WR_WORD_ETCLABSCORE, WR_WORD_MEOWSBITS, KC_DOT, ___,                    // /
-        ___, ___, ___, ___, ___,                                                                    // /
+        TG(ERRATA_NOOP), ___, ___, ___, ___,                                                                    // /
         ___, ___,                                                                                   // /
         ___,                                                                                        // /
         ___, ___, ___,                                                                              // /
@@ -582,7 +583,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                   ___, ___, ___, ___, ___,           //
                                   ___, ___, ___, ___, ___, KC_ENTER  // /
-                                  )                                  //
+                                  ),                                  //
+
+    //
+    // This layer contains keys that I almost NEVER use, BUT
+    // which seems like they should exist somewhere for the 0.00001% of the time.
+    [ERRATA_NOOP] = LAYOUT_ergodox(
+        // Left
+        ___, ___, ___, ___, ___, ___, ___,  // /
+        ___, ___, ___, ___, ___, ___, ___,              // /
+        ___, ___, ___, ___, ___, ___,                   // /
+        ___, ___, ___, ___, ___, ___, ___,              // /
+        ___, ___, ___, ___, ___,                        // /
+        ___, ___,                                       // /
+        KC_INSERT,                                            // /
+        ___, ___, ___,                                  // /
+
+        // right
+        ___, ___, ___, ___, ___, ___, ___,  // /
+        ___, ___, ___, ___, ___, ___, ___,                 // /
+        ___, ___, ___, ___, ___, ___,                      // /
+        ___, ___, ___, ___, ___, ___, ___,                 // /
+        ___, ___, ___, ___, ___,                           // /
+        ___, ___,                                          // /
+        ___,                                               // /
+        ___, ___, ___                                      // /
+        )
 };
 
 LEADER_EXTERNS();
