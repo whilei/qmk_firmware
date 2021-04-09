@@ -312,10 +312,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,                                // /
         TD(TD_SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), TD(TD_LEFT_BLUE_THUMB), // LSFT(KC_QUOTE),  // TD(TD_COPY_PASTE)  // TD_TMUX2// includes TMUX_LEADER2 as the single_tap
 
-        ___, ___, ___, MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_UNI)
+        ___, ___, TD(TD_MOUSE_BACKFORWARD), MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_UNI)
 
         /*  */
-        LT(GOLANDLAYER, KC_DELETE), TD(TD_MOUSE_BACKFORWARD),           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling; KC_R is nice for reloading stuff sometimes (ie flutter)
+        LT(GOLANDLAYER, KC_DELETE), ___,           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling; KC_R is nice for reloading stuff sometimes (ie flutter)
         KC_INSERT,                                 // KC_INSERT , // LCTL(KC_TAB) ,
         SFT_T(KC_SPACE), KC_BSPACE, TD(TD_TMUX2),  // //  LCS(KC_TAB) , // browser tab left
 
@@ -412,7 +412,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Mouse and motion
     [MOTIONLAYER] = LAYOUT_ergodox(
         /* // Left */
-        ___, ___, LCS(KC_PGUP), LCS(KC_TAB), LCTL(KC_TAB), LCS(KC_PGDOWN), ___, ___, LCTL(KC_W), KC_MS_WH_UP, KC_MS_WH_LEFT, KC_MS_UP, KC_MS_WH_RIGHT, KC_PGUP,  // /
+        ___, ___, LCS(KC_PGUP), LCS(KC_TAB), LCTL(KC_TAB), LCS(KC_PGDOWN), ___, // /
+        ___, LCTL(KC_W), KC_MS_WH_UP, KC_MS_WH_LEFT, KC_MS_UP, KC_MS_WH_RIGHT, KC_PGUP,  // /
         ___, ___, KC_MS_WH_DOWN, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT,                                                                                            // /
                                                                                                                                                                  //        ___, ___, ___, CTLGUI(KC_SPACE), LGUI(KC_M), KC_LSHIFT, KC_PGDOWN,               // floating, maximized, ...
         ___, ___, LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_LSHIFT, KC_PGDOWN,                                                                                      // floating, maximized, ...
@@ -1696,6 +1697,10 @@ void awesome_next_tag_finished(qk_tap_dance_state_t *state, void *user_data) {
             unregister_code(KC_LGUI);
             unregister_code(KC_LCTL);
             break;
+        case DOUBLE_HOLD:
+            register_code(KC_LCTL);
+            register_code(KC_LALT);
+            break;
     }
 };
 
@@ -1708,6 +1713,10 @@ void awesome_next_tag_reset(qk_tap_dance_state_t *state, void *user_data) {
             unregister_code(KC_LSFT);
             break;
         case DOUBLE_TAP:
+            break;
+        case DOUBLE_HOLD:
+            unregister_code(KC_LCTL);
+            unregister_code(KC_LALT);
             break;
     }
     xtap_state.state = 0;
@@ -2009,7 +2018,7 @@ void td_right_lower_thumb_finished(qk_tap_dance_state_t *state, void *user_data)
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            // FIXME. i never use this.
+            // FIXME. I never use this.
             process_record_user(TMUX_LEADER,  NULL);
             break;
     }
