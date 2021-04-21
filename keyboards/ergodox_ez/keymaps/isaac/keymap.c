@@ -313,7 +313,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,                                // /
         TD(TD_SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), TD(TD_LEFT_BLUE_THUMB), // LSFT(KC_QUOTE),  // TD(TD_COPY_PASTE)  // TD_TMUX2// includes TMUX_LEADER2 as the single_tap
 
-        ___, TG(CAPSLAYER), TD(TD_MOUSE_BACKFORWARD), MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_UNI)
+        ___, ___, ___, MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_UNI)
 
         /*  */
         LT(GOLANDLAYER, KC_DELETE), ___,           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling; KC_R is nice for reloading stuff sometimes (ie flutter)
@@ -327,7 +327,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, KC_LCTRL,                                     // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
         TD(TD_RIGHT_BLUE_THUMB), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(TD_SHIFT_CAP), // LSFT(KC_SLASH)   // , TD(TD_SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-        TD(ONEORMO_SYMBOLS), LSFT(KC_SLASH), TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */ // KC_LEAD
+        TD(ONEORMO_SYMBOLS), TG(CAPSLAYER), TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */ // KC_LEAD
 
         /* */
         // FIXME: These don't get used.
@@ -425,10 +425,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MS_BTN1, KC_MS_BTN2, LGUI(KC_LEFT),  // /  // KC_ENTER
 
         // right
-        ___, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), LCS(KC_1),  // /
-        LCTL(KC_X), ___, KC_HOME, ___, KC_END, ___, LCS(KC_2),                       // /
+        CTLGUI(KC_J), LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), CTLGUI(KC_K),  // / jump to awesome tag by number, awesome focus next screen
+        ___, ___, KC_HOME, ___, KC_END, ___, ___,                       // /
         ___, LCTL(KC_LEFT), KC_UP, LCTL(KC_RIGHT), ___, LCTL(KC_V),                  // /
-        LCTL(KC_C), ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,                       // /
+        ___, ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,                       // /
         ___, ___, ___, ___, ___,                                                     // /
         ___, ___,                                                                    // /
         ___,                                                                         // /
@@ -1328,6 +1328,7 @@ bool            process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+
     }
 
     return true;
@@ -2026,15 +2027,18 @@ void td_fancy_codefence_reset(qk_tap_dance_state_t *state, void *user_data) {
 void td_left_lower_thumb_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
+            // This is a DUPLICATE of td_mouse_backforward
         case SINGLE_TAP:
+            tap_code(KC_MS_BTN4); // backward
+            break;
+        case DOUBLE_TAP:
+            tap_code(KC_MS_BTN5); // forward
             break;
     }
 };
 
 void td_left_lower_thumb_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
-        case SINGLE_TAP:
-            break;
     }
     xtap_state.state = 0;
 };
@@ -2043,8 +2047,8 @@ void td_right_lower_thumb_finished(qk_tap_dance_state_t *state, void *user_data)
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            // FIXME. I never use this.
-            process_record_user(TMUX_LEADER,  NULL);
+            process_record_user(WR_SLASHSLASH, NULL);
+//            process_record_user(TMUX_LEADER,  NULL);
             break;
     }
 };
