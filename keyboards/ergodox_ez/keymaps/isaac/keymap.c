@@ -425,8 +425,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MS_BTN1, KC_MS_BTN2, LGUI(KC_LEFT),  // /  // KC_ENTER
 
         // right
-        CTLGUI(KC_J), LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), CTLGUI(KC_K),  // / jump to awesome tag by number, awesome focus next screen
-        ___, ___, KC_HOME, ___, KC_END, ___, ___,                       // /
+        // CTLGUI(KC_K)/J => awesome focus prev/next screen
+        CTLGUI(KC_J), LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), LCS(KC_1),  // awesome focus next screen, jump to awesome tag by number, firefox new containered tab
+        ___, ___, KC_HOME, ___, KC_END, ___, LCS(KC_2),                       // /
         ___, LCTL(KC_LEFT), KC_UP, LCTL(KC_RIGHT), ___, LCTL(KC_V),                  // /
         ___, ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,                       // /
         ___, ___, ___, ___, ___,                                                     // /
