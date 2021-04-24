@@ -316,9 +316,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___, ___, MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_UNI)
 
         /*  */
-        LT(GOLANDLAYER, KC_DELETE), ___,           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling; KC_R is nice for reloading stuff sometimes (ie flutter)
-        ___,                                 // KC_INSERT , // LCTL(KC_TAB) ,
-        SFT_T(KC_SPACE), KC_BSPACE, TD(TD_TMUX2),  // //  LCS(KC_TAB) , // browser tab left
+        LT(GOLANDLAYER, KC_DELETE), TD(TD_TMUX2),           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling; KC_R is nice for reloading stuff sometimes (ie flutter)
+        LCTL(KC_BSPACE),                                 // KC_INSERT , // LCTL(KC_TAB) ,
+        SFT_T(KC_SPACE), KC_BSPACE, ___,  // //  LCS(KC_TAB) , // browser tab left
 
         // Right
         // FIXME: ? and ' up top never get used.
@@ -329,6 +329,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         TD(ONEORMO_SYMBOLS), TG(CAPSLAYER), TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */ // KC_LEAD
 
+        // test test test test test tests tests
         /* */
         // FIXME: These don't get used.
         LGUI(KC_Y) , LGUI(KC_Z),                                  // /
