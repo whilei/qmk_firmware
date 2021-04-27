@@ -318,10 +318,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /*  */
         LT(GOLANDLAYER, KC_DELETE), TD(TD_TMUX2),           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling; KC_R is nice for reloading stuff sometimes (ie flutter)
         LCTL(KC_BSPACE),                                 // KC_INSERT , // LCTL(KC_TAB) ,
-        SFT_T(KC_SPACE), KC_BSPACE, ___,  // //  LCS(KC_TAB) , // browser tab left
+        SFT_T(KC_SPACE), KC_BSPACE, LSFT(KC_QUOTE),  // //  LCS(KC_TAB) , // browser tab left
 
         // Right
-        // FIXME: ? and ' up top never get used.
+        // FIXME: ? up top never gets used.
         TD(TD_TOBASE_CLEAN), LSFT(KC_SLASH), KC_QUOTE, LT(MACROLAYER, KC_MINUS), KC_UNDS, KC_GRAVE, TD(TD_TOP_RIGHT_0), // LGUI(KC_ENTER),      // LCS(KC_TAB) , LCTL(KC_TAB)
         KC_BSPACE, KC_J, KC_U, KC_R, KC_L, LT(FLAYER, KC_SCOLON), TD(AWESOME_TAG_NEXT_SCREEN_OR_APP),           // CTLGUI(KC_K) , //LGUI(KC_RIGHT) , // OSM(MOD_LSFT) , // LT(DELAYER, KC_QUOTE) , // MT(MOD_HYPR, KC_SCOLON )
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, KC_LCTRL,                                     // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
@@ -332,7 +332,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // test test test test test tests tests
         /* */
         // FIXME: These don't get used.
-        LGUI(KC_Y) , LGUI(KC_Z),                                  // /
+        ___, ___,                                  // / LGUI(KC_Y) , LGUI(KC_Z),
         ___ ,                                              // /
         ___ , LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),  //
 
