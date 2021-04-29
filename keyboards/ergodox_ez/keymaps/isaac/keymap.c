@@ -7,6 +7,7 @@
 
 #define LCS(code) LCTL(LSFT(code))
 #define LSALT(code) LALT(LSFT(code))
+#define CTLALT(code) LCTL(LALT(code))
 #define CONALT(code) LCTL(LALT(code))
 #define CTLGUI(code) LCTL(LGUI(code))
 #define LGSFT(code) LGUI(LSFT(code))
@@ -26,6 +27,7 @@ enum {
     UNICODEL,
     DEADQWERTY,
     ERRATA_NOOP,
+    GOOGLE // Drawings, etc.
 };
 
 // TAP DANCES
@@ -313,7 +315,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(SYMBOLS, KC_ESCAPE), LT(MOTIONLAYER, KC_A), KC_S, KC_E, KC_T, KC_G,                                // /
         TD(TD_SHIFT_CAP), LT(QWIMAMU, KC_Z), LT(NUMPAD, KC_X), ALT_T(KC_C), KC_V, LCTL_T(KC_B), TD(TD_LEFT_BLUE_THUMB), // LSFT(KC_QUOTE),  // TD(TD_COPY_PASTE)  // TD_TMUX2// includes TMUX_LEADER2 as the single_tap
 
-        ___, ___, ___, MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_UNI)
+        TG(GOOGLE), ___, ___, MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_UNI)
 
         /*  */
         LT(GOLANDLAYER, KC_DELETE), TD(TD_TMUX2),           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling; KC_R is nice for reloading stuff sometimes (ie flutter)
@@ -587,6 +589,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   ___, ___, ___, ___, ___, KC_ENTER  // /
                                   ),                                  //
 
+    //
+    [GOOGLE] = LAYOUT_ergodox(
+        // Left
+        ___, ___, ___, ___, ___, ___, CTLALT(KC_LBRACKET),  // /
+        ___, ___, ___, ___, ___, ___, CTLALT(KC_KP_PLUS),              // /
+        ___, ___, ___, ___, ___, ___,                   // /
+        ___, ___, ___, ___, ___, ___, CTLALT(KC_MINUS),              // /
+        ___, ___, ___, ___, ___,                        // /
+        ___, ___,                                       // /
+        ___,                                            // /
+        ___, ___, ___,                                  // /
+
+    // right
+        ___, ___, ___, ___, ___, ___, ___,  // /
+        ___, ___, ___, ___, ___, ___, ___,                 // /
+        ___, ___, ___, ___, ___, ___,                      // /
+        ___, ___, ___, ___, ___, ___, ___,                 // /
+        ___, ___, ___, ___, ___,                           // /
+        ___, ___,                                          // /
+        ___,                                               // /
+        ___, ___, ___                                      // /
+    ),
     //
     // This layer contains keys that I almost NEVER use, BUT
     // which seems like they should exist somewhere for the 0.00001% of the time.
@@ -1418,6 +1442,8 @@ uint32_t layer_state_set_user(uint32_t state) {
         case DEADQWERTY:
             ergodox_right_led_1_on();
             break;
+        case GOOGLE:
+            ergodox_right_led_3_on();
         default:
             break;
     }
