@@ -107,6 +107,8 @@ enum unicode_names {
     UNIC_COPYRIGHT,
     UNIC_REGISTERED,
 
+    UNIC_IRONY,
+
     UNIC_KEYBOARD,
     UNIC_OPTION,
     UNIC_COMMAND,
@@ -139,6 +141,8 @@ enum unicode_names {
 const uint32_t PROGMEM unicode_map[] = {
     [UNIC_COPYRIGHT]  = 0x00A9,  // ©
     [UNIC_REGISTERED] = 0x00AE,  // ®
+
+    [UNIC_IRONY] = 0x2E2E, // ⸮
 
     [UNIC_KEYBOARD] = 0x2328,  // ⌨
     [UNIC_OPTION]   = 0x2325,  // ⌥
@@ -562,7 +566,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___, ___, ___, X(UNIC_MDASH), ___, ___, X(UNIC_SQUIRREL),                   // /
         ___, ___, ___, X(UNIC_REGISTERED), ___, ___, X(UNIC_CAT),                   // /
         ___, ___, ___, X(UNIC_OMICRON), ___, ___,                                   // /
-        ___, X(UNIC_PILCROW), ___, ___, ___, X(UNIC_THINKING), X(UNIC_TIMERCLOCK),  // /
+        ___, X(UNIC_PILCROW), ___, ___, ___, X(UNIC_IRONY), X(UNIC_TIMERCLOCK),  // /
         ___, X(UNIC_OPTION), ___, ___, X(UNIC_KEYBOARD),                            // /
         ___, ___,                                                                   // /
         ___,                                                                        // /
@@ -653,6 +657,11 @@ void leader_end(void) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
+}
+
+void matrix_init_user(void) {
+    // https://docs.qmk.fm/#/feature_unicode
+    SET_UNICODE_INPUT_MODE(UC_LNX);
 }
 
 void matrix_scan_user(void) {
