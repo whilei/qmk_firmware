@@ -156,7 +156,7 @@ const uint32_t PROGMEM unicode_map[] = {
     [UNIC_MDASH]   = 0x2014,  // —
     [UNIC_PILCROW] = 0x00B6,  // ⁋
     [UNIC_OBELISM] = 0x205B,  // ⁛
-    [UNIC_BLOCK]   = 0x2588,  // █
+    [UNIC_BLOCK]   = 0x2588,  // █ ▮ ■ ❒
     [UNIC_STACK]   = 0x26C1,  // ⛁
 
     [UNIC_ZAP]   = 0x26A1,   // :zap:
