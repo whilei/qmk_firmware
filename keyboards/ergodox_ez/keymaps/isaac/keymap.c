@@ -73,6 +73,7 @@ enum {
     TD_LEFT_BLUE_THUMB,
     TD_RIGHT_BLUE_THUMB,
     TD_TOP_RIGHT_0,
+    TD_FIREFOX_OPENTAB,
 };
 
 /* ------------------------------------------------------------------ */
@@ -429,8 +430,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // right
         // CTLGUI(KC_K)/J => awesome focus prev/next screen
-        CTLGUI(KC_J), LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), LCS(KC_1),  // awesome focus next screen, jump to awesome tag by number, firefox new containered tab
-        ___, ___, KC_HOME, ___, KC_END, ___, LCS(KC_2),                       // /
+        CTLGUI(KC_J), LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), LGUI(KC_4), LGUI(KC_5), TD(TD_FIREFOX_OPENTAB), // LCS(KC_1),  // awesome focus next screen, jump to awesome tag by number, firefox new containered tab
+        ___, ___, KC_HOME, ___, KC_END, ___, ___, // LCS(KC_2),                       // /
         ___, LCTL(KC_LEFT), KC_UP, LCTL(KC_RIGHT), ___, LCTL(KC_V),                  // /
         ___, ___, KC_LEFT, KC_DOWN, KC_RIGHT, ___, ___,                       // /
         ___, ___, ___, ___, ___,                                                     // /
@@ -2127,6 +2128,39 @@ void td_top_right_0_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
+void td_firefox_opentab_finished(qk_tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    register_code(KC_LSFT);
+    register_code(KC_LCTL);
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            tap_code(KC_1);
+            break;
+        case DOUBLE_TAP:
+            tap_code(KC_2);
+            break;
+        case TRIPLE_TAP:
+            tap_code(KC_3);
+            break;
+    }
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LCTL);
+};
+
+void td_firefox_opentab_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            break;
+        case DOUBLE_TAP:
+            break;
+        case SINGLE_HOLD:
+            break;
+        case DOUBLE_HOLD:
+            break;
+    }
+    xtap_state.state = 0;
+};
+
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     //
@@ -2163,4 +2197,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_LEFT_BLUE_THUMB]             = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_left_lower_thumb_finished, td_left_lower_thumb_reset),
     [TD_RIGHT_BLUE_THUMB]             = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_right_lower_thumb_finished, td_right_lower_thumb_reset),
     [TD_TOP_RIGHT_0]             = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_top_right_0_finished, td_top_right_0_reset),
+    [TD_FIREFOX_OPENTAB]             = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_firefox_opentab_finished, td_firefox_opentab_reset),
 };
