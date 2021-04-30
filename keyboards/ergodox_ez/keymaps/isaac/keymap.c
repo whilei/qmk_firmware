@@ -92,6 +92,7 @@ enum {
     DOUBLE_SINGLE_TAP = 5,  // send two single taps
     TRIPLE_TAP        = 6,
     TRIPLE_HOLD       = 7,
+    QUAD_TAP          = 8,
 };
 
 int cur_dance(qk_tap_dance_state_t *state);
@@ -1488,7 +1489,9 @@ int cur_dance(qk_tap_dance_state_t *state) {
         // key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
         else
             return SINGLE_HOLD;
-    } else if (state->count == 2) {
+    }
+
+    if (state->count == 2) {
         /*
          * DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
          * action when hitting 'pp'. Suggested use case for this return value is when you want to send two
@@ -1501,6 +1504,7 @@ int cur_dance(qk_tap_dance_state_t *state) {
         else
             return DOUBLE_TAP;
     }
+
     // Assumes no one is trying to type the same letter three times (at least not quickly).
     // If your tap dance key is 'KC_W', and you want to type "www." quickly - then you will need to add
     // an exception here to return a 'TRIPLE_SINGLE_TAP', and define that enum just like 'DOUBLE_SINGLE_TAP'
@@ -1509,8 +1513,14 @@ int cur_dance(qk_tap_dance_state_t *state) {
             return TRIPLE_TAP;
         else
             return TRIPLE_HOLD;
-    } else
-        return 8;  // magic number. At some point this method will expand to work for more presses
+    }
+
+    if (state->count == 4) {
+        if (state->interrupted || !state->pressed)
+            return QUAD_TAP;
+    }
+
+    return 9;  // magic number. At some point this method will expand to work for more presses
 }
 
 // instanalize an instance of 'tap' for the 'x' tap dance.
@@ -2141,6 +2151,9 @@ void td_firefox_opentab_finished(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case TRIPLE_TAP:
             tap_code(KC_3);
+            break;
+        case QUAD_TAP:
+            tap_code(KC_4);
             break;
     }
     unregister_code(KC_LSFT);
