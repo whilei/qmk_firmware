@@ -106,6 +106,7 @@ void x_reset(qk_tap_dance_state_t *state, void *user_data);
 enum unicode_names {
     UNIC_COPYRIGHT,
     UNIC_REGISTERED,
+    UNIC_TRADEMARK,
 
     UNIC_IRONY,
 
@@ -136,11 +137,15 @@ enum unicode_names {
 
     UNIC_SUBSET_OF,
     UNIC_SUPERSET_OF,
+    UNIC_INTERSECTION,
+    UNIC_UNION,
+    UNIC_SUM,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
     [UNIC_COPYRIGHT]  = 0x00A9,  // ©
     [UNIC_REGISTERED] = 0x00AE,  // ®
+    [UNIC_TRADEMARK] = 0x2122,  // ™
 
     [UNIC_IRONY] = 0x2E2E, // ⸮
 
@@ -169,7 +174,11 @@ const uint32_t PROGMEM unicode_map[] = {
 
     [UNIC_OMICRON] = 0x03BF,  // omicron o
 
-    [UNIC_SUBSET_OF] = 0x2282,  [UNIC_SUPERSET_OF] = 0x2283,
+    [UNIC_SUPERSET_OF] = 0x2283,
+    [UNIC_SUBSET_OF] = 0x2282,
+    [UNIC_INTERSECTION] = 0x2229, // ∩
+    [UNIC_UNION] = 0x222A, // ∪
+    [UNIC_SUM] = 0x2211, // ∑
 
 };
 
@@ -554,9 +563,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [UNICODEL] = LAYOUT_ergodox(
         // Left
-        X(SNEK), ___, ___, ___, ___, X(UNIC_SUPERSET_OF), X(UNIC_CHECKMARK),  // /
-        ___, ___, ___, ___, ___, X(UNIC_SUBSET_OF), X(UNIC_THUMPSUP),         // /
-        ___, ___, X(UNIC_STACK), ___, ___, ___,                               // /
+        X(SNEK), ___, ___, ___, X(UNIC_UNION), X(UNIC_SUPERSET_OF), X(UNIC_CHECKMARK),  // /
+        ___, ___, ___, ___, X(UNIC_INTERSECTION), X(UNIC_SUBSET_OF), X(UNIC_THUMPSUP),         // /
+        ___, ___, X(UNIC_SUM), ___, X(UNIC_TRADEMARK), ___,                               // /
         ___, X(UNIC_ZAP), ___, X(UNIC_COPYRIGHT), ___, X(UNIC_BLOCK), ___,    // /
         ___, ___, ___, ___, ___,                                              // /
         ___, ___,                                                             // /
@@ -661,7 +670,7 @@ void leader_end(void) {
 
 void matrix_init_user(void) {
     // https://docs.qmk.fm/#/feature_unicode
-    SET_UNICODE_INPUT_MODE(UC_LNX);
+    set_unicode_input_mode(UC_LNX);
 }
 
 void matrix_scan_user(void) {
