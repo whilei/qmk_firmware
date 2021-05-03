@@ -74,6 +74,8 @@ enum {
     TD_RIGHT_BLUE_THUMB,
     TD_TOP_RIGHT_0,
     TD_FIREFOX_OPENTAB,
+
+    TD_SLAPSLOCK,
 };
 
 /* ------------------------------------------------------------------ */
@@ -142,6 +144,7 @@ enum unicode_names {
     UNIC_SUM,
 };
 
+//
 const uint32_t PROGMEM unicode_map[] = {
     [UNIC_COPYRIGHT]  = 0x00A9,  // ©
     [UNIC_REGISTERED] = 0x00AE,  // ®
@@ -344,7 +347,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, KC_LCTRL,                                     // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
         TD(TD_RIGHT_BLUE_THUMB), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(TD_SHIFT_CAP), // LSFT(KC_SLASH)   // , TD(TD_SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-        TD(ONEORMO_SYMBOLS), TG(CAPSLAYER), TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */ // KC_LEAD
+        TD(ONEORMO_SYMBOLS), TD(TD_SLAPSLOCK) /* TG(CAPSLAYER) */, TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */ // KC_LEAD
 
         // test test test test test tests tests
         /* */
@@ -2192,6 +2195,42 @@ void td_firefox_opentab_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
+// SLAPSLOCK IS STUPID CAPSLOCK
+void td_slapslock_finished(qk_tap_dance_state_t *state, void *user_data) {
+    xtap_state.state = cur_dance(state);
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            if (get_mods() & MOD_BIT(KC_LSHIFT)) {
+                ergodox_right_led_1_off();
+                unregister_mods(MOD_MASK_SHIFT);
+            } else {
+                ergodox_right_led_1_on();
+                register_mods(MOD_MASK_SHIFT);
+            }
+            break;
+        case DOUBLE_TAP:
+            break;
+        case TRIPLE_TAP:
+            break;
+        case QUAD_TAP:
+            break;
+    }
+};
+
+void td_slapslock_reset(qk_tap_dance_state_t *state, void *user_data) {
+    switch (xtap_state.state) {
+        case SINGLE_TAP:
+            break;
+        case DOUBLE_TAP:
+            break;
+        case SINGLE_HOLD:
+            break;
+        case DOUBLE_HOLD:
+            break;
+    }
+    xtap_state.state = 0;
+};
+
 
 qk_tap_dance_action_t tap_dance_actions[] = {
     //
@@ -2229,4 +2268,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_RIGHT_BLUE_THUMB]             = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_right_lower_thumb_finished, td_right_lower_thumb_reset),
     [TD_TOP_RIGHT_0]             = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_top_right_0_finished, td_top_right_0_reset),
     [TD_FIREFOX_OPENTAB]             = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_firefox_opentab_finished, td_firefox_opentab_reset),
+    [TD_SLAPSLOCK]                   = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_slapslock_finished, td_slapslock_reset),
 };
