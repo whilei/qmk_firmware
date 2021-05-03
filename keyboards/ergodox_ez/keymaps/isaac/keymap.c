@@ -1484,7 +1484,7 @@ void toggle_shiftlock(void) {
     }
 }
 
-// toggle_shiftlock is capslock.
+// toggle_oneshot_shiftlock is oneshot capslock.
 void toggle_oneshot_shiftlock(void) {
     if (get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) {
         // Else if oneshot was turned on but not used (no one shot), turn back off.
@@ -1603,7 +1603,7 @@ void shift_cap_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            
+
             if (get_mods() & MOD_BIT(KC_LSHIFT)) {
                 // Shift lock is on. Turn it off.
                 toggle_shiftlock();
