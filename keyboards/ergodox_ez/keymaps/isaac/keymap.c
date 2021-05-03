@@ -1473,6 +1473,17 @@ uint32_t layer_state_set_user(uint32_t state) {
     return state;
 };
 
+// toggle_shiftlock is capslock.
+void toggle_shiftlock(void) {
+    if (get_mods() & MOD_BIT(KC_LSHIFT)) {
+        ergodox_right_led_1_off();
+        unregister_mods(MOD_MASK_SHIFT);
+    } else {
+        ergodox_right_led_1_on();
+        register_mods(MOD_MASK_SHIFT);
+    }
+}
+
 /* --- */
 // https://beta.docs.qmk.fm/using-qmk/software-features/feature_tap_dance
 
@@ -1622,16 +1633,6 @@ void shift_cap_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
     xtap_state.state = 0;
 };
-
-void toggle_shiftlock(void) {
-    if (get_mods() & MOD_BIT(KC_LSHIFT)) {
-        ergodox_right_led_1_off();
-        unregister_mods(MOD_MASK_SHIFT);
-    } else {
-        ergodox_right_led_1_on();
-        register_mods(MOD_MASK_SHIFT);
-    }
-}
 
 void oneormore_symbols_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
