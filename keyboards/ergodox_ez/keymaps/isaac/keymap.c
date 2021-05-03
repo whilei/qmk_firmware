@@ -1594,23 +1594,38 @@ void shift_cap_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            /* layer_on(CAPSLAYER); */
-            if (layer_state_is(CAPSLAYER)) {
-                layer_off(CAPSLAYER);
+            
+//            if (layer_state_is(CAPSLAYER)) {
+//                layer_off(CAPSLAYER);
+//            } else {
+//                set_oneshot_layer(CAPSLAYER, ONESHOT_START);
+//                clear_oneshot_layer_state(ONESHOT_PRESSED);
+//            }
+
+            // New and improved, without layering, just mods.
+            if (get_mods() & MOD_BIT(KC_LSHIFT)) {
+                // Shift lock is on. Turn it off.
+                toggle_shiftlock();
+            } else if (get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) {
+                // Else if oneshot was turned on but not used (no one shot), turn back off.
+                del_oneshot_mods(MOD_BIT(KC_LSHIFT));
             } else {
-                set_oneshot_layer(CAPSLAYER, ONESHOT_START);
-                clear_oneshot_layer_state(ONESHOT_PRESSED);
+                // Else we are activating the oneshot shift.
+                add_oneshot_mods(MOD_BIT(KC_LSHIFT));
             }
+
             break;
         case SINGLE_HOLD:
             register_code(KC_LSHIFT);
             break;
         case DOUBLE_TAP:
-            if (layer_state_is(CAPSLAYER)) {
-                layer_off(CAPSLAYER);
-            } else {
-                layer_on(CAPSLAYER);
-            }
+            toggle_shiftlock();
+
+//            if (layer_state_is(CAPSLAYER)) {
+//                layer_off(CAPSLAYER);
+//            } else {
+//                layer_on(CAPSLAYER);
+//            }
             break;
         case DOUBLE_HOLD:
             register_code(KC_LSHIFT);
