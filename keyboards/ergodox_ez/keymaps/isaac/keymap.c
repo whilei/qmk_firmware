@@ -347,7 +347,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Y, LT(GOLANDLAYER, KC_N), KC_I, KC_O, KC_H, KC_LCTRL,                                     // MO(SYMBOLS),// MO(SYMBOLS), // TD(ONEORMO_SYMBOLS), // MO(SYMBOLS) , // b/c i use symbols a lot, no 200ms wait //
         TD(TD_RIGHT_BLUE_THUMB), LGUI_T(KC_P), KC_M, ALT_T(KC_COMMA), KC_DOT, LT(MOTIONLAYER, KC_SLASH), TD(TD_SHIFT_CAP), // LSFT(KC_SLASH)   // , TD(TD_SHIFT_CAP), // OSM(MOD_LSFT) , // KC_RSHIFT ,
 
-        TD(ONEORMO_SYMBOLS), TD(TD_SLAPSLOCK) /* TG(CAPSLAYER) */, TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */ // KC_LEAD
+        TD(ONEORMO_SYMBOLS), ___ /* TD(TD_SLAPSLOCK) TG(CAPSLAYER) */, TG(NUMPAD), TG(MOTIONLAYER), OSL(UNICODEL),  // CONALT(KC_0) , // mute/unmute microphone */ // KC_LEAD
 
         // test test test test test tests tests
         /* */
@@ -1623,6 +1623,16 @@ void shift_cap_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
+void toggle_shiftlock(void) {
+    if (get_mods() & MOD_BIT(KC_LSHIFT)) {
+        ergodox_right_led_1_off();
+        unregister_mods(MOD_MASK_SHIFT);
+    } else {
+        ergodox_right_led_1_on();
+        register_mods(MOD_MASK_SHIFT);
+    }
+}
+
 void oneormore_symbols_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
@@ -2107,7 +2117,8 @@ void td_right_lower_thumb_finished(qk_tap_dance_state_t *state, void *user_data)
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            process_record_user(WR_SLASHSLASH, NULL);
+            toggle_shiftlock();
+//            process_record_user(WR_SLASHSLASH, NULL);
 //            process_record_user(TMUX_LEADER,  NULL);
             break;
     }
@@ -2200,13 +2211,7 @@ void td_slapslock_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            if (get_mods() & MOD_BIT(KC_LSHIFT)) {
-                ergodox_right_led_1_off();
-                unregister_mods(MOD_MASK_SHIFT);
-            } else {
-                ergodox_right_led_1_on();
-                register_mods(MOD_MASK_SHIFT);
-            }
+            toggle_shiftlock();
             break;
         case DOUBLE_TAP:
             break;
