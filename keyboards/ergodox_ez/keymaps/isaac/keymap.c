@@ -1595,18 +1595,15 @@ void alt_uni_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
-// shift_cap is a custom shift (via the capslayer, since my actual capslock is eternally
-// fucked because of my x settings which have fucked it for all keyboards. so i use a custom layer
-// to be capslock).
-// - on one tap, it's effectively one-shot modifier for shift.
-// - on one hold, it's shift
-// - on two taps, it's capslock
+// shift_cap is a custom shift handler.
+// - on one tap, it toggles a the one-shot shift modifier; it's also a DEACTIVATOR for shift lock.
+// - on one hold, it's normal hold-to-shift.
+// - on two taps, it toggles capslock.
 void shift_cap_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP:
-
-            // New and improved, without layering, just mods.
+            
             if (get_mods() & MOD_BIT(KC_LSHIFT)) {
                 // Shift lock is on. Turn it off.
                 toggle_shiftlock();
