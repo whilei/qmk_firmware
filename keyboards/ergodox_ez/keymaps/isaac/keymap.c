@@ -356,6 +356,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___ ,                                              // /
         ___ , LT(QWIMAMU, KC_TAB), LT(NUMPAD, KC_ENTER)),  //
 
+    // THIS LAYER IS DISUSED SINCE I FIGURE OUT HOW TO MOD BIT SETTING.
     [CAPSLAYER] = LAYOUT_ergodox(
         // Left
         ___, ___, ___, ___, ___, ___, ___,                                     //
@@ -1972,6 +1973,7 @@ void copy_paste_reset(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = 0;
 };
 
+// TODO: Utililize 1- and 2- taps.
 void tobase_and_clean_finished(qk_tap_dance_state_t *state, void *user_data) {
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
@@ -1994,7 +1996,6 @@ void tobase_and_clean_finished(qk_tap_dance_state_t *state, void *user_data) {
             reset_keyboard();
     }
 };
-
 void tobase_and_clean_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (xtap_state.state) {
         case TRIPLE_TAP:
@@ -2129,7 +2130,11 @@ void td_right_lower_thumb_finished(qk_tap_dance_state_t *state, void *user_data)
     xtap_state.state = cur_dance(state);
     switch (xtap_state.state) {
         case SINGLE_TAP:
-            toggle_shiftlock();
+            register_code(KC_LSHIFT);
+            tap_code(KC_QUOTE);
+            unregister_code(KC_LSHIFT);
+            
+//            toggle_shiftlock();
 //            process_record_user(WR_SLASHSLASH, NULL);
 //            process_record_user(TMUX_LEADER,  NULL);
             break;
