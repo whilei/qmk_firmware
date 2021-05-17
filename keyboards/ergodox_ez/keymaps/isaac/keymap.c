@@ -336,9 +336,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(GOOGLE), ___, LALT(KC_P), MT(MOD_LALT, KC_SLASH), MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_QUESTION), TD(TD_LGUI_DOUBLEQUOTE), // MT(MOD_LGUI, KC_TAB),  // TD(TD_ALT_UNI)
 
         /*  */
-        LT(GOLANDLAYER, KC_DELETE), TD(TD_TMUX2),           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling; KC_R is nice for reloading stuff sometimes (ie flutter)
-        LCTL(KC_BSPACE),                                 // KC_INSERT , // LCTL(KC_TAB) ,
-        SFT_T(KC_SPACE), KC_BSPACE, LSFT(KC_QUOTE),  // //  LCS(KC_TAB) , // browser tab left
+        LT(GOLANDLAYER, KC_DELETE), ___,           //  TG(TOPROWNUM) , // hold for motion layer is nice for left-handed scrolling; KC_R is nice for reloading stuff sometimes (ie flutter)
+        TD(TD_TMUX2),                                 // KC_INSERT , // LCTL(KC_TAB) ,
+        SFT_T(KC_SPACE), KC_BSPACE, LCTL(KC_BSPACE), // LSFT(KC_QUOTE),  // //  LCS(KC_TAB) , // browser tab left
 
         // Right
         // FIXME: ? up top never gets used.
@@ -411,7 +411,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* ___ , KC_0 , KC_1 , KC_2 , KC_3 , KC_4 , ___ , */
         KC_COMMA, KC_PERC, KC_QUOTE, KC_LCBR, KC_RCBR, KC_CIRC, ___,                    // WR_ESCAPEDDOUBLEQUOTE
         ___, KC_AT, KC_DLR, KC_LEFT_PAREN, KC_RIGHT_PAREN, KC_KP_PLUS,             // /
-        ___, KC_TILD, KC_GRAVE, KC_LBRACKET, KC_RBRACKET, KC_HASH, TO(CAPSLAYER),  // /
+        ___, KC_TILD, KC_GRAVE, KC_LBRACKET, KC_RBRACKET, KC_HASH, ___,  // /
         ___, ___, ___, ___, ___,                                                   // /
 
         ___, ___,  // /
@@ -1496,6 +1496,12 @@ void toggle_oneshot_shiftlock(void) {
     }
 }
 
+/*
+ * ANIRND~ZXC~~__r`_``__--__`~_~`___`__
+ * ~_`_`_--_`~____________~```~NNASRND~Aintraetaset`_-
+ * aset asetad adwtd tadt dadf
+ */
+
 /* --- */
 // https://beta.docs.qmk.fm/using-qmk/software-features/feature_tap_dance
 
@@ -2133,7 +2139,7 @@ void td_right_lower_thumb_finished(qk_tap_dance_state_t *state, void *user_data)
             register_code(KC_LSHIFT);
             tap_code(KC_QUOTE);
             unregister_code(KC_LSHIFT);
-            
+
 //            toggle_shiftlock();
 //            process_record_user(WR_SLASHSLASH, NULL);
 //            process_record_user(TMUX_LEADER,  NULL);
